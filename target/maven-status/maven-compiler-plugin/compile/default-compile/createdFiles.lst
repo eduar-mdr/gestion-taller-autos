@@ -1,7 +1,12 @@
 com\mycompany\gestion\taller\autos\JakartaRestConfiguration.class
-com\mycompany\gestion\taller\autos\resources\JakartaEE8Resource.class
-modelo\Cliente.class
+modelo\MarcaVehiculo.class
+modelo\TipoVehiculo.class
+modelo\Proveedor.class
 conexion\ConexionDB.class
-controlador\ClienteControlador.class
 servicio\ClienteServicio.class
 dao\ClienteDao.class
+com\mycompany\gestion\taller\autos\resources\JakartaEE8Resource.class
+modelo\Cliente.class
+controlador\ClienteControlador.class
+dao\TipoVehiculoDao.class
+dao\MarcaVehiculoDao.class

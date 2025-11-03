@@ -3,5 +3,10 @@ C:\gestion-taller-autos\gestion-taller-autos\src\main\java\com\mycompany\gestion
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\conexion\ConexionDB.java
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\controlador\ClienteControlador.java
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\dao\ClienteDao.java
+C:\gestion-taller-autos\gestion-taller-autos\src\main\java\dao\MarcaVehiculoDao.java
+C:\gestion-taller-autos\gestion-taller-autos\src\main\java\dao\TipoVehiculoDao.java
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\modelo\Cliente.java
+C:\gestion-taller-autos\gestion-taller-autos\src\main\java\modelo\MarcaVehiculo.java
+C:\gestion-taller-autos\gestion-taller-autos\src\main\java\modelo\Proveedor.java
+C:\gestion-taller-autos\gestion-taller-autos\src\main\java\modelo\TipoVehiculo.java
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\servicio\ClienteServicio.java
