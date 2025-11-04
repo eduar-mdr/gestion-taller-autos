@@ -1,21 +1,16 @@
-<%-- 
-    Document   : crear
-    Created on : Oct 20, 2025, 1:10:34 AM
-    Author     : Eduar Medrano
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../../bs/css/estilo.css">
         <!-- <link rel="stylesheet" href="../../bs/fonts/iconos.css"> -->
         <script src="../../bs/js/accion.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         
-        <title>Registro de clientes</title>
+        <title>Registro de proveedores</title>
     </head>
     <body>
         <!-- Menú -->
@@ -127,24 +122,20 @@
 
         <br>
     <div class="border border-primary p-4 w-50 mx-auto">
-        <form action="${pageContext.request.contextPath}/clientes?action=guardar" method="post">
+        <form action="" method="post">
             <div class="mb-3">
-                <h2 style="color: #253D85;" class="text-center">
-                    <i class="bi bi-person-check-fill"></i> REGISTRO DE CLIENTES</h2>
+                <h2 style="color: #234C6A;" class="text-center">
+                    <i class="bi bi-box-seam"></i> REGISTRO DE PROVEEDORES</h2>
             </div>
             <!-- usuario -->
             <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Nombres" required style="color: black;">
+                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                <input type="text" class="form-control" placeholder="Nombre del proveedor" required style="color: black;">
             </div>
+            
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Apellidos" required style="color: black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-card-text"></i></span>
-                <input type="number" class="form-control" placeholder="DUI" required
-                style="color :black;">
+                <input type="text" class="form-control" placeholder="Contacto" required style="color: black;">
             </div>
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
@@ -155,7 +146,6 @@
                 <input type="number" class="form-control" placeholder="Telefono"
                 style="color :black;">
             </div>
-            
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-house"></i></span>
                 <input type="text" class="form-control" placeholder="Direccion" required
@@ -165,11 +155,12 @@
                 <button type="submit" class="btn btn-success">
                     <i class="bi bi-save"></i> Guardar
                 </button>
-                <a href="${pageContext.request.contextPath}/clientes" class="btn btn-danger ms-2">
+                <a href="${pageContext.request.contextPath}/proveedores" class="btn btn-danger ms-2">
                     <i class="bi bi-x-circle"></i> Cancelar
                 </a>
             </div>
         </form>
     </div>
 </body>
+
 </html>

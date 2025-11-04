@@ -1,9 +1,3 @@
-<%-- 
-    Document   : loginUsuario
-    Created on : 24 oct 2025, 3:50:21 p. m.
-    Author     : MINEDUCYT
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
