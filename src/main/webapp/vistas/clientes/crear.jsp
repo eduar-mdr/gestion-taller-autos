@@ -10,10 +10,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../../bs/css/estilo.css">
-        <!-- <link rel="stylesheet" href="../../bs/fonts/iconos.css"> -->
-        <script src="../../bs/js/accion.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
+        <link rel="stylesheet" href="bs/css/estilo.css">
+        <link rel="stylesheet" href="bs/fonts/iconos.css">
+        <script src="bs/js/accion.js"></script>
         
         <title>Registro de clientes</title>
     </head>
@@ -135,30 +134,40 @@
             <!-- usuario -->
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Nombres" required style="color: black;">
+                <input name="nombre" type="text" class="form-control" placeholder="Nombres" required style="color: black;">
             </div>
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Apellidos" required style="color: black;">
+                <input name="apellido"  type="text" class="form-control" placeholder="Apellidos" required style="color: black;">
             </div>
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-card-text"></i></span>
-                <input type="number" class="form-control" placeholder="DUI" required
+                 <select name="tipoDocumento" class="form-select" required style="color: black;">
+                    <option value="">Seleccione tipo de documento</option>
+                    <option value="DUI">DUI</option>
+                    <option value="NIT">NIT</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                    <option value="Licencia">Licencia</option>
+                </select>
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                <input name="documento"  type="number" class="form-control" placeholder="DUI" required
                 style="color :black;">
             </div>
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Correo electrónico" required>
+                <input name="email"  type="text" class="form-control" placeholder="Correo electrónico" required>
             </div>
             <div class="mb-3 input-group">
                  <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                <input type="number" class="form-control" placeholder="Telefono"
+                <input name="telefono"  type="number" class="form-control" placeholder="Telefono"
                 style="color :black;">
             </div>
             
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-house"></i></span>
-                <input type="text" class="form-control" placeholder="Direccion" required
+                <input name="direccion" type="text" class="form-control" placeholder="Direccion" required
                 style="color :black;">
             </div>
             <div class="text-center">
