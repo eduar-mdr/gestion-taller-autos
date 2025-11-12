@@ -8,7 +8,6 @@ package controlador;
  *
  * @author Eduar Medrano
  */
-
 import servicio.MarcaVehiculoServicio;
 import modelo.MarcaVehiculo;
 
@@ -25,14 +24,17 @@ import java.util.List;
 
 @WebServlet("/marcas")
 public class MarcaVehiculoControlador extends HttpServlet {
-     private MarcaVehiculoServicio marcaServicio = new MarcaVehiculoServicio();
+
+    private MarcaVehiculoServicio marcaServicio = new MarcaVehiculoServicio();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        if (action == null) action = "listar";
+        if (action == null) {
+            action = "listar";
+        }
 
         switch (action) {
 
@@ -70,7 +72,15 @@ public class MarcaVehiculoControlador extends HttpServlet {
         String action = request.getParameter("action");
 
         switch (action) {
-
+            
+            case "editar":{
+                int id = Integer.parseInt(request.getParameter("idMarca"));
+                MarcaVehiculo marca = marcaServicio.obtenerPorId(id);
+                request.setAttribute("marca", marca);
+                request.getRequestDispatcher("/vistas/marcas/actualizar.jsp")
+                        .forward(request, response);
+                break;
+        }
             case "guardar": {
                 MarcaVehiculo m = new MarcaVehiculo();
                 m.setNombreMarca(request.getParameter("nombreMarca"));

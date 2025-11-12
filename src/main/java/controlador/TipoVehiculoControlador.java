@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-
+@WebServlet("/tipos")
 public class TipoVehiculoControlador extends HttpServlet {
 
     private TipoVehiculoServicio tipoServicio = new TipoVehiculoServicio();
@@ -45,7 +45,7 @@ public class TipoVehiculoControlador extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("idTipo"));
                 TipoVehiculo tipo = tipoServicio.obtenerPorId(id);
                 request.setAttribute("tipo", tipo);
-                request.getRequestDispatcher("/vistas/tipos/editar.jsp")
+                request.getRequestDispatcher("/vistas/tipos/actualizar.jsp")
                         .forward(request, response);
                 break;
 
@@ -70,6 +70,15 @@ public class TipoVehiculoControlador extends HttpServlet {
         String action = request.getParameter("action");
 
         switch (action) {
+            
+            case "editar": { 
+            int id = Integer.parseInt(request.getParameter("idTipo"));
+            TipoVehiculo tipo = tipoServicio.obtenerPorId(id);
+            request.setAttribute("tipo", tipo);
+            request.getRequestDispatcher("/vistas/tipos/actualizar.jsp")
+                    .forward(request, response);
+            break;
+        }
 
             case "guardar": {
                 TipoVehiculo t = new TipoVehiculo();
