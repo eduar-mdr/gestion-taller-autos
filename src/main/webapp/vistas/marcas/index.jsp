@@ -160,6 +160,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Marca de vehiculo</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -206,6 +207,14 @@
         </div>
         
     </body>
+    <script>
+        $(document).ready(function () {
+            $('#tablaTipos').DataTable({
+                responsive: true,
+                autoWidth: false
+            });
+        });
+    </script>
 </html>
 
 

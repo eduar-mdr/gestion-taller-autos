@@ -221,4 +221,12 @@
         </div>
 
     </body>
+    <script>
+        $(document).ready(function () {
+            $('#tablaClientes').DataTable({
+                responsive: true,
+                autoWidth: false
+            });
+        });
+    </script>
 </html>
