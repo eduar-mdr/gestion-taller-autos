@@ -1,18 +1,21 @@
-
+<%-- 
+    Document   : crear
+    Created on : 13 nov 2025, 4:15:17 p. m.
+    Author     : MINEDUCYT
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-       <link rel="stylesheet" href="bs/css/estilo.css">
+        <title>Servicios</title>
+        <link rel="stylesheet" href="bs/css/estilo.css">
         <link rel="stylesheet" href="bs/fonts/iconos.css">
         <script src="bs/js/accion.js"></script>
-        
-        <title>Registro de proveedores</title>
     </head>
     <body>
-        <!-- Menú principal -->
+         <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
@@ -121,60 +124,48 @@
         </style>
 
 
-
         <br>
-    <div class="border border-primary p-4 w-50 mx-auto">
-        <form action="${pageContext.request.contextPath}/proveedores?action=guardar" method="post">
+    <div class="border border-black p-4 w-50 mx-auto">
+        <form action="${pageContext.request.contextPath}/servicios?action=guardar" " method="post">
             <div class="mb-3">
                 <h2 style="color: #234C6A;" class="text-center">
-                    <i class="bi bi-box-seam"></i> REGISTRO DE PROVEEDORES</h2>
-            </div>
-            
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                <input type="text" class="form-control" placeholder="Nombre del proveedor" 
-                    name="nombre" required style="color: black;">
-            </div>
-            
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Contacto" name="contacto" required style="color: black;">
+                    <i class="bi bi-wrench"></i> Servicios</h2>
             </div>
             <div class="mb-3 input-group">
-                 <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                <input type="number" class="form-control" placeholder="Telefono" name="telefono"
-                style="color :black;">
+                <span class="input-group-text"><i class="bi bi-wrench"></i></span>
+                <input name="nombre" type="text" class="form-control" placeholder="Servicio" required style="color: black;">
             </div>
             <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Correo electrónico"
-                       name="email" required>
+                <span class="input-group-text"><i class="bi bi-file-text"></i></span>
+                <input name="descripcion" type="text" class="form-control" placeholder="Descripcion del servicio" required style="color: black;">
             </div>
             <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-house"></i></span>
-                <input type="text" class="form-control" placeholder="Direccion"  name="direccion" required
-                style="color :black;">
+                <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                <input name="precio" type="number" step="0.01" class="form-control" placeholder="Precio" required style="color: black;">
             </div>
             <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-box-seam"></i></span>
-                <input type="text" class="form-control" placeholder="Tipo de proveedor" required name="tipoProveedor"
-                style="color :black;">
+                <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                <input name="categoria" type="text" class="form-control" placeholder="Categoria" required style="color: black;">
             </div>
             <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                <input name="duracionEstimada" type="number" class="form-control" placeholder="Duración estimada" required style="color: black;">
+            </div>
+             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi-check-circle-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Estado" required name="estado"
-                style="color :black;">
+                <input name="estado" type="text" class="form-control" placeholder="Estado" required style="color: black;">
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-success">
                     <i class="bi bi-save"></i> Guardar
                 </button>
-                <a href="${pageContext.request.contextPath}/proveedores" class="btn btn-danger ms-2">
+                <a href="${pageContext.request.contextPath}/servicios" class="btn btn-danger ms-2">
                     <i class="bi bi-x-circle"></i> Cancelar
                 </a>
             </div>
         </form>
     </div>
 </body>
-
 </html>
+
+   

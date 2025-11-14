@@ -143,10 +143,6 @@
                            required style="color: black;">
                 </div>
 
-
-
-
-
                 <!-- BOTONES -->
                 <div class="text-center">
                     <button type="submit" class="btn btn-success">

@@ -5,10 +5,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../../bs/css/estilo.css">
-        <!-- <link rel="stylesheet" href="../../bs/fonts/iconos.css"> -->
-        <script src="../../bs/js/accion.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+       <link rel="stylesheet" href="bs/css/estilo.css">
+        <link rel="stylesheet" href="bs/fonts/iconos.css">
+        <script src="bs/js/accion.js"></script>
         
         <title>Registro de proveedores</title>
     </head>
@@ -125,33 +124,45 @@
 
         <br>
     <div class="border border-primary p-4 w-50 mx-auto">
-        <form action="" method="post">
+        <form action="${pageContext.request.contextPath}/proveedores?action=guardar" method="post">
             <div class="mb-3">
                 <h2 style="color: #234C6A;" class="text-center">
                     <i class="bi bi-box-seam"></i> REGISTRO DE PROVEEDORES</h2>
             </div>
-            <!-- usuario -->
+            
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                <input type="text" class="form-control" placeholder="Nombre del proveedor" required style="color: black;">
+                <input type="text" class="form-control" placeholder="Nombre del proveedor" 
+                    name="nombre" required style="color: black;">
             </div>
             
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Contacto" required style="color: black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Correo electrónico" required>
+                <input type="text" class="form-control" placeholder="Contacto" name="contacto" required style="color: black;">
             </div>
             <div class="mb-3 input-group">
                  <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                <input type="number" class="form-control" placeholder="Telefono"
+                <input type="number" class="form-control" placeholder="Telefono" name="telefono"
                 style="color :black;">
             </div>
             <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                <input type="text" class="form-control" placeholder="Correo electrónico"
+                       name="email" required>
+            </div>
+            <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-house"></i></span>
-                <input type="text" class="form-control" placeholder="Direccion" required
+                <input type="text" class="form-control" placeholder="Direccion"  name="direccion" required
+                style="color :black;">
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-box-seam"></i></span>
+                <input type="text" class="form-control" placeholder="Tipo de proveedor" required name="tipoProveedor"
+                style="color :black;">
+            </div>
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi-check-circle-fill"></i></span>
+                <input type="text" class="form-control" placeholder="Estado" required name="estado"
                 style="color :black;">
             </div>
             <div class="text-center">

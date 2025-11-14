@@ -55,7 +55,7 @@ public class ServicioControlador extends HttpServlet{
                     RequestDispatcher index = request.getRequestDispatcher("vistas/servicios/index.jsp");
                     index.forward(request, response);
                 } catch (SQLException e) {
-                    throw new ServletException("Error al listar clientes", e);
+                    throw new ServletException("Error al listar servicios", e);
                 }
                 break;
         }
@@ -70,12 +70,8 @@ public class ServicioControlador extends HttpServlet{
         String action = request.getParameter("action");
         System.out.println("DoPost requested: "+action);
 
-        Servicio m = new Servicio(); //Instancia del modelo
+        Servicio m = new Servicio(); 
         switch (action) {
-            
-            //Acciones en post para ocultar los datos
-            
-            //Show
             case "editar":
                 
                 int id = Integer.parseInt(request.getParameter("idServicio"));
@@ -91,6 +87,9 @@ public class ServicioControlador extends HttpServlet{
                 m.setNombre(request.getParameter("nombre"));
                 m.setDescripcion(request.getParameter("descripcion"));
                 m.setPrecio(Double.parseDouble(request.getParameter("precio")));
+                m.setCategoria(request.getParameter("categoria"));
+                m.setDuracionEstimada(Double.parseDouble(request.getParameter("duracionEstimada")));
+                m.setEstado(request.getParameter("estado"));
 
                 try {
                     servicioServicio.registrarServicio(m);
@@ -108,6 +107,9 @@ public class ServicioControlador extends HttpServlet{
                 m.setNombre(request.getParameter("nombre"));
                 m.setDescripcion(request.getParameter("descripcion"));
                 m.setPrecio(Double.parseDouble(request.getParameter("precio")));
+                m.setCategoria(request.getParameter("categoria"));
+                m.setDuracionEstimada(Double.parseDouble(request.getParameter("duracionEstimada")));
+                m.setEstado(request.getParameter("estado"));
 
                 servicioServicio.actualizar(m);
                 response.sendRedirect(request.getContextPath()+"/servicios");

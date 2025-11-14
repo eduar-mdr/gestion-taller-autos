@@ -14,60 +14,80 @@ import modelo.Servicio;
 import java.sql.SQLException;
 import java.util.List;
 
-
 public class ServicioServicio {
+
     private ServicioDao servicioDao = new ServicioDao();
 
     //Index
     public List<Servicio> obtenerServicios() throws SQLException {
         return servicioDao.listar();
     }
-    
     //Store
+
     public void registrarServicio(Servicio m) throws SQLException {
-        // Validaciones antes de guardar
         if (m.getNombre() == null || m.getNombre().isEmpty()) {
             throw new IllegalArgumentException("El nombre es obligatorio");
         }
         if (m.getDescripcion() == null || m.getDescripcion().isEmpty()) {
-            throw new IllegalArgumentException("El apellido es obligatorio");
+            throw new IllegalArgumentException("La descripción es obligatoria");
         }
         if (m.getPrecio() == null || m.getPrecio().isNaN()) {
-            throw new IllegalArgumentException("El documento es obligatorio");
+            throw new IllegalArgumentException("El precio es obligatorio");
+        }
+        if (m.getCategoria() == null || m.getCategoria().isEmpty()) {
+            throw new IllegalArgumentException("La categoría es obligatoria");
+        }
+        if (m.getDuracionEstimada() == null || m.getDuracionEstimada().isNaN()) {
+            throw new IllegalArgumentException("La duración estimada es obligatoria");
+        }
+        if (m.getEstado() == null || m.getEstado().isEmpty()) {
+            throw new IllegalArgumentException("El estado es obligatorio");
         }
 
-        //Guardamos
+        // Guardamos
         servicioDao.insertar(m);
     }
-    
-    //Show
+
+//Show
     public Servicio obtenerPorId(int id) {
-        // Validaciones antes de buscar
         if (id < 1) {
             throw new IllegalArgumentException("El Identificador no es válido");
         }
         return servicioDao.buscarPorId(id);
     }
-    
-    //Update
+
+//Update
     public void actualizar(Servicio m) {
         System.out.println(m);
-        //Validaciones
+
         if (m.getNombre() == null || m.getNombre().isEmpty()) {
             throw new IllegalArgumentException("El nombre es obligatorio");
         }
         if (m.getDescripcion() == null || m.getDescripcion().isEmpty()) {
-            throw new IllegalArgumentException("El apellido es obligatorio");
+            throw new IllegalArgumentException("La descripción es obligatoria");
         }
         if (m.getPrecio() == null || m.getPrecio().isNaN()) {
-            throw new IllegalArgumentException("El documento es obligatorio");
+            throw new IllegalArgumentException("El precio es obligatorio");
         }
+        if (m.getCategoria() == null || m.getCategoria().isEmpty()) {
+            throw new IllegalArgumentException("La categoría es obligatoria");
+        }
+        if (m.getDuracionEstimada() == null || m.getDuracionEstimada().isNaN()) {
+            throw new IllegalArgumentException("La duración estimada es obligatoria");
+        }
+        if (m.getEstado() == null || m.getEstado().isEmpty()) {
+            throw new IllegalArgumentException("El estado es obligatorio");
+        }
+
         servicioDao.actualizar(m);
     }
-    
-    //Delete
+
+//Delete
     public void eliminar(int id) {
-        //Agregar validaciones antes de borrrar
+        if (id < 1) {
+            throw new IllegalArgumentException("El Identificador no es válido");
+        }
         servicioDao.eliminar(id);
     }
+
 }

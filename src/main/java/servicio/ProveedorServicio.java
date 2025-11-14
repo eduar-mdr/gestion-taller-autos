@@ -41,6 +41,12 @@ public class ProveedorServicio {
         if (p.getDireccion() == null || p.getDireccion().isEmpty()) {
             throw new IllegalArgumentException("La dirección es obligatoria");
         }
+        if (p.getTipoProveedor() == null || p.getTipoProveedor().isEmpty()) {
+            throw new IllegalArgumentException("El tipo de proveedor es obligatorio");
+        }
+        if (p.getEstado()== null || p.getEstado().isEmpty()) {
+            throw new IllegalArgumentException("El estado es obligatorio");
+        }
 
         proveedorDao.insertar(p);
     }
@@ -69,6 +75,12 @@ public class ProveedorServicio {
             throw new IllegalArgumentException("El correo es obligatorio");
         }
         if (p.getDireccion() == null || p.getDireccion().isEmpty()) {
+            throw new IllegalArgumentException("La dirección es obligatoria");
+        }
+        if (p.getTipoProveedor() == null || p.getTipoProveedor().isEmpty()) {
+            throw new IllegalArgumentException("El tipo de proveedor es obligatorio");
+        }
+        if (p.getEstado()== null || p.getEstado().isEmpty()) {
             throw new IllegalArgumentException("La dirección es obligatoria");
         }
 

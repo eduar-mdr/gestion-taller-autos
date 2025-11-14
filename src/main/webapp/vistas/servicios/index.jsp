@@ -1,18 +1,25 @@
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-       <link rel="stylesheet" href="bs/css/estilo.css">
+        <title>Gestión de servicios</title>
+        
+        <link rel="stylesheet" href="bs/css/estilo.css">
         <link rel="stylesheet" href="bs/fonts/iconos.css">
         <script src="bs/js/accion.js"></script>
+    
+        <!-- Datatables and Jquery -->
+        <link  rel="stylesheet" href="datatables/datatables.css"/>
+        <script src="datatables/jquery.js"></script>
+        <script src="datatables/datatables.js"></script>
         
-        <title>Registro de proveedores</title>
     </head>
     <body>
-        <!-- Menú principal -->
+        
+       <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
@@ -121,60 +128,100 @@
         </style>
 
 
-
         <br>
-    <div class="border border-primary p-4 w-50 mx-auto">
-        <form action="${pageContext.request.contextPath}/proveedores?action=guardar" method="post">
-            <div class="mb-3">
-                <h2 style="color: #234C6A;" class="text-center">
-                    <i class="bi bi-box-seam"></i> REGISTRO DE PROVEEDORES</h2>
-            </div>
-            
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                <input type="text" class="form-control" placeholder="Nombre del proveedor" 
-                    name="nombre" required style="color: black;">
-            </div>
-            
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Contacto" name="contacto" required style="color: black;">
-            </div>
-            <div class="mb-3 input-group">
-                 <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                <input type="number" class="form-control" placeholder="Telefono" name="telefono"
-                style="color :black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Correo electrónico"
-                       name="email" required>
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-house"></i></span>
-                <input type="text" class="form-control" placeholder="Direccion"  name="direccion" required
-                style="color :black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-box-seam"></i></span>
-                <input type="text" class="form-control" placeholder="Tipo de proveedor" required name="tipoProveedor"
-                style="color :black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi-check-circle-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Estado" required name="estado"
-                style="color :black;">
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-save"></i> Guardar
-                </button>
-                <a href="${pageContext.request.contextPath}/proveedores" class="btn btn-danger ms-2">
-                    <i class="bi bi-x-circle"></i> Cancelar
-                </a>
-            </div>
-        </form>
-    </div>
-</body>
+        
+        
+        <div class="container mt-5">
 
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Servicios</li>
+                </ol>
+            </nav>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">Catálogo de servicios</h2>
+
+                <a href="${pageContext.request.contextPath}/servicios?action=crear" 
+                   class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-1"></i> Crear
+                </a>
+            </div>       
+            <br>
+            
+            <div class="table-responsive">
+            <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaServicios">
+                <thead class="" >
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del servicios</th>
+                        <th>Descripcion</th>
+                        <th>Precio $</th>
+                        <th>Categoria</th>
+                        <th>Duracion estimada</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <c:forEach var="m" items="${servicios}">
+                        <tr>
+                            <td>${m.idServicio}</td>
+                            <td>${m.nombre}</td>
+                            <td>${m.descripcion}</td>
+                            <td>${m.precio}</td>
+                            <td>${m.categoria}</td>
+                            <td>${m.duracionEstimada}</td>
+                            <td>${m.estado}</td>
+                            <td class="text-nowrap">
+
+                               <!-- Botón Editar -->
+                                <form action="${pageContext.request.contextPath}/servicios" 
+                                      method="post" 
+                                      class="d-inline">
+
+                                    <input type="hidden" name="action" value="editar">
+                                    <input type="hidden" name="idServicio" value="${m.idServicio}">
+
+                                    <button type="submit" class="btn btn-sm btn-warning">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                </form>
+
+                                <!-- Botón Eliminar -->
+                                <form action="${pageContext.request.contextPath}/servicios" 
+                                      method="post" 
+                                      class="d-inline"
+                                      onsubmit="return confirm('¿Estás seguro de eliminar este servicio?');">
+
+                                    <input type="hidden" name="action" value="eliminar">
+                                    <input type="hidden" name="idServicio" value="${m.idServicio}">
+
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+                
+            </table>
+            </div>
+        </div>
+        
+    </body>
+    <script>
+        $(document).ready(function () {
+            $('#tablaServicios').DataTable({
+                responsive: true,
+                autoWidth: false
+            });
+        });
+    </script>
 </html>
+
+
+

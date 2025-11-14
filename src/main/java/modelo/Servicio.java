@@ -13,15 +13,11 @@ public class Servicio {
     private String nombre;
     private String descripcion;
     private Double precio;
+    private String categoria;
+    private Double duracionEstimada;
+    private String estado;
 
     public Servicio() {
-    }
-
-    public Servicio(int idServicio, String nombre, String descripcion, Double precio) {
-        this.idServicio = idServicio;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
     }
 
     public int getIdServicio() {
@@ -55,6 +51,29 @@ public class Servicio {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
-    
-    
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public Double getDuracionEstimada() {
+        return duracionEstimada;
+    }
+
+    public void setDuracionEstimada(Double duracionEstimada) {
+        this.duracionEstimada = duracionEstimada;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 }

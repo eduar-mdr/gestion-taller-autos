@@ -155,7 +155,7 @@
             <br>
             
             <div class="table-responsive">
-            <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaTipos">
+            <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaMarcas">
                 <thead class="" >
                     <tr>
                         <th>ID</th>
@@ -209,7 +209,7 @@
     </body>
     <script>
         $(document).ready(function () {
-            $('#tablaTipos').DataTable({
+            $('#tablaMarcas').DataTable({
                 responsive: true,
                 autoWidth: false
             });

@@ -23,8 +23,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/proveedores")
-public class ProveedorControlador extends HttpServlet  {
-    
+public class ProveedorControlador extends HttpServlet {
+
     private ProveedorServicio proveedorServicio = new ProveedorServicio();
 
     @Override
@@ -32,7 +32,9 @@ public class ProveedorControlador extends HttpServlet  {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        if (action == null) action = "listar";
+        if (action == null) {
+            action = "listar";
+        }
 
         switch (action) {
 
@@ -45,7 +47,7 @@ public class ProveedorControlador extends HttpServlet  {
                 int id = Integer.parseInt(request.getParameter("idProveedor"));
                 Proveedor proveedor = proveedorServicio.obtenerPorId(id);
                 request.setAttribute("proveedor", proveedor);
-                request.getRequestDispatcher("/vistas/proveedores/editar.jsp")
+                request.getRequestDispatcher("/vistas/proveedores/actualizar.jsp")
                         .forward(request, response);
                 break;
 
@@ -70,7 +72,14 @@ public class ProveedorControlador extends HttpServlet  {
         String action = request.getParameter("action");
 
         switch (action) {
-
+            case "editar": {
+                int id = Integer.parseInt(request.getParameter("idProveedor"));
+                Proveedor proveedor = proveedorServicio.obtenerPorId(id);
+                request.setAttribute("proveedor", proveedor);
+                request.getRequestDispatcher("/vistas/proveedores/actualizar.jsp")
+                        .forward(request, response);
+                break;
+            }
             case "guardar": {
                 Proveedor p = new Proveedor();
                 p.setNombre(request.getParameter("nombre"));
@@ -78,6 +87,8 @@ public class ProveedorControlador extends HttpServlet  {
                 p.setTelefono(request.getParameter("telefono"));
                 p.setEmail(request.getParameter("email"));
                 p.setDireccion(request.getParameter("direccion"));
+                p.setTipoProveedor(request.getParameter("tipoProveedor"));
+                p.setEstado(request.getParameter("estado"));
 
                 try {
                     proveedorServicio.registrarProveedor(p);
@@ -97,6 +108,8 @@ public class ProveedorControlador extends HttpServlet  {
                 p.setTelefono(request.getParameter("telefono"));
                 p.setEmail(request.getParameter("email"));
                 p.setDireccion(request.getParameter("direccion"));
+                p.setTipoProveedor(request.getParameter("tipoProveedor"));
+                p.setEstado(request.getParameter("estado"));
 
                 proveedorServicio.actualizar(p);
                 response.sendRedirect(request.getContextPath() + "/proveedores?action=listar");

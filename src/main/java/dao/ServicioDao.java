@@ -29,6 +29,9 @@ public class ServicioDao {
                 m.setNombre(rs.getString("nombre"));
                 m.setDescripcion(rs.getString("descripcion"));
                 m.setPrecio(rs.getDouble("precio"));
+                m.setCategoria(rs.getString("categoria"));
+                m.setDuracionEstimada(rs.getDouble("duracion_estimada"));
+                m.setEstado(rs.getString("estado"));
                 lista.add(m);
             }
         } catch (SQLException e) {
@@ -39,12 +42,16 @@ public class ServicioDao {
     }
     //Store
     public void insertar(Servicio m) throws SQLException {
-        String sql = "INSERT INTO Servicio(nombre, descripcion, precio) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Servicio(nombre, descripcion, precio, categoria, duracion_estimada, estado) "
+                   + "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConexionDB.conectar();
             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, m.getNombre());
             ps.setString(2, m.getDescripcion());
             ps.setDouble(3, m.getPrecio());
+             ps.setString(4, m.getCategoria());
+            ps.setDouble(5, m.getDuracionEstimada());
+            ps.setString(6, m.getEstado());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -69,6 +76,10 @@ public class ServicioDao {
                     servicio.setNombre(rs.getString("nombre"));
                     servicio.setDescripcion(rs.getString("descripcion"));
                     servicio.setPrecio(rs.getDouble("precio"));
+                    servicio.setCategoria(rs.getString("categoria"));
+                    servicio.setDuracionEstimada(rs.getDouble("duracion_estimada"));
+                    servicio.setEstado(rs.getString("estado"));
+                    
                 }
             }
         } catch (SQLException e) {
@@ -79,14 +90,18 @@ public class ServicioDao {
     }
     //Update
     public void actualizar(Servicio servicio) {
-        String sql = "UPDATE Servicio SET nombre=?, descripcion=?, precio=? "
-                   + "WHERE id_servicio=?";
+        String sql = "UPDATE Servicio SET nombre=?, descripcion=?, precio=?, categoria=?, duracion_estimada=?, estado=? "
+           + "WHERE id_servicio=?";
         try (Connection conn = ConexionDB.conectar();
             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, servicio.getNombre());
             ps.setString(2, servicio.getDescripcion());
             ps.setDouble(3, servicio.getPrecio());
+            ps.setString(4, servicio.getCategoria());
+            ps.setDouble(5, servicio.getDuracionEstimada());
+            ps.setString(6, servicio.getEstado());
+            ps.setInt(7, servicio.getIdServicio());
             
             ps.executeUpdate();
         } catch (SQLException e) {
