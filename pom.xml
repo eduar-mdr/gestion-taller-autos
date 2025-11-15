@@ -18,7 +18,7 @@
     
     <dependencies>
         
-       <dependency>
+        <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>${jakartaee}</version>
@@ -49,15 +49,14 @@
             <version>1.18.34</version>
             <scope>provided</scope>
         </dependency>
-        
     </dependencies>
     
-     <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.4.0</version>
             </plugin>
         </plugins>
     </build>

@@ -31,5 +31,9 @@ public class ConexionDB {
         }
         return conn;
     }
+
+    public static Connection getConnection() {
+        return conectar();
+    }
     
 }
