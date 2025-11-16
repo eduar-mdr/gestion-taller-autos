@@ -16,7 +16,6 @@
         <!-- <link rel="stylesheet" href="../../bs/fonts/iconos.css"> -->
         <script src="bs/js/accion.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <!-- Menú principal -->
@@ -125,17 +124,9 @@
             body {
                 overflow-x: hidden;
             }
-            .card {
-                border: none;
-                border-radius: 1rem;
-                box-shadow: 0 0.125rem 0.35rem rgba(0,0,0,.05);
-            }
-            .card-title {
-                font-size: 0.95rem;
-                font-weight: 600;
-                color: #6c757d;
-            }
         </style>
+
+
 
         <br>
         <h1>Comprobando la conexión</h1>
@@ -143,215 +134,14 @@
             Connection conn = ConexionDB.conectar();
             if (conn != null) {
         %>
-        <div class="container mt-5">
-            <div class="alert alert-success" role="alert">  
-                <h2>Conexión exitosa</h2>
-            </div>
-        </div>
+        <h2>Conexión exitosa</h2>
         <%
             conn.close();
         } else {
         %>
-        <div class="container mt-5">
-            <div class="alert alert-danger" role="alert">
-                <h2>Error en la conexión</h2>
-            </div>
-        </div>
+        <h2>Error en la conexión</h2>
         <%
             }
         %>
-        <div class="container py-4">
-            <h2 class="mb-4">Dashboard Taller Automotriz</h2>
-            <div class="row g-4 mb-2">
-
-                <!-- Ventas por mes -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    <h5 class="card-title mb-1">Ventas mensuales</h5>
-                                    <small id="lblAnioVentas" class="text-muted"></small>
-                                </div>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartVentasMes"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Top servicios-->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Top 5 servicios</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartTopServicios"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row g-4 mb-2">
-                <!-- Clientes por mes -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Clientes registrados por mes</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartClientesMes"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Ingreso de categoria de servicio -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Grafico de ingreso por categoría de servicio</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartCategoria"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-
-                const ctxVentasMes = document.getElementById("chartVentasMes");
-                const ctxTopServicios = document.getElementById("chartTopServicios");
-                const ctxClientesMes = document.getElementById("chartClientesMes");
-
-                const base = "<%=request.getContextPath()%>/dashboard";
-
-                /* Ventas por mes */
-                fetch(base + "/ventas-mes")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.mesNombre);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(ctxVentasMes, {
-                                type: "line",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Ventas",
-                                            data: values,
-                                            tension: 0.5
-                                        }]
-                                }
-                            });
-                        });
-
-                /* Top servicios */
-                fetch(base + "/top-servicios")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.servicio);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(ctxTopServicios, {
-                                type: "doughnut",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            data: values,
-                                            backgroundColor: [
-                                                "#03045e",
-                                                "#0077b6",
-                                                "#00b4d8",
-                                                "#90e0ef",
-                                                "#caf0f8"
-                                            ]
-                                        }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    maintainAspectRatio: false,
-                                    layout: {
-                                        padding: {
-                                            top: 30, 
-                                            bottom: 30   
-                                        }
-                                    },
-                                    plugins: {
-                                        legend: {
-                                            position: "bottom" 
-                                        }
-                                    }}
-                            });
-                        });
-
-                /* Clientes por mes */
-                fetch(base + "/clientes-mes")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.mesNombre);
-                            const values = datos.map(d => d.cantidad);
-
-                            new Chart(ctxClientesMes, {
-                                type: "bar",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Clientes",
-                                            data: values
-                                        }]
-                                },
-                                options: {
-                                    indexAxis: 'y',
-                                    scales: {
-                                        x: {
-                                            beginAtZero: true,
-                                            ticks: {
-                                                stepSize: 10
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                /* Ingresos por categoría */
-                fetch(base + "/ingresos-categoria")
-                        .then(r => r.json())
-                        .then(datos => {
-                            console.log("categorias:", datos);
-                            const labels = datos.map(d => d.categoria);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(document.getElementById("chartCategoria"), {
-                                type: "bar",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Ingresos por categoría",
-                                            data: values,
-                                            backgroundColor: "#0077b6"
-                                        }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {display: false}
-                                    }
-                                }
-                            });
-                        });
-
-            });
-        </script>
     </body>
 </html>
