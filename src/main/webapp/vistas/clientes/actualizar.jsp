@@ -11,38 +11,215 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Actualizar Cliente</title>
+        <link rel="stylesheet" href="bs/css/estilo.css">
+        <link rel="stylesheet" href="bs/fonts/iconos.css">
+        <script src="bs/js/accion.js"></script>
     </head>
     <body>
-        <h2>Actualizar Cliente</h2>
-        <form action="${pageContext.request.contextPath}/clientes?action=actualizar" method="post">
-            <input type="hidden" name="idCliente" value="${cliente.idCliente}" />
+        <!-- Menú principal -->
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
+                    <i class="bi bi-house-door-fill"></i> Taller Mecánico
+                </a>
 
-            <label>Nombre:</label>
-            <input type="text" name="nombre" value="${cliente.nombre}" required /><br/>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <label>Apellido:</label>
-            <input type="text" name="apellido" value="${cliente.apellido}" required /><br/>
+                <div class="collapse navbar-collapse" id="menuNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-            <label>Documento: 
-            <input type="text" name="documento" value="${cliente.documento}" required><br>
-            
-            <label>Tipo Documento: </label>
-            <input type="text" name="tipoDocumento" value="${cliente.tipoDocumento}" required><br>
-            
-            <label>Dirección: </label>
-            <input type="text" name="direccion" value="${cliente.direccion}" required><br>
-            
-            <label>Teléfono: </label>
-            <input type="text" name="telefono" value="${cliente.telefono}" required><br>
-            
-            <label>Email: </label>
-            <input type="text" name="email" value="${cliente.email}" required><br>
-            
-            <input type="submit" value="Actualizar" />
-            
-        </form>
+                        <!-- Personas -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-people-fill"></i> Personas
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/clientes?action=listar"><i class="bi bi-person-check-fill"></i> Clientes</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/empleados?action=listar"><i class="bi bi-person-badge"></i> Empleados</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/usuarios?action=listar"><i class="bi bi-person-circle"></i> Usuarios</a></li>
+                            </ul>
+                        </li>
 
-        <a href="${pageContext.request.contextPath}/clientes">Cancelar</a>        
+                        <!-- Gestiones -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-gear-fill"></i> Gestiones
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vehiculos?action=listar"><i class="bi bi-car-front-fill"></i> Vehículos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ordenes?action=listar"><i class="bi bi-receipt-cutoff"></i> Órdenes de trabajo</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pagos?action=listar"><i class="bi bi-cash-stack"></i> Pagos y facturación</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Reportes -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-clipboard-data-fill"></i> Reportes
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/servicios.jsp"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ingresos.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/clientesFrecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Catálogos -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-collection-fill"></i> Catálogos
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/proveedores?action=listar"><i class="bi bi-building"></i> Proveedores</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/repuestos?action=listar"><i class="bi bi-tools"></i> Repuestos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/marcas?action=listar"><i class="bi bi-tags-fill"></i> Marcas de vehículos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/tipos?action=listar"><i class="bi bi-car-front"></i>  Tipos de vehículos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/servicios?action=listar"><i class="bi bi-wrench"></i> Servicios</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Estilos internos -->
+        <style>
+            .navbar {
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .nav-link {
+                color: #fff !important;
+                padding: 8px 15px;
+                transition: 0.3s;
+            }
+            .nav-link:hover {
+                background-color: #456882;
+                border-radius: 5px;
+            }
+            .dropdown-menu {
+                background-color: #456882;
+                border-radius: 8px;
+                margin-top: 5px;
+                max-height: 300px;
+                overflow-y: auto;
+            }
+            .dropdown-item {
+                color: #fff !important;
+                transition: 0.3s;
+            }
+            .dropdown-item i {
+                margin-right: 8px;
+            }
+            .dropdown-item:hover {
+                background-color: #2f5473 !important;
+            }
+            body {
+                overflow-x: hidden;
+            }
+        </style>
+
+
+
+        <br>
+
+        <div class="border border-primary p-4 w-50 mx-auto">
+            <form action="${pageContext.request.contextPath}/clientes?action=actualizar" method="post">
+
+                <input type="hidden" name="idCliente" value="${cliente.idCliente}" />
+
+                <!-- TÍTULO -->
+                <div class="mb-3">
+                    <h2 style="color: #253D85;" class="text-center">
+                        <i class="bi bi-person-lines-fill"></i> ACTUALIZAR CLIENTE
+                    </h2>
+                </div>
+
+                <!-- Nombre -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input name="nombre" type="text" class="form-control" 
+                           placeholder="Nombres" 
+                           value="${cliente.nombre}"
+                           required style="color: black;">
+                </div>
+
+                <!-- Apellido -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input name="apellido" type="text" class="form-control" 
+                           placeholder="Apellidos"
+                           value="${cliente.apellido}"
+                           required style="color: black;">
+                </div>
+
+                <!-- Tipo Documento -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                    <select name="tipoDocumento" class="form-select" required style="color: black;">
+                        <option value="">Seleccione tipo de documento</option>
+                        <option value="DUI"       ${cliente.tipoDocumento == 'DUI' ? 'selected' : ''}>DUI</option>
+                        <option value="NIT"       ${cliente.tipoDocumento == 'NIT' ? 'selected' : ''}>NIT</option>
+                        <option value="Pasaporte" ${cliente.tipoDocumento == 'Pasaporte' ? 'selected' : ''}>Pasaporte</option>
+                        <option value="Licencia"  ${cliente.tipoDocumento == 'Licencia' ? 'selected' : ''}>Licencia</option>
+                    </select>
+                </div>
+
+                <!-- Documento -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                    <input name="documento" type="number" class="form-control" 
+                           placeholder="DUI"
+                           value="${cliente.documento}"
+                           required style="color: black;">
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                    <input name="email" type="text" class="form-control" 
+                           placeholder="Correo electrónico"
+                           value="${cliente.email}"
+                           required>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                    <input name="telefono" type="number" class="form-control" 
+                           placeholder="Teléfono"
+                           value="${cliente.telefono}"
+                           style="color: black;">
+                </div>
+
+                <!-- Dirección -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-house"></i></span>
+                    <input name="direccion" type="text" class="form-control" 
+                           placeholder="Dirección"
+                           value="${cliente.direccion}"
+                           required style="color: black;">
+                </div>
+
+                <!-- BOTONES -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Actualizar
+                    </button>
+
+                    <a href="${pageContext.request.contextPath}/clientes" class="btn btn-danger ms-2">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
 
     </body>
 </html>
