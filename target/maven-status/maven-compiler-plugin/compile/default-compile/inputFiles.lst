@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\com\mycompany\gestion\taller\autos\JakartaRestConfiguration.java
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\com\mycompany\gestion\taller\autos\resources\JakartaEE8Resource.java
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\conexion\ConexionDB.java
@@ -5,3 +6,32 @@ C:\gestion-taller-autos\gestion-taller-autos\src\main\java\controlador\ClienteCo
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\dao\ClienteDao.java
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\modelo\Cliente.java
 C:\gestion-taller-autos\gestion-taller-autos\src\main\java\servicio\ClienteServicio.java
+=======
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\com\mycompany\gestion\taller\autos\JakartaRestConfiguration.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\com\mycompany\gestion\taller\autos\resources\JakartaEE8Resource.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\conexion\ConexionDB.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\controlador\ClienteControlador.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\controlador\MarcaVehiculoControlador.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\controlador\ProveedorControlador.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\controlador\RepuestoControlador.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\controlador\ServicioControlador.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\controlador\TipoVehiculoControlador.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\dao\ClienteDao.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\dao\MarcaVehiculoDao.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\dao\ProveedorDao.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\dao\RepuestoDao.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\dao\ServicioDao.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\dao\TipoVehiculoDao.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\modelo\Cliente.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\modelo\MarcaVehiculo.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\modelo\Proveedor.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\modelo\Repuesto.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\modelo\Servicio.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\modelo\TipoVehiculo.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\servicio\ClienteServicio.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\servicio\MarcaVehiculoServicio.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\servicio\ProveedorServicio.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\servicio\RepuestoServicio.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\servicio\ServicioServicio.java
+C:\Users\fuent\OneDrive\Desktop\proyectobueno\gestion-taller-autos\src\main\java\servicio\TipoVehiculoServicio.java
+>>>>>>> Stashed changes
