@@ -57,9 +57,8 @@ public class ClienteControlador extends HttpServlet{
                 } catch (SQLException e) {
                     throw new ServletException("Error al listar clientes", e);
                 }
-                break;
-        }
-        
+                break;     
+        }       
         
     }
     
