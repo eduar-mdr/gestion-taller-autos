@@ -19,338 +19,126 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
-        <!-- Menú principal -->
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
-                    <i class="bi bi-house-door-fill"></i> Taller Mecánico
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="menuNav">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                        <!-- Personas -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-people-fill"></i> Personas
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/clientes?action=listar"><i class="bi bi-person-check-fill"></i> Clientes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/empleados?action=listar"><i class="bi bi-person-badge"></i> Empleados</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/usuarios?action=listar"><i class="bi bi-person-circle"></i> Usuarios</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Gestiones -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-gear-fill"></i> Gestiones
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vehiculos?action=listar"><i class="bi bi-car-front-fill"></i> Vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ordenes?action=listar"><i class="bi bi-receipt-cutoff"></i> Órdenes de trabajo</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pagos?action=listar"><i class="bi bi-cash-stack"></i> Pagos y facturación</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Reportes -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-clipboard-data-fill"></i> Reportes
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/servicios.jsp"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ingresos.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/clientesFrecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Catálogos -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-collection-fill"></i> Catálogos
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/proveedores?action=listar"><i class="bi bi-building"></i> Proveedores</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/repuestos?action=listar"><i class="bi bi-tools"></i> Repuestos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/marcas?action=listar"><i class="bi bi-tags-fill"></i> Marcas de vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/tipos?action=listar"><i class="bi bi-car-front"></i>  Tipos de vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/servicios?action=listar"><i class="bi bi-wrench"></i> Servicios</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Estilos internos -->
         <style>
-            .navbar {
-                font-size: 16px;
-                font-weight: 500;
-            }
-            .nav-link {
-                color: #fff !important;
-                padding: 8px 15px;
-                transition: 0.3s;
-            }
-            .nav-link:hover {
-                background-color: #456882;
-                border-radius: 5px;
-            }
-            .dropdown-menu {
-                background-color: #456882;
-                border-radius: 8px;
-                margin-top: 5px;
-                max-height: 300px;
-                overflow-y: auto;
-            }
-            .dropdown-item {
-                color: #fff !important;
-                transition: 0.3s;
-            }
-            .dropdown-item i {
-                margin-right: 8px;
-            }
-            .dropdown-item:hover {
-                background-color: #2f5473 !important;
-            }
             body {
-                overflow-x: hidden;
+                min-height: 100vh;
+                background: linear-gradient(135deg, #0f172a, #1e3a8a, #0ea5e9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             }
-            .card {
+            .login-card {
+                max-width: 420px;
+                width: 100%;
+                border-radius: 1.25rem;
+                box-shadow: 0 20px 45px rgba(15, 23, 42, .5);
+                overflow: hidden;
+            }
+
+            .login-header {
+                background: radial-gradient(circle at top left, #38bdf8, #1d4ed8);
+                color: #fff;
+            }
+
+            .login-header i {
+                font-size: 2.5rem;
+            }
+
+            .form-control:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 .2rem rgba(37, 99, 235, .25);
+            }
+
+            .btn-primary {
+                background: linear-gradient(135deg, #2563eb, #1d4ed8);
                 border: none;
-                border-radius: 1rem;
-                box-shadow: 0 0.125rem 0.35rem rgba(0,0,0,.05);
             }
-            .card-title {
-                font-size: 0.95rem;
-                font-weight: 600;
-                color: #6c757d;
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            }
+
+            .toggle-password {
+                cursor: pointer;
             }
         </style>
-
-        <br>
-        <h1>Comprobando la conexión</h1>
-        <%
-            Connection conn = ConexionDB.conectar();
-            if (conn != null) {
-        %>
-        <div class="container mt-5">
-            <div class="alert alert-success" role="alert">  
-                <h2>Conexión exitosa</h2>
-            </div>
-        </div>
-        <%
-            conn.close();
-        } else {
-        %>
-        <div class="container mt-5">
-            <div class="alert alert-danger" role="alert">
-                <h2>Error en la conexión</h2>
-            </div>
-        </div>
-        <%
-            }
-        %>
-        <div class="container py-4">
-            <h2 class="mb-4">Dashboard Taller Automotriz</h2>
-            <div class="row g-4 mb-2">
-
-                <!-- Ventas por mes -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    <h5 class="card-title mb-1">Ventas mensuales</h5>
-                                    <small id="lblAnioVentas" class="text-muted"></small>
-                                </div>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartVentasMes"></canvas>
-                            </div>
-                        </div>
-                    </div>
+        <div class="card login-card bg-light">
+            <!-- Encabezado -->
+            <div class="login-header p-4 text-center">
+                <div class="mb-2">
+                    <i class="bi bi-person-circle"></i>
                 </div>
-
-                <!-- Top servicios-->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Top 5 servicios</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartTopServicios"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row g-4 mb-2">
-                <!-- Clientes por mes -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Clientes registrados por mes</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartClientesMes"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Ingreso de categoria de servicio -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Grafico de ingreso por categoría de servicio</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartCategoria"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h4 class="mb-0 fw-semibold">Bienvenido</h4>
+                <small class="opacity-75">Ingresa tus credenciales para continuar</small>
             </div>
 
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <!-- Formulario -->
+            <div class="card-body p-4">
+                <!-- Ajusta action a tu servlet/controlador -->
+                <form action="${pageContext.request.contextPath}/login" method="post" autocomplete="off">
+                    <!-- Usuario -->
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input type="text" class="form-control" id="usuario" name="usuario"
+                                   placeholder="Ingresa tu usuario" required>
+                        </div>
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <input type="password" class="form-control" id="contrasena" name="contrasena"
+                                   placeholder="Ingresa tu contraseña" required>
+                            <span class="input-group-text toggle-password" id="btnVerClave">
+                                <i class="bi bi-eye-fill" id="iconoOjo"></i>
+                            </span>
+                        </div>
+                        <div class="form-text">Puedes mostrar/ocultar la contraseña con el icono️</div>
+                    </div>
+
+                    <!-- Recordarme + botón -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="recordarme">
+                            <label class="form-check-label" for="recordarme">
+                                Recordarme
+                            </label>
+                        </div>
+                    </div>
+                    <% String error = (String) request.getAttribute("error"); %>
+                    <% if (error != null) {%>
+                    <div class="alert alert-danger py-2" role="alert">
+                        <%= error%>
+                    </div>
+                    <% }%>
+
+                    <div class="d-grid mt-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>  
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            const inputPass = document.getElementById('contrasena');
+            const btnVerClave = document.getElementById('btnVerClave');
+            const iconoOjo = document.getElementById('iconoOjo');
 
-                const ctxVentasMes = document.getElementById("chartVentasMes");
-                const ctxTopServicios = document.getElementById("chartTopServicios");
-                const ctxClientesMes = document.getElementById("chartClientesMes");
-
-                const base = "<%=request.getContextPath()%>/dashboard";
-
-                /* Ventas por mes */
-                fetch(base + "/ventas-mes")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.mesNombre);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(ctxVentasMes, {
-                                type: "line",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Ventas",
-                                            data: values,
-                                            tension: 0.5
-                                        }]
-                                }
-                            });
-                        });
-
-                /* Top servicios */
-                fetch(base + "/top-servicios")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.servicio);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(ctxTopServicios, {
-                                type: "doughnut",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            data: values,
-                                            backgroundColor: [
-                                                "#03045e",
-                                                "#0077b6",
-                                                "#00b4d8",
-                                                "#90e0ef",
-                                                "#caf0f8"
-                                            ]
-                                        }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    maintainAspectRatio: false,
-                                    layout: {
-                                        padding: {
-                                            top: 30, 
-                                            bottom: 30   
-                                        }
-                                    },
-                                    plugins: {
-                                        legend: {
-                                            position: "bottom" 
-                                        }
-                                    }}
-                            });
-                        });
-
-                /* Clientes por mes */
-                fetch(base + "/clientes-mes")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.mesNombre);
-                            const values = datos.map(d => d.cantidad);
-
-                            new Chart(ctxClientesMes, {
-                                type: "bar",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Clientes",
-                                            data: values
-                                        }]
-                                },
-                                options: {
-                                    indexAxis: 'y',
-                                    scales: {
-                                        x: {
-                                            beginAtZero: true,
-                                            ticks: {
-                                                stepSize: 10
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                /* Ingresos por categoría */
-                fetch(base + "/ingresos-categoria")
-                        .then(r => r.json())
-                        .then(datos => {
-                            console.log("categorias:", datos);
-                            const labels = datos.map(d => d.categoria);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(document.getElementById("chartCategoria"), {
-                                type: "bar",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Ingresos por categoría",
-                                            data: values,
-                                            backgroundColor: "#0077b6"
-                                        }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {display: false}
-                                    }
-                                }
-                            });
-                        });
-
+            btnVerClave.addEventListener('click', () => {
+                const esPassword = inputPass.type === 'password';
+                inputPass.type = esPassword ? 'text' : 'password';
+                iconoOjo.classList.toggle('bi-eye-fill', !esPassword);
+                iconoOjo.classList.toggle('bi-eye-slash-fill', esPassword);
             });
         </script>
     </body>
