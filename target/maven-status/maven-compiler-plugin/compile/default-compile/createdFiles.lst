@@ -9,7 +9,6 @@ dao\ClienteDao.class
 modelo\VentaMensual.class
 controlador\ProveedorControlador.class
 controlador\ClienteMesControlador.class
-controlador\ReporteServicio.class
 com\mycompany\gestion\taller\autos\resources\JakartaEE8Resource.class
 controlador\ClienteControlador.class
 controlador\IngresosCategoriaControlador.class
