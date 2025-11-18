@@ -152,6 +152,17 @@
                            value="${repuesto.precio}"
                            required style="color: black;">
                 </div>
+                           
+                           
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi-people-fill"></i></span>
+                    <select name="idProveedor" required class="form-select">
+                        <option value="">Seleccione un proveedor</option>
+                        <c:forEach var="p" items="${proveedores}">
+                            <option value="${p.idProveedor}"  ${repuesto.idProveedor == p.idProveedor ? 'selected' : ''}>${p.nombre}</option>
+                        </c:forEach>
+                    </select><br>
+                </div>
                 
                 <!-- BOTONES -->
                 <div class="text-center">

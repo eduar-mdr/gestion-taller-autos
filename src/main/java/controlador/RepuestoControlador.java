@@ -48,14 +48,6 @@ public class RepuestoControlador extends HttpServlet {
                         .forward(request, response);
                 break;
 
-            case "editar":
-                int id = Integer.parseInt(request.getParameter("idRepuesto"));
-                Repuesto repuesto = repuestoServicio.obtenerPorId(id);
-                request.setAttribute("repuesto", repuesto); 
-                request.getRequestDispatcher("/vistas/repuestos/actualizar.jsp").forward(request, response);
-                break;
-
-            case "listar":
             default:
                 try {
                     List<Repuesto> repuestos = repuestoServicio.obtenerRepuestos();
@@ -77,9 +69,16 @@ public class RepuestoControlador extends HttpServlet {
 
         switch (action) {
             case "editar":
+                //Obtiene el mmodelo a editar
                 int id = Integer.parseInt(request.getParameter("idRepuesto"));
                 Repuesto repuesto = repuestoServicio.obtenerPorId(id);
                 request.setAttribute("repuesto", repuesto); 
+                // Para mostrar la lista de proveedores al editar un repuesto
+                try {
+                    request.setAttribute("proveedores", proveedorServicio.obtenerProveedores());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 request.getRequestDispatcher("/vistas/repuestos/actualizar.jsp").forward(request, response);
                 break;
 
@@ -106,6 +105,7 @@ public class RepuestoControlador extends HttpServlet {
                 r.setNombre(request.getParameter("nombre"));
                 r.setDescripcion(request.getParameter("descripcion"));
                 r.setPrecio(Double.parseDouble(request.getParameter("precio")));
+                r.setIdProveedor(Integer.parseInt(request.getParameter("idProveedor")));
 
                 repuestoServicio.actualizar(r);
                 response.sendRedirect(request.getContextPath() + "/repuestos?action=listar");

@@ -163,6 +163,7 @@
                             <th>Nombre del repuesto</th>
                             <th>Descrpcion</th>
                             <th>Precio $</th>
+                            <th>Proveedor ID</th>
                             <th>Proveedor</th>
                             <th>Acciones</th>
                         </tr>
@@ -175,6 +176,7 @@
                                 <td>${r.descripcion}</td>
                                 <td>${r.precio}</td>
                                 <td>${r.idProveedor}</td>
+                                <td>${r.nombreProveedor}</td> 
                                 <td class="text-nowrap">
 
                                     <!-- Botón Editar -->

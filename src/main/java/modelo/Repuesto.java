@@ -14,7 +14,8 @@ public class Repuesto {
     private String descripcion;
     private Double precio;
     private int idProveedor;
-  
+    private String nombreProveedor;
+
 
     public Repuesto() {
     }
@@ -59,5 +60,11 @@ public class Repuesto {
         this.idProveedor = idProveedor;
     }
 
-       
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }  
 }
