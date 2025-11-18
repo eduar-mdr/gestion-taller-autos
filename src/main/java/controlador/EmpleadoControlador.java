@@ -9,6 +9,7 @@ package controlador;
  * @author MINEDUCYT
  */
 import servicio.EmpleadoServicio;
+//import servicio.UsuarioServicio;
 import modelo.Empleado;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,7 @@ import java.math.BigDecimal;
 public class EmpleadoControlador extends HttpServlet {
 
     private EmpleadoServicio empleadoServicio = new EmpleadoServicio();
+    //private UsuarioServicio usuarioServicio = new UsuarioServicio();
 
     //Index
     @Override
@@ -88,7 +90,11 @@ public class EmpleadoControlador extends HttpServlet {
                 m.setCargo(request.getParameter("cargo"));
                 m.setSalario(Double.parseDouble(request.getParameter("salario")));
                 m.setEstado(request.getParameter("estado"));
-
+                
+                String idUsuarioStr = request.getParameter("idUsuario");
+                if (idUsuarioStr != null && !idUsuarioStr.isEmpty()) {
+                    m.setIdUsuario(Integer.parseInt(idUsuarioStr));
+                }
                 try {
                     empleadoServicio.registrarEmpleado(m);
                     response.sendRedirect(request.getContextPath() + "/empleados");
@@ -108,9 +114,19 @@ public class EmpleadoControlador extends HttpServlet {
                 m.setSalario(Double.parseDouble(request.getParameter("salario")));
                 m.setEstado(request.getParameter("estado"));
 
-                empleadoServicio.actualizarEmpleado(m);
-                response.sendRedirect(request.getContextPath() + "/empleados");
+                String idUsuarioStrUpd = request.getParameter("idUsuario");
+                if (idUsuarioStrUpd != null && !idUsuarioStrUpd.isEmpty()) {
+                    m.setIdUsuario(Integer.parseInt(idUsuarioStrUpd));
+                }
+                
+                //try {
+                    //empleadoServicio.actualizarEmpleado(m);
+                    //response.sendRedirect(request.getContextPath() + "/empleados");
+                //} catch (SQLException e) {
+                    //throw new ServletException("Error al actualizar empleado", e);
+                //}
                 break;
+
 
             case "eliminar":
                 int idEliminar = Integer.parseInt(request.getParameter("idEmpleado"));

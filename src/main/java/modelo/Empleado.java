@@ -21,6 +21,7 @@ public class Empleado {
     private LocalDateTime fechaContratacion;
     private Double salario;
     private String estado;
+    private String nombreUsuario;
 
     public Empleado() {
     }
@@ -112,6 +113,14 @@ public class Empleado {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
     
     
