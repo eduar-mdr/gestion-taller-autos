@@ -79,6 +79,19 @@
         <artifactId>jasperreports-fonts</artifactId>
         <version>6.21.0</version>
     </dependency>
+    
+   <dependency>
+    <groupId>org.xhtmlrenderer</groupId>
+    <artifactId>flying-saucer-pdf-itext5</artifactId>
+    <version>9.1.22</version>
+</dependency>
+<dependency>
+    <groupId>org.xhtmlrenderer</groupId>
+    <artifactId>flying-saucer-pdf-openpdf</artifactId>
+    <version>9.1.22</version>
+</dependency>
+
+
     </dependencies>
     
      <build>

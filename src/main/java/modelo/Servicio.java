@@ -14,7 +14,7 @@ public class Servicio {
     private String descripcion;
     private Double precio;
     private String categoria;
-    private Double duracionEstimada;
+    private String duracionEstimada;
     private String estado;
 
     public Servicio() {
@@ -60,11 +60,11 @@ public class Servicio {
         this.categoria = categoria;
     }
 
-    public Double getDuracionEstimada() {
+    public String getDuracionEstimada() {
         return duracionEstimada;
     }
 
-    public void setDuracionEstimada(Double duracionEstimada) {
+    public void setDuracionEstimada(String duracionEstimada) {
         this.duracionEstimada = duracionEstimada;
     }
 

@@ -149,7 +149,7 @@
             </div>
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-clock"></i></span>
-                <input name="duracionEstimada" type="number" class="form-control" placeholder="Duración estimada" required style="color: black;">
+                <input name="duracionEstimada" type="text" class="form-control" placeholder="Duración estimada" required style="color: black;">
             </div>
              <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi-check-circle-fill"></i></span>
