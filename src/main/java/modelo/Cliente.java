@@ -17,6 +17,7 @@ public class Cliente {
     private String direccion;
     private String telefono;
     private String email;
+    private int totalOrdenes;
 
     //Constructor vacio para inicializar vacio
     public Cliente() {
@@ -97,6 +98,14 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getTotalOrdenes() {
+        return totalOrdenes;
+    }
+
+    public void setTotalOrdenes(int totalOrdenes) {
+        this.totalOrdenes = totalOrdenes;
     }
     
     

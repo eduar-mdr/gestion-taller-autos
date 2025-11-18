@@ -1,6 +1,6 @@
 <%-- 
     Document   : reporte
-    Created on : 17 nov 2025, 4:00:05 p. m.
+    Created on : 17 nov 2025, 9:58:20 p. m.
     Author     : MINEDUCYT
 --%>
 
@@ -65,7 +65,7 @@
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/clientesFrecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/clientes?action=frecuentes"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
                             </ul>
                         </li>
 
@@ -124,64 +124,44 @@
             }
         </style>
 
-       <br>
-        <div class="container mt-5">
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/gestion-taller-autos/dashboard.jsp">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Servicios</li>
-                </ol>
-            </nav>
+        <br>
+       <div class="container mt-4">
+        <h2 style="color:#253D85;" class="text-center">
+            <i class="bi bi-star-fill"></i> CLIENTES FRECUENTES
+        </h2>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0">Reporte</h2>
-            </div>    
-            <div class="border border-black p-4 w-75 mx-auto">
-
-                <div class="mb-3">
-                    <h2 class="text-center">
-                        <i class="bi bi-table"></i> Reporte de Servicios
-                    </h2>
-                </div>
-
-                <table class="table table-bordered table-striped">
-                    <thead class="table-warning">
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Total Órdenes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="cliente" items="${clientesFrecuentes}">
                         <tr>
-                            <th>ID</th>
-                            <th>Servicio</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
-                            <th>Categoría</th>
-                            <th>Duración Estimada</th>
-                            <th>Estado</th>
+                            <td>${cliente.idCliente}</td>
+                            <td>${cliente.nombre}</td>
+                            <td>${cliente.apellido}</td>
+                            <td>${cliente.telefono}</td>
+                            <td>${cliente.email}</td>
+                            <td>${cliente.totalOrdenes}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="m" items="${listaServicios}">
-                            <tr>
-                                <td>${m.idServicio}</td>
-                                <td>${m.nombre}</td>
-                                <td>${m.descripcion}</td>
-                                <td>$ ${m.precio}</td>
-                                <td>${m.categoria}</td>
-                                <td>${m.duracionEstimada}</td>
-                                <td>${m.estado}</td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
-                <div class="text-center mt-3">
-                    <a href="${pageContext.request.contextPath}/servicios?action=pdf" class="btn btn-success">
-                        <i class="bi bi-file-earmark-pdf"></i> Descargar PDF
-                    </a>
-                    <a href="${pageContext.request.contextPath}/servicios" class="btn btn-primary">
-                        <i class="bi bi-arrow-left-circle"></i> Regresar
-                    </a>
-                </div>
-
-
-            </div>
+                    </c:forEach>
+                    <c:if test="${empty clientesFrecuentes}">
+                        <tr>
+                            <td colspan="6" class="text-center">No hay clientes frecuentes aún</td>
+                        </tr>
+                    </c:if>
+                </tbody>
+            </table>
+        </div>
+    </div>
     </body>
 </html>
