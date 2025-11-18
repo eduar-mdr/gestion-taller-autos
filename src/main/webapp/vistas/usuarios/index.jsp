@@ -1,16 +1,15 @@
 <%-- 
     Document   : index
-    Created on : Oct 19, 2025, 11:33:23 PM
-    Author     : Eduar Medrano
+    Created on : 17 nov 2025, 10:13:18 p. m.
+    Author     : fuent
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión de Clientes</title>
+        <title>Gestión de Usuarios</title>
 
         <link rel="stylesheet" href="bs/css/estilo.css">
         <link rel="stylesheet" href="bs/fonts/iconos.css">
@@ -137,91 +136,118 @@
         <div class="container mt-5">
 
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Clientes</li>
-                </ol>
-            </nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+        </ol>
+    </nav>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0">Catálogo de Clientes</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Catálogo de Usuarios</h2>
 
-                <a href="${pageContext.request.contextPath}/clientes?action=crear" 
-                   class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> Crear
-                </a>
-            </div>       
+        <a href="${pageContext.request.contextPath}/usuarios?action=crear" 
+           class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i> Crear
+        </a>
+    </div>
             <br>
+<div class="table-responsive">
+        <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaUsuarios">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
 
-            <div class="table-responsive">
-                <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaClientes">
-                    <thead class="" >
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Documento</th>
-                            <th>Tipo de documento</th>
-                            <th>Dirección</th>
-                            <th>Telefono</th>
-                            <th>Email</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <c:forEach var="c" items="${clientes}">
-                            <tr>
-                                <td>${c.idCliente}</td>
-                                <td>${c.nombre}</td>
-                                <td>${c.apellido}</td>
-                                <td>${c.documento}</td>
-                                <td>${c.tipoDocumento}</td>
-                                <td>${c.direccion}</td>
-                                <td>${c.telefono}</td>
-                                <td>${c.email}</td>
-                                <td class="text-nowrap">
-                                    <td>
-</td>
+            <tbody class="table-group-divider">
+                <c:forEach var="u" items="${usuarios}">
+                    <tr>
+                        <td>${u.idUsuario}</td>
+                        <td>${u.nombreUsuario}</td>
+                        <td>${u.email}</td>
+                        <td>${u.rolNombre}</td>
+                        <td>
+                            <span class="badge 
+                                ${u.estado eq 'Activo' ? 'bg-success' : 'bg-secondary'}">
+                                ${u.estado}
+                            </span>
+                        </td>
 
-                                    <!-- Botón Editar -->
-                                    <form action="${pageContext.request.contextPath}/clientes" 
-                                          method="post" 
-                                          class="d-inline">
+                        <td class="text-nowrap">
 
-                                        <input type="hidden" name="action" value="editar">
-                                        <input type="hidden" name="idCliente" value="${c.idCliente}">
+                            <!-- Botón Eliminar -->
+                            <form action="${pageContext.request.contextPath}/usuarios" 
+                                  method="post" 
+                                  class="d-inline form-eliminar-usuario">
+                                <input type="hidden" name="action" value="eliminar">
+                                <input type="hidden" name="idUsuario" value="${u.idUsuario}">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
 
-                                        <button type="submit" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </form>
-                                        
-                                    <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/clientes" method="post" class="d-inline" 
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este cliente?');"> 
-                                        <input type="hidden" name="action" value="eliminar"> 
-                                        <input type="hidden" name="idCliente" value="${c.idCliente}"> 
-                                        <button type="submit" class="btn btn-sm btn-danger"> 
-                                            <i class="bi bi-trash"></i> 
-                                        </button> 
-                                    </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
+<script>
+    $(document).ready(function () {
+        $('#tablaUsuarios').DataTable({
+            responsive: true,
+            autoWidth: false,
+            pageLength: 10,
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            }
+        });
 
-                </table>
-            </div>
-        </div>
+        const msg = '<c:out value="${param.msg}" />';
 
-    </body>
-    <script>
-        $(document).ready(function () {
-            $('#tablaClientes').DataTable({
-                responsive: true,
-                autoWidth: false
+        if (msg === 'creado') {
+            Swal.fire({
+                title: 'Usuario creado',
+                text: 'El usuario ha sido registrado correctamente.',
+                icon: 'success',
+                confirmButtonColor: '#0d6efd'
+            });
+        } else if (msg === 'eliminado') {
+            Swal.fire({
+                title: 'Usuario eliminado',
+                text: 'El usuario ha sido eliminado correctamente.',
+                icon: 'warning',
+                confirmButtonColor: '#d33'
+            });
+        }
+
+        $('.form-eliminar-usuario').on('submit', function (e) {
+            e.preventDefault();
+            const form = this;
+
+            Swal.fire({
+                title: '¿Eliminar usuario?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
             });
         });
-    </script>
+    });
+</script>
 </html>

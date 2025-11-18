@@ -318,7 +318,6 @@ GO
 
 ALTER TABLE [dbo].[Usuario]
 ADD 
-    [salt] NVARCHAR(255) NULL,
     [estado] NVARCHAR(20) DEFAULT('Activo');
 GO
 

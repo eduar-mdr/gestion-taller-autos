@@ -14,15 +14,15 @@ import java.sql.SQLException;
 
 public class ConexionDB {
     //La url tiene IP en lugar de localhost porque tengo sql en otra maquina
-    private static  String url = "jdbc:sqlserver://localhost:1433;databaseName=Taller;encrypt=true;trustServerCertificate=true";
-    private static final String user = "admintaller"; 
-    private static final String pass = "Itca123*25";
+    private static  String URL = "jdbc:sqlserver://localhost:1433;databaseName=Taller;encrypt=true;trustServerCertificate=true";
+    private static final String USER = "admintaller"; 
+    private static final String PASS = "Itca123*25";
         
     public static Connection conectar(){
         Connection conn = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conn = DriverManager.getConnection(url, user, pass);
+            conn = DriverManager.getConnection(URL, USER, PASS);
             System.out.println("Conexión establecida correctamente.");
         } catch (SQLException e){
             System.out.println("Error de conexión: " + e.getMessage());
