@@ -180,9 +180,6 @@
                                 <td>${c.telefono}</td>
                                 <td>${c.email}</td>
                                 <td class="text-nowrap">
-                                    <td>
-</td>
-
                                     <!-- Botón Editar -->
                                     <form action="${pageContext.request.contextPath}/clientes" 
                                           method="post" 

@@ -32,9 +32,13 @@ public class EmpleadoDao {
                 m.setDireccion(rs.getString("direccion"));
                 m.setCargo(rs.getString("cargo"));
                 m.setIdUsuario(rs.getInt("id_usuario"));
-                m.setFechaContratacion(LocalDateTime.MIN);
                 m.setSalario(rs.getDouble("salario"));
                 m.setEstado(rs.getString("estado"));
+
+                Timestamp ts = rs.getTimestamp("fecha_contratacion");
+                if (ts != null) {
+                    m.setFechaContratacion(ts.toLocalDateTime());
+                }
                 lista.add(m);
             }
         } catch (SQLException e) {
@@ -46,8 +50,8 @@ public class EmpleadoDao {
     //Store
 
     public void insertar(Empleado m) throws SQLException {
-        String sql = "INSERT INTO Empleado(nombre, apellido, dui, telefono, direcccion, cargo, id_usuario, fecha_contratacion, salario, estado) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Empleado(nombre, apellido, dui, telefono, direccion, cargo, id_usuario, salario, estado) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, m.getNombre());
             ps.setString(2, m.getApellido());
@@ -56,9 +60,8 @@ public class EmpleadoDao {
             ps.setString(5, m.getDireccion());
             ps.setString(6, m.getCargo());
             ps.setInt(7, m.getIdUsuario());
-            ps.setObject(8, m.getFechaContratacion());
-            ps.setDouble(9, m.getSalario());
-            ps.setString(10, m.getEstado());
+            ps.setDouble(8, m.getSalario());
+            ps.setString(9, m.getEstado());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("No fue posble insertar registro");
@@ -71,12 +74,13 @@ public class EmpleadoDao {
     // Buscar por ID 
     public Empleado buscarPorId(int id) {
         Empleado empleado = null;
-        String sql = "SELECT * FROM Empleado WHERE id_cliente = ?";
+        String sql = "SELECT * FROM Empleado WHERE id_empleado = ?";
         try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
+
                     empleado = new Empleado();
                     empleado.setIdEmpleado(rs.getInt("id_empleado"));
                     empleado.setNombre(rs.getString("nombre"));
@@ -86,9 +90,13 @@ public class EmpleadoDao {
                     empleado.setDireccion(rs.getString("direccion"));
                     empleado.setCargo(rs.getString("cargo"));
                     empleado.setIdUsuario(rs.getInt("id_usuario"));
-                    empleado.setFechaContratacion(rs.getObject("fecha_contratacion", java.time.LocalDateTime.class));
                     empleado.setSalario(rs.getDouble("salario"));
                     empleado.setEstado(rs.getString("estado"));
+                    
+                    Timestamp ts = rs.getTimestamp("fecha_contratacion");
+                    if (ts != null) {
+                        empleado.setFechaContratacion(ts.toLocalDateTime());
+                    }
                 }
             }
         } catch (SQLException e) {

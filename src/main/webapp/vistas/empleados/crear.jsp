@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -142,7 +143,7 @@
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
                     <input type="text" class="form-control" placeholder="Apellido" required
-                           nombre="apellido"   style="color :black;">
+                           name="apellido"   style="color :black;">
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-card-text"></i></span>
@@ -161,18 +162,13 @@
                            name="direccion"   style="color :black;">
                 </div>
                 <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi-person-circle"></i></span>
-                    <select name="idUsuario" required class="form-select">
+                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                    <select name="idUsuario" class="form-select" required style="color: black;">
                         <option value="">Seleccione un usuario</option>
-                        <c:forEach var="p" items="${usuarios}">
-                            <option value="${p.idUsuario}">${p.nombreUsuario}</option>
+                        <c:forEach var="u" items="${usuarios}">
+                            <option value="${u.idUsuario}">${u.nombreUsuario}</option>
                         </c:forEach>
-                    </select><br>
-                </div>
-                <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-calendar-date-fill"></i></span>
-                    <input type="datetime-local" class="form-control" placeholder="Fecha de contratacion" required
-                           name="fechaContratacion" style="color :black;">
+                    </select>
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
@@ -186,9 +182,9 @@
                         <option value="Inactivo">Inactivo</option>
                     </select>
                 </div> 
-                        <div class="mb-3 input-group">
+                <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-card-text"></i></span>
-                    <select name="estado" class="form-select" required style="color: black;">
+                    <select name="cargo" class="form-select" required style="color: black;">
                         <option value="">Seleccione un cargo</option>
                         <option value="Gerente">Gerente</option>
                         <option value="Recepcionista">Recepcionista</option>

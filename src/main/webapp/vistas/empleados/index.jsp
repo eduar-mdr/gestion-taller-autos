@@ -176,12 +176,12 @@
                                 <td>${m.telefono}</td>
                                 <td>${m.direccion}</td> 
                                 <td>${m.cargo}</td>
-                                <td>${m.direccion}</td> 
-                                <td>${m.fechaContratacion}</td>
+                                <td>${m.fechaContratacion}</td> 
                                 <td>${m.salario}</td> 
                                 <td>${m.estado}</td> 
                                 <td>${m.idUsuario}</td> 
-                                <td>${m.nombreUsuario}</td> 
+                                <td>${m.nombreUsuario}</td>
+
                                 <td class="text-nowrap">
 
                                     <!-- Botón Editar -->
@@ -198,7 +198,7 @@
                                     </form>
 
                                     <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/empleado" 
+                                    <form action="${pageContext.request.contextPath}/empleados" 
                                           method="post" 
                                           class="d-inline"
                                           onsubmit="return confirm('¿Estás seguro de eliminar este empleado?');">
@@ -213,6 +213,7 @@
 
                                 </td>
                             </tr>
+
                         </c:forEach>
                     </tbody>
 

@@ -11,6 +11,7 @@ package servicio;
 import seguridad.Hash;
 import dao.UsuarioDao;
 import modelo.Usuario;
+import java.util.List;
 
 import java.sql.SQLException;
 
@@ -36,4 +37,8 @@ public class UsuarioServicio {
 
         usuarioDao.insertar(u);
     }
+    public List<Usuario> obtenerUsuarios() throws SQLException {
+    return usuarioDao.obtenerUsuarios();
+}
+
 }

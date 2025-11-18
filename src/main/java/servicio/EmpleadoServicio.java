@@ -52,9 +52,6 @@ public class EmpleadoServicio {
         if (m.getIdUsuario() <= 0) {
             throw new IllegalArgumentException("El usuario asociado es obligatorio");
         }
-        if (m.getFechaContratacion() == null) {
-            throw new IllegalArgumentException("La fecha de contratación es obligatoria");
-        }
         if (m.getSalario() == null || m.getSalario().doubleValue() <= 0) {
             throw new IllegalArgumentException("El salario es obligatorio y debe ser mayor que cero");
         }
@@ -95,9 +92,6 @@ public class EmpleadoServicio {
         }
         if (m.getCargo() == null || m.getCargo().isEmpty()) {
             throw new IllegalArgumentException("El cargo es obligatorio");
-        }
-        if (m.getFechaContratacion() == null) {
-            throw new IllegalArgumentException("La fecha de contratación es obligatoria");
         }
         if (m.getSalario() == null || m.getSalario().doubleValue() <= 0) {
             throw new IllegalArgumentException("El salario es obligatorio y debe ser mayor que cero");

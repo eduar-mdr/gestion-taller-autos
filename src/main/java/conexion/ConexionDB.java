@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public class ConexionDB {
     //La url tiene IP en lugar de localhost porque tengo sql en otra maquina
     private static  String URL = "jdbc:sqlserver://localhost:1433;databaseName=Taller;encrypt=true;trustServerCertificate=true";
-    private static final String USER = "admintaller"; 
-    private static final String PASS = "Itca123*25";
+    private static final String USER = "taller"; 
+    private static final String PASS = "itca123";
         
     public static Connection conectar(){
         Connection conn = null;

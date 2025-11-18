@@ -9,8 +9,9 @@ package controlador;
  * @author MINEDUCYT
  */
 import servicio.EmpleadoServicio;
-//import servicio.UsuarioServicio;
+import servicio.UsuarioServicio;
 import modelo.Empleado;
+import modelo.Usuario;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
@@ -22,65 +23,76 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.math.BigDecimal;
-
 @WebServlet("/empleados")
 public class EmpleadoControlador extends HttpServlet {
 
     private EmpleadoServicio empleadoServicio = new EmpleadoServicio();
-    //private UsuarioServicio usuarioServicio = new UsuarioServicio();
+    private UsuarioServicio usuarioServicio = new UsuarioServicio();
 
-    //Index
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String action = request.getParameter("action");
         if (action == null) {
             action = "index";
         }
 
         switch (action) {
+
             case "crear":
-                RequestDispatcher formCrear = request.getRequestDispatcher("/vistas/empleados/crear.jsp");
-                formCrear.forward(request, response);
+                try {
+                    request.setAttribute("usuarios", usuarioServicio.obtenerUsuarios());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                request.getRequestDispatcher("/vistas/empleados/crear.jsp")
+                        .forward(request, response);
                 break;
 
+            case "listar":
             default:
                 try {
                     List<Empleado> lista = empleadoServicio.obtenerEmpleados();
                     request.setAttribute("empleados", lista);
-                    RequestDispatcher index = request.getRequestDispatcher("/vistas/empleados/index.jsp");
-                    index.forward(request, response);
                 } catch (SQLException e) {
                     throw new ServletException("Error al listar empleados", e);
                 }
+                request.getRequestDispatcher("/vistas/empleados/index.jsp")
+                        .forward(request, response);
                 break;
         }
     }
 
-    //Store / Update / Delete
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String action = request.getParameter("action");
         Empleado m = new Empleado();
 
-        String fechaStr = request.getParameter("fechaContratacion");
-        if (fechaStr != null && !fechaStr.isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            LocalDateTime fecha = LocalDateTime.parse(fechaStr, formatter);
-            m.setFechaContratacion(fecha);
-        }
-
         switch (action) {
-            case "editar":
 
-                int id = Integer.parseInt(request.getParameter("idCliente"));
-                Empleado empleado = empleadoServicio.obtenerPorId(id);
-                request.setAttribute("empleado", empleado);
-                RequestDispatcher formEditar = request.getRequestDispatcher("/vistas/empleados/actualizar.jsp");
-                formEditar.forward(request, response);
+            case "editar":
+                try {
+                    int idEditar = Integer.parseInt(request.getParameter("idEmpleado"));
+
+                    Empleado empleado = empleadoServicio.obtenerPorId(idEditar);
+                    List<Usuario> usuarios = usuarioServicio.obtenerUsuarios();
+
+                    request.setAttribute("empleado", empleado);
+                    request.setAttribute("usuarios", usuarios);
+
+                    request.getRequestDispatcher("/vistas/empleados/actualizar.jsp")
+                            .forward(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    // Redirigir a una página de error o mostrar mensaje
+                    request.setAttribute("error", "Error al obtener los datos del empleado.");
+                    request.getRequestDispatcher("/vistas/error.jsp").forward(request, response);
+                }
                 break;
+
             case "guardar":
                 m.setNombre(request.getParameter("nombre"));
                 m.setApellido(request.getParameter("apellido"));
@@ -90,11 +102,12 @@ public class EmpleadoControlador extends HttpServlet {
                 m.setCargo(request.getParameter("cargo"));
                 m.setSalario(Double.parseDouble(request.getParameter("salario")));
                 m.setEstado(request.getParameter("estado"));
-                
+
                 String idUsuarioStr = request.getParameter("idUsuario");
                 if (idUsuarioStr != null && !idUsuarioStr.isEmpty()) {
                     m.setIdUsuario(Integer.parseInt(idUsuarioStr));
                 }
+
                 try {
                     empleadoServicio.registrarEmpleado(m);
                     response.sendRedirect(request.getContextPath() + "/empleados");
@@ -118,15 +131,10 @@ public class EmpleadoControlador extends HttpServlet {
                 if (idUsuarioStrUpd != null && !idUsuarioStrUpd.isEmpty()) {
                     m.setIdUsuario(Integer.parseInt(idUsuarioStrUpd));
                 }
-                
-                //try {
-                    //empleadoServicio.actualizarEmpleado(m);
-                    //response.sendRedirect(request.getContextPath() + "/empleados");
-                //} catch (SQLException e) {
-                    //throw new ServletException("Error al actualizar empleado", e);
-                //}
-                break;
 
+                empleadoServicio.actualizarEmpleado(m);
+                response.sendRedirect(request.getContextPath() + "/empleados");
+                break;
 
             case "eliminar":
                 int idEliminar = Integer.parseInt(request.getParameter("idEmpleado"));
