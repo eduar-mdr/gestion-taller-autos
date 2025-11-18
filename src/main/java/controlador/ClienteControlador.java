@@ -21,39 +21,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
+ 
 @WebServlet("/clientes")
-public class ClienteControlador extends HttpServlet {
-
+public class ClienteControlador extends HttpServlet{
+    
     private ClienteServicio clienteServicio = new ClienteServicio();
 
     //Index
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        // Tomamos el parámetro "action" de la URL
+        
+         // Tomamos el parámetro "action" de la URL
         String action = request.getParameter("action");
-        System.out.println("action:" + action);
+        System.out.println("action:"+action);
         if (action == null) {
             action = "index"; // Acción por defecto
         }
-
+        
         switch (action) {
-
+            
             case "crear":
                 // Redirige al JSP de creación
                 RequestDispatcher form_crear = request.getRequestDispatcher("/vistas/clientes/crear.jsp");
                 form_crear.forward(request, response);
-                break;
-            case "frecuentes":
-                try {
-                    List<Cliente> frecuentes = clienteServicio.obtenerClientesFrecuentes();
-                    request.setAttribute("clientesFrecuentes", frecuentes);
-                    RequestDispatcher rd = request.getRequestDispatcher("/vistas/clientes/reporte.jsp");
-                    rd.forward(request, response);
-                } catch (SQLException e) {
-                    throw new ServletException("Error al obtener clientes frecuentes", e);
-                }
                 break;
 
             //Por defecto redirije al index
@@ -67,35 +57,36 @@ public class ClienteControlador extends HttpServlet {
                 } catch (SQLException e) {
                     throw new ServletException("Error al listar clientes", e);
                 }
-                break;
-        }
-
+                break;     
+        }       
+        
     }
-
+    
     //Store
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        
         String action = request.getParameter("action");
-        System.out.println("DoPost requested: " + action);
+        System.out.println("DoPost requested: "+action);
 
         Cliente c = new Cliente(); //Instancia del modelo
         switch (action) {
-
+            
             //Acciones en post para ocultar los datos
+            
             //Show
             case "editar":
-
+                
                 int id = Integer.parseInt(request.getParameter("idCliente"));
                 Cliente cliente = clienteServicio.obtenerPorId(id);
                 request.setAttribute("cliente", cliente);
                 RequestDispatcher formEditar = request.getRequestDispatcher("/vistas/clientes/actualizar.jsp");
                 formEditar.forward(request, response);
                 break;
-
+            
             //Store
             case "guardar":
-
+                
                 c.setNombre(request.getParameter("nombre"));
                 c.setApellido(request.getParameter("apellido"));
                 c.setDocumento(request.getParameter("documento"));
@@ -107,15 +98,15 @@ public class ClienteControlador extends HttpServlet {
                 try {
                     clienteServicio.registrarCliente(c);
                     //Redirijo a la url principal
-                    response.sendRedirect(request.getContextPath() + "/clientes");
+                    response.sendRedirect(request.getContextPath()+"/clientes");
                 } catch (SQLException e) {
                     throw new ServletException("Error al registrar cliente", e);
                 }
                 break;
-
+            
             //Update
             case "actualizar":
-
+                 
                 c.setIdCliente(Integer.parseInt(request.getParameter("idCliente")));
                 c.setNombre(request.getParameter("nombre"));
                 c.setApellido(request.getParameter("apellido"));
@@ -126,17 +117,17 @@ public class ClienteControlador extends HttpServlet {
                 c.setEmail(request.getParameter("email"));
 
                 clienteServicio.actualizar(c);
-                response.sendRedirect(request.getContextPath() + "/clientes");
+                response.sendRedirect(request.getContextPath()+"/clientes");
 
-                break;
-
+                break;  
+                
             //Delete   
             case "eliminar":
                 int idEliminar = Integer.parseInt(request.getParameter("idCliente"));
                 clienteServicio.eliminar(idEliminar);
-                response.sendRedirect(request.getContextPath() + "/clientes");
-                break;
+                response.sendRedirect(request.getContextPath()+"/clientes");
+                break; 
         }
     }
-
+   
 }

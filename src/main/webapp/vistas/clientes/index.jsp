@@ -180,6 +180,8 @@
                                 <td>${c.telefono}</td>
                                 <td>${c.email}</td>
                                 <td class="text-nowrap">
+                                    <td>
+</td>
 
                                     <!-- Botón Editar -->
                                     <form action="${pageContext.request.contextPath}/clientes" 
@@ -193,19 +195,15 @@
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </form>
-
+                                        
                                     <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/clientes" 
-                                          method="post" 
-                                          class="d-inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este cliente?');">
-
-                                        <input type="hidden" name="action" value="eliminar">
-                                        <input type="hidden" name="idCliente" value="${c.idCliente}">
-
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
+                                    <form action="${pageContext.request.contextPath}/clientes" method="post" class="d-inline" 
+                                          onsubmit="return confirm('¿Estás seguro de eliminar este cliente?');"> 
+                                        <input type="hidden" name="action" value="eliminar"> 
+                                        <input type="hidden" name="idCliente" value="${c.idCliente}"> 
+                                        <button type="submit" class="btn btn-sm btn-danger"> 
+                                            <i class="bi bi-trash"></i> 
+                                        </button> 
                                     </form>
 
                                 </td>

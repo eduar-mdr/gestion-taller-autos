@@ -1,13 +1,22 @@
+<%-- 
+    Document   : crear
+    Created on : 17 nov 2025, 10:13:38 p. m.
+    Author     : fuent
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../../bs/css/estilo.css">
-        <!-- <link rel="stylesheet" href="../../bs/fonts/iconos.css"> -->
-        <script src="../../bs/js/accion.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        
+        <link rel="stylesheet" href="bs/css/estilo.css">
+        <link rel="stylesheet" href="bs/fonts/iconos.css">
+        <script src="bs/js/accion.js"></script>
+
+        <!-- Datatables and Jquery -->
+        <link  rel="stylesheet" href="datatables/datatables.css"/>
+        <script src="datatables/jquery.js"></script>
+        <script src="datatables/datatables.js"></script>
         <title>Registro de usuarios</title>
     </head>
     <body>
@@ -121,47 +130,85 @@
 
 
         <br>
-    <div class="border border-primary p-4 w-50 mx-auto">
-        <form action="" method="post">
-            <div class="mb-3">
-                <h2 style="color: #234C6A;" class="text-center">
-                    <i class="bi bi-person-circle"></i> REGISTRO DE USUARIO</h2>
-            </div>
-            <!-- usuario -->
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Nombre de usuario" required style="color: black;">
-            </div>
-            <!-- correo -->
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                <input type="text" class="form-control" placeholder="Correo electrónico" required>
-            </div>
-            <!-- contra -->
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                <input type="password" class="form-control" placeholder="Introduza una contraseña" required> 
-            </div>
-            <!-- rol -->
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-person-badge-fill"></i></span>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Selecciona un rol</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-save"></i> Guardar
-                </button>
-                <a href="${pageContext.request.contextPath}/usuarios" class="btn btn-danger ms-2">
-                    <i class="bi bi-x-circle"></i> Cancelar
-                </a>
-            </div>
-        </form>
-    </div>
-</body>
+        <div class="border border-primary p-4 w-50 mx-auto mt-4 rounded-3 shadow-sm">
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger text-center">
+                    ${error}
+                </div>
+            </c:if>
 
+            <form action="${pageContext.request.contextPath}/usuarios?action=guardar" method="post">
+                <!-- acción que usará el controlador -->
+                <input type="hidden" name="action" value="guardar">
+
+                <div class="mb-3">
+                    <h2 style="color: #234C6A;" class="text-center">
+                        <i class="bi bi-person-circle"></i> REGISTRO DE USUARIO
+                    </h2>
+                </div>
+
+                <!-- usuario -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input type="text"
+                           class="form-control"
+                           name="nombreUsuario"
+                           placeholder="Nombre de usuario"
+                           required
+                           style="color: black;">
+                </div>
+
+                <!-- correo -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                    <input type="email"
+                           class="form-control"
+                           name="email"
+                           placeholder="Correo electrónico"
+                           required>
+                </div>
+
+                <!-- contraseña -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password"
+                           class="form-control"
+                           name="contrasena"
+                           placeholder="Introduzca una contraseña"
+                           required>
+                </div>
+
+                <!-- confirmar contraseña -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password"
+                           class="form-control"
+                           name="confirmarContrasena"
+                           placeholder="Confirme la contraseña"
+                           required>
+                </div>
+
+                <!-- rol -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-person-badge-fill"></i></span>
+                    <select class="form-select" name="idRol" required>
+                        <option value="">Selecciona un rol</option>
+                        <option value="1">ADMIN</option>
+                        <option value="2">RECEPCIÓN</option>
+                        <option value="3">MECÁNICO</option>
+                        
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <input type="hidden" name="action" value="guardar">
+    <button type="submit" class="btn btn-success">Guardar</button>
+
+                    <a href="${pageContext.request.contextPath}/usuarios" class="btn btn-danger ms-2">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </body>
 </html>

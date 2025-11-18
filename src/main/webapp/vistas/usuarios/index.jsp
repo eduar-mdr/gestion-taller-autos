@@ -1,11 +1,15 @@
-
+<%-- 
+    Document   : index
+    Created on : 17 nov 2025, 10:13:18 p. m.
+    Author     : fuent
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión de empleados</title>
+        <title>Gestión de Usuarios</title>
 
         <link rel="stylesheet" href="bs/css/estilo.css">
         <link rel="stylesheet" href="bs/fonts/iconos.css">
@@ -19,7 +23,7 @@
     </head>
     <body>
 
-        <!-- Menú principal -->
+       <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
@@ -126,111 +130,124 @@
                 overflow-x: hidden;
             }
         </style>
-
+        
         <br>
+
         <div class="container mt-5">
 
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Empleados</li>
-                </ol>
-            </nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+        </ol>
+    </nav>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0">Catálogo de empleados</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Catálogo de Usuarios</h2>
 
-                <a href="${pageContext.request.contextPath}/empleados?action=crear" 
-                   class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> Crear
-                </a>
-            </div>       
+        <a href="${pageContext.request.contextPath}/usuarios?action=crear" 
+           class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i> Crear
+        </a>
+    </div>
             <br>
+<div class="table-responsive">
+        <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaUsuarios">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
 
-            <div class="table-responsive">
-                <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaEmpleados">
-                    <thead class="" >
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>DUI</th>
-                            <th>Telefono</th>
-                            <th>Direccion</th>
-                            <th>Cargo</th>
-                            <th>Fecha de contratacion</th>
-                            <th>Salario $</th>
-                            <th>Estado</th>
-                            <th>ID usuario</th>
-                            <th>Nombre Usuario</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <c:forEach var="m" items="${empleados}">
-                            <tr>
-                                <td>${m.idEmpleado}</td>
-                                <td>${m.nombre}</td>
-                                <td>${m.apellido}</td>
-                                <td>${m.dui}</td>
-                                <td>${m.telefono}</td>
-                                <td>${m.direccion}</td> 
-                                <td>${m.cargo}</td>
-                                <td>${m.direccion}</td> 
-                                <td>${m.fechaContratacion}</td>
-                                <td>${m.salario}</td> 
-                                <td>${m.estado}</td> 
-                                <td>${m.idUsuario}</td> 
-                                <td>${m.nombreUsuario}</td> 
-                                <td class="text-nowrap">
+            <tbody class="table-group-divider">
+                <c:forEach var="u" items="${usuarios}">
+                    <tr>
+                        <td>${u.idUsuario}</td>
+                        <td>${u.nombreUsuario}</td>
+                        <td>${u.email}</td>
+                        <td>${u.rolNombre}</td>
+                        <td>
+                            <span class="badge 
+                                ${u.estado eq 'Activo' ? 'bg-success' : 'bg-secondary'}">
+                                ${u.estado}
+                            </span>
+                        </td>
 
-                                    <!-- Botón Editar -->
-                                    <form action="${pageContext.request.contextPath}/empleados" 
-                                          method="post" 
-                                          class="d-inline">
+                        <td class="text-nowrap">
 
-                                        <input type="hidden" name="action" value="editar">
-                                        <input type="hidden" name="idEmpleado" value="${m.idEmpleado}">
+                            <!-- Botón Eliminar -->
+                            <form action="${pageContext.request.contextPath}/usuarios" 
+                                  method="post" 
+                                  class="d-inline form-eliminar-usuario">
+                                <input type="hidden" name="action" value="eliminar">
+                                <input type="hidden" name="idUsuario" value="${u.idUsuario}">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
 
-                                        <button type="submit" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                                    <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/empleado" 
-                                          method="post" 
-                                          class="d-inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este empleado?');">
+<script>
+    $(document).ready(function () {
+        $('#tablaUsuarios').DataTable({
+            responsive: true,
+            autoWidth: false,
+            pageLength: 10,
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            }
+        });
 
-                                        <input type="hidden" name="action" value="eliminar">
-                                        <input type="hidden" name="idEmpleado" value="${m.idEmpleado}">
+        const msg = '<c:out value="${param.msg}" />';
 
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+        if (msg === 'creado') {
+            Swal.fire({
+                title: 'Usuario creado',
+                text: 'El usuario ha sido registrado correctamente.',
+                icon: 'success',
+                confirmButtonColor: '#0d6efd'
+            });
+        } else if (msg === 'eliminado') {
+            Swal.fire({
+                title: 'Usuario eliminado',
+                text: 'El usuario ha sido eliminado correctamente.',
+                icon: 'warning',
+                confirmButtonColor: '#d33'
+            });
+        }
 
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
+        $('.form-eliminar-usuario').on('submit', function (e) {
+            e.preventDefault();
+            const form = this;
 
-                </table>
-            </div>
-        </div>
-
-    </body>
-    <script>
-        $(document).ready(function () {
-            $('#tablaEmpleados').DataTable({
-                responsive: true,
-                autoWidth: false
+            Swal.fire({
+                title: '¿Eliminar usuario?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
             });
         });
-    </script>
+    });
+</script>
 </html>
-
-
-
-
