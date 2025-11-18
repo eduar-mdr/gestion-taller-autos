@@ -1,6 +1,6 @@
 <%-- 
     Document   : index
-    Created on : Oct 19, 2025, 7:46:54 PM
+    Created on : Oct 19, 2025, 7:46:54 PM
     Author     : Eduar Medrano
 --%>
 
@@ -13,135 +13,135 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sistema de Gestión de taller de autos y motos</title>
         <link rel="stylesheet" href="bs/css/estilo.css">
-        <!-- <link rel="stylesheet" href="../../bs/fonts/iconos.css"> -->
         <script src="bs/js/accion.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
-        <!-- Menú principal -->
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
-                    <i class="bi bi-house-door-fill"></i> Taller Mecánico
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="menuNav">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                        <!-- Personas -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-people-fill"></i> Personas
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/clientes?action=listar"><i class="bi bi-person-check-fill"></i> Clientes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/empleados?action=listar"><i class="bi bi-person-badge"></i> Empleados</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/usuarios?action=listar"><i class="bi bi-person-circle"></i> Usuarios</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Gestiones -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-gear-fill"></i> Gestiones
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vehiculos?action=listar"><i class="bi bi-car-front-fill"></i> Vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ordenes?action=listar"><i class="bi bi-receipt-cutoff"></i> Órdenes de trabajo</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pagos?action=listar"><i class="bi bi-cash-stack"></i> Pagos y facturación</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Reportes -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-clipboard-data-fill"></i> Reportes
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/servicios.jsp"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ingresos.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/clientesFrecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Catálogos -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-collection-fill"></i> Catálogos
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/proveedores?action=listar"><i class="bi bi-building"></i> Proveedores</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/repuestos?action=listar"><i class="bi bi-tools"></i> Repuestos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/marcas?action=listar"><i class="bi bi-tags-fill"></i> Marcas de vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/tipos?action=listar"><i class="bi bi-car-front"></i>  Tipos de vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/servicios?action=listar"><i class="bi bi-wrench"></i> Servicios</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Estilos internos -->
         <style>
-            .navbar {
-                font-size: 16px;
-                font-weight: 500;
-            }
-            .nav-link {
-                color: #fff !important;
-                padding: 8px 15px;
-                transition: 0.3s;
-            }
-            .nav-link:hover {
-                background-color: #456882;
-                border-radius: 5px;
-            }
-            .dropdown-menu {
-                background-color: #456882;
-                border-radius: 8px;
-                margin-top: 5px;
-                max-height: 300px;
-                overflow-y: auto;
-            }
-            .dropdown-item {
-                color: #fff !important;
-                transition: 0.3s;
-            }
-            .dropdown-item i {
-                margin-right: 8px;
-            }
-            .dropdown-item:hover {
-                background-color: #2f5473 !important;
-            }
             body {
-                overflow-x: hidden;
+                min-height: 100vh;
+                background: linear-gradient(135deg, #0f172a, #1e3a8a, #0ea5e9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            }
+            .login-card {
+                max-width: 420px;
+                width: 100%;
+                border-radius: 1.25rem;
+                box-shadow: 0 20px 45px rgba(15, 23, 42, .5);
+                overflow: hidden;
+            }
+
+            .login-header {
+                background: radial-gradient(circle at top left, #38bdf8, #1d4ed8);
+                color: #fff;
+            }
+
+            .login-header i {
+                font-size: 2.5rem;
+            }
+
+            .form-control:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 .2rem rgba(37, 99, 235, .25);
+            }
+
+            .btn-primary {
+                background: linear-gradient(135deg, #2563eb, #1d4ed8);
+                border: none;
+            }
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            }
+
+            .toggle-password {
+                cursor: pointer;
             }
         </style>
 
+        <div class="card login-card bg-light">
+            <!-- Encabezado -->
+            <div class="login-header p-4 text-center">
+                <div class="mb-2">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <h4 class="mb-0 fw-semibold">Bienvenido</h4>
+                <small class="opacity-75">Ingresa tus credenciales para continuar</small>
+            </div>
 
+            <!-- Formulario -->
+            <div class="card-body p-4">
+                <form action="${pageContext.request.contextPath}/login" method="post" autocomplete="off">
 
-        <br>
-        <h1>Comprobando la conexión</h1>
-        <%
-            Connection conn = ConexionDB.conectar();
-            if (conn != null) {
-        %>
-        <h2>Conexión exitosa</h2>
-        <%
-            conn.close();
-        } else {
-        %>
-        <h2>Error en la conexión</h2>
-        <%
-            }
-        %>
+                    <!-- Usuario -->
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input type="text" class="form-control" id="usuario" name="usuario"
+                                   placeholder="Ingresa tu usuario" required>
+                        </div>
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <input type="password" class="form-control" id="contrasena" name="contrasena"
+                                   placeholder="Ingresa tu contraseña" required>
+                            <span class="input-group-text toggle-password" id="btnVerClave">
+                                <i class="bi bi-eye-fill" id="iconoOjo"></i>
+                            </span>
+                        </div>
+                        <div class="form-text">Puedes mostrar/ocultar la contraseña con el icono️</div>
+                    </div>
+
+                    <!-- Recordarme -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="recordarme">
+                            <label class="form-check-label" for="recordarme">Recordarme</label>
+                        </div>
+                    </div>
+
+                    <!-- Error -->
+                    <% String error = (String) request.getAttribute("error"); %>
+                    <% if (error != null) { %>
+                    <div class="alert alert-danger py-2" role="alert">
+                        <%= error %>
+                    </div>
+                    <% } %>
+
+                    <!-- Botón -->
+                    <div class="d-grid mt-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            const inputPass = document.getElementById('contrasena');
+            const btnVerClave = document.getElementById('btnVerClave');
+            const iconoOjo = document.getElementById('iconoOjo');
+
+            btnVerClave.addEventListener('click', () => {
+                const esPassword = inputPass.type === 'password';
+                inputPass.type = esPassword ? 'text' : 'password';
+                iconoOjo.classList.toggle('bi-eye-fill', !esPassword);
+                iconoOjo.classList.toggle('bi-eye-slash-fill', esPassword);
+            });
+        </script>
     </body>
 </html>
