@@ -6,12 +6,16 @@ package dao;
 
 import conexion.ConexionDB;
 import modelo.Repuesto;
+import servicio.ProveedorServicio;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepuestoDao {
+
+    //Instancia del sercicio del catalogo Proveedor
+    private ProveedorServicio proveedorServicio = new ProveedorServicio();
 
     public List<Repuesto> listar() {
         List<Repuesto> lista = new ArrayList<>();
@@ -28,7 +32,8 @@ public class RepuestoDao {
                 r.setDescripcion(rs.getString("descripcion"));
                 r.setPrecio(rs.getDouble("precio"));
                 r.setIdProveedor(rs.getInt("id_proveedor"));
-
+                r.setNombreProveedor(proveedorServicio.obtenerPorId(rs.getInt("id_proveedor")).getNombre());
+                //En la linea anterior solo utilozo el metodo de buscar por ID, que reutiliza toda la logica del modelo proveedor
                 lista.add(r);
             }
 
