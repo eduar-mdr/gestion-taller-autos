@@ -17,5 +17,4 @@
         <filter-name>RBACFilter</filter-name>
         <url-pattern>/app/*</url-pattern>
     </filter-mapping>
-
 </web-app>
