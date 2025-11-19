@@ -199,10 +199,6 @@
                     </select>
                 </div>
 
-                <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-journal-text"></i></span>
-                    <textarea name="historialServicio" class="form-control" placeholder="Historial de servicio" rows="3" style="color:black;"></textarea>
-                </div>
 
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-gear-fill"></i></span>
@@ -210,7 +206,7 @@
                         <option value="">Seleccione un estado</option>
                         <option value="Activo">Activo</option>
                         <option value="Inactivo">Inactivo</option>
-                        <option value="En reparación">En reparación</option>
+                        <option value="Reparacion">En reparación</option>
                         <option value="Vendido">Vendido</option>
                     </select>
                 </div>

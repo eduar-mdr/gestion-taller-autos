@@ -19,7 +19,6 @@ public class Vehiculo {
     private String fechaIngreso;
     
     private String numChasis;
-    private String historialServicioUrl;
     private String estadoVehiculo;
     
     private int idCliente;
@@ -30,12 +29,11 @@ public class Vehiculo {
     private String nombreCliente;
     private String nombreTipo;
     private String nombreMarca;
-    //Para index, no llenar
     
     public Vehiculo() {
     }
 
-    public Vehiculo(int idVehiculo, String modelo, int anio, String placa, String numMotor, String color, int kilometraje, String fechaIngreso, String numChasis, String historialServicioUrl, String estadoVehiculo, int idCliente, int idTipo, int idMarca, String nombreCliente, String nombreTipo, String nombreMarca) {
+    public Vehiculo(int idVehiculo, String modelo, int anio, String placa, String numMotor, String color, int kilometraje, String fechaIngreso, String numChasis, String estadoVehiculo, int idCliente, int idTipo, int idMarca, String nombreCliente, String nombreTipo, String nombreMarca) {
         this.idVehiculo = idVehiculo;
         this.modelo = modelo;
         this.anio = anio;
@@ -45,7 +43,6 @@ public class Vehiculo {
         this.kilometraje = kilometraje;
         this.fechaIngreso = fechaIngreso;
         this.numChasis = numChasis;
-        this.historialServicioUrl = historialServicioUrl;
         this.estadoVehiculo = estadoVehiculo;
         this.idCliente = idCliente;
         this.idTipo = idTipo;
@@ -125,14 +122,6 @@ public class Vehiculo {
 
     public void setNumChasis(String numChasis) {
         this.numChasis = numChasis;
-    }
-
-    public String getHistorialServicioUrl() {
-        return historialServicioUrl;
-    }
-
-    public void setHistorialServicioUrl(String historialServicioUrl) {
-        this.historialServicioUrl = historialServicioUrl;
     }
 
     public String getEstadoVehiculo() {

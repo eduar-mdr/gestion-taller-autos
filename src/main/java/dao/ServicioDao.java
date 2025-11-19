@@ -130,7 +130,6 @@ public class ServicioDao {
     String sql = "SELECT s.* FROM Servicio s "
                + "INNER JOIN Vehiculo v ON s.id_vehiculo = v.id_vehiculo "
                + "WHERE v.id_cliente = ?";
-
     try (Connection conn = ConexionDB.conectar();
          PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -151,8 +150,30 @@ public class ServicioDao {
 
     return lista;
 }
+    
+    public List<Servicio> listarPorVehiculo(int idVehiculo) {
+    List<Servicio> lista = new ArrayList<>();
+    String sql = "SELECT * FROM Servicio WHERE id_vehiculo = ?";
 
+    try (Connection conn = ConexionDB.conectar();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
 
+        ps.setInt(1, idVehiculo);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Servicio s = new Servicio();
+                s.setIdServicio(rs.getInt("id_servicio"));
+                s.setNombre(rs.getString("nombre"));
+                s.setDescripcion(rs.getString("descripcion"));
+                s.setIdVehiculo(rs.getInt("id_vehiculo"));
+                lista.add(s);
+            }
+        }
 
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 
+    return lista;
+}
 }

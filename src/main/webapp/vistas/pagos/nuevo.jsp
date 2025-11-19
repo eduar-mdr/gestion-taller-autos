@@ -39,7 +39,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp" style="color:#fff; font-weight:bold;">
                     <i class="bi bi-house-door-fill"></i> Taller Mecánico
                 </a>
 
@@ -81,7 +81,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/servicios.jsp"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ingresos.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/servicios/reporte.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
@@ -155,9 +155,8 @@
                 </div>
             </c:if>
 
-            <form "action="${pageContext.request.contextPath}/clientes?action=registrar"" method="post" id="formPago">
-                <!--input type="hidden" name="action" value="registrar"-->
-
+            <form action="${pageContext.request.contextPath}/pagos?action=registrar" 
+                  method="post" id="formPago">
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Número de Orden *</label>
@@ -243,79 +242,77 @@
                 </div>
 
                 <div class="text-end">
-                    <a href="pagos?action=listar" class="btn btn-secondary">Cancelar</a>
+                    <a href="${pageContext.request.contextPath}/pagos?action=factura" class="btn btn-secondary">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Registrar Pago</button>
                 </div>
             </form>
         </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-                                       function cargarInfoOrden() {
-                                           const idOrden = document.getElementById('idOrden').value;
+            function cargarInfoOrden() {
+                const idOrden = document.getElementById('idOrden').value;
 
-                                           if (!idOrden) {
-                                               document.getElementById('infoOrdenContainer').style.display = 'none';
-                                               return;
-                                           }
+                if (!idOrden) {
+                    document.getElementById('infoOrdenContainer').style.display = 'none';
+                    return;
+                }
 
-                                           fetch('pagos?action=calcularTotales&idOrden=' + idOrden)
-                                                   .then(response => response.json())
-                                                   .then(data => {
-                                                       if (data.success) {
-                                                           document.getElementById('nombreCliente').textContent = data.nombreCliente;
-                                                           document.getElementById('placaVehiculo').textContent = data.placaVehiculo;
-                                                           document.getElementById('totalManoObra').textContent = '$' + parseFloat(data.totalManoObra).toFixed(2);
-                                                           document.getElementById('totalRepuestos').textContent = '$' + parseFloat(data.totalRepuestos).toFixed(2);
-                                                           document.getElementById('totalGeneral').textContent = '$' + parseFloat(data.totalGeneral).toFixed(2);
-                                                           document.getElementById('montoPendiente').textContent = '$' + parseFloat(data.montoPendiente).toFixed(2);
+                fetch('${pageContext.request.contextPath}/pagos?action=calcularTotales&idOrden=' + idOrden)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('nombreCliente').textContent = data.nombreCliente;
+                                document.getElementById('placaVehiculo').textContent = data.placaVehiculo;
+                                document.getElementById('totalManoObra').textContent = '$' + parseFloat(data.totalManoObra).toFixed(2);
+                                document.getElementById('totalRepuestos').textContent = '$' + parseFloat(data.totalRepuestos).toFixed(2);
+                                document.getElementById('totalGeneral').textContent = '$' + parseFloat(data.totalGeneral).toFixed(2);
+                                document.getElementById('montoPendiente').textContent = '$' + parseFloat(data.montoPendiente).toFixed(2);
 
-                                                           document.getElementById('monto').value = data.montoPendiente;
-                                                           document.getElementById('monto').max = data.montoPendiente;
-                                                           calcularTotal();
+                                document.getElementById('monto').value = data.montoPendiente;
+                                document.getElementById('monto').max = data.montoPendiente;
+                                calcularTotal();
 
-                                                           document.getElementById('infoOrdenContainer').style.display = 'block';
-                                                       } else {
-                                                           alert(data.message || 'No se pudo cargar la información');
-                                                           document.getElementById('infoOrdenContainer').style.display = 'none';
-                                                       }
-                                                   })
-                                                   .catch(error => {
-                                                       console.error('Error:', error);
-                                                       alert('Error al cargar la información');
-                                                   });
-                                       }
+                                document.getElementById('infoOrdenContainer').style.display = 'block';
+                            } else {
+                                alert(data.message || 'No se pudo cargar la información');
+                                document.getElementById('infoOrdenContainer').style.display = 'none';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error al cargar la información');
+                        });
+            }
 
-                                       function calcularTotal() {
-                                           const monto = parseFloat(document.getElementById('monto').value) || 0;
-                                           const descuento = parseFloat(document.getElementById('descuento').value) || 0;
-                                           const total = monto - descuento;
-                                           document.getElementById('totalPagar').value = total.toFixed(2);
-                                       }
+            function calcularTotal() {
+                const monto = parseFloat(document.getElementById('monto').value) || 0;
+                const descuento = parseFloat(document.getElementById('descuento').value) || 0;
+                const total = monto - descuento;
+                document.getElementById('totalPagar').value = total.toFixed(2);
+            }
 
-                                       window.onload = function () {
-                                           const idOrden = document.getElementById('idOrden').value;
-                                           if (idOrden) {
-                                               cargarInfoOrden();
-                                           }
-                                       };
+            window.onload = function () {
+                const idOrden = document.getElementById('idOrden').value;
+                if (idOrden) {
+                    cargarInfoOrden();
+                }
+            };
 
-                                       document.getElementById('formPago').addEventListener('submit', function (e) {
-                                           const monto = parseFloat(document.getElementById('monto').value);
-                                           const descuento = parseFloat(document.getElementById('descuento').value) || 0;
+            document.getElementById('formPago').addEventListener('submit', function (e) {
+                const monto = parseFloat(document.getElementById('monto').value);
+                const descuento = parseFloat(document.getElementById('descuento').value) || 0;
 
-                                           if (descuento > monto) {
-                                               e.preventDefault();
-                                               alert('El descuento no puede ser mayor al monto');
-                                               return false;
-                                           }
+                if (descuento > monto) {
+                    e.preventDefault();
+                    alert('El descuento no puede ser mayor al monto');
+                    return false;
+                }
 
-                                           if (monto <= 0) {
-                                               e.preventDefault();
-                                               alert('El monto debe ser mayor a cero');
-                                               return false;
-                                           }
-                                       });
+                if (monto <= 0) {
+                    e.preventDefault();
+                    alert('El monto debe ser mayor a cero');
+                    return false;
+                }
+            });
         </script>
     </body>
 </html>

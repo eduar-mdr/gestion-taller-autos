@@ -69,6 +69,17 @@ public class ServicioControlador extends HttpServlet {
                 request.getRequestDispatcher("/vistas/servicios/servicioCliente.jsp")
                         .forward(request, response);
                 break;
+            case "verPorVehiculo":
+                int idVehiculo = Integer.parseInt(request.getParameter("idVehiculo"));
+
+                ServicioDao servicioDaoV = new ServicioDao();
+                List<Servicio> serviciosVehiculo = servicioDaoV.listarPorVehiculo(idVehiculo);
+
+                request.setAttribute("servicios", serviciosVehiculo);
+                request.setAttribute("idVehiculo", idVehiculo);
+                request.getRequestDispatcher("/vistas/servicios/servicioVehiculo.jsp")
+                        .forward(request, response);
+                break;
 
             //Por defecto redirije al index
             default:
@@ -114,7 +125,6 @@ public class ServicioControlador extends HttpServlet {
                 m.setDuracionEstimada(request.getParameter("duracionEstimada"));
                 m.setEstado(request.getParameter("estado"));
                 m.setIdVehiculo(Integer.parseInt(request.getParameter("idVehiculo")));
-
 
                 try {
                     servicioServicio.registrarServicio(m);

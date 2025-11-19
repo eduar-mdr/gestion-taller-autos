@@ -133,7 +133,6 @@ public class VehiculoControlador extends HttpServlet {
                 v.setColor(request.getParameter("color"));
                 v.setKilometraje(Integer.parseInt(request.getParameter("kilometraje")));
                 v.setNumChasis(request.getParameter("numChasis"));
-                v.setHistorialServicioUrl(request.getParameter("historialServicioUrl"));
                 v.setEstadoVehiculo(request.getParameter("estadoVehiculo"));
 
                 // FK
@@ -162,7 +161,6 @@ public class VehiculoControlador extends HttpServlet {
                 v.setColor(request.getParameter("color"));
                 v.setKilometraje(Integer.parseInt(request.getParameter("kilometraje")));
                 v.setNumChasis(request.getParameter("numChasis"));
-                v.setHistorialServicioUrl(request.getParameter("historialServicioUrl"));
                 v.setEstadoVehiculo(request.getParameter("estadoVehiculo"));
 
                 // FK
