@@ -5,19 +5,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestión de vehiculos</title>
-        
+
         <link rel="stylesheet" href="bs/css/estilo.css">
         <link rel="stylesheet" href="bs/fonts/iconos.css">
         <script src="bs/js/accion.js"></script>
-    
+
         <!-- Datatables and Jquery -->
         <link  rel="stylesheet" href="datatables/datatables.css"/>
         <script src="datatables/jquery.js"></script>
         <script src="datatables/datatables.js"></script>
-        
+
     </head>
     <body>
-        
+
         <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
@@ -128,14 +128,14 @@
 
 
         <br>
-        
-        
+
+
         <div class="container mt-5">
 
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
+                    <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
                 </ol>
             </nav>
 
@@ -148,71 +148,81 @@
                 </a>
             </div>       
             <br>
-            
+
             <div class="table-responsive">
-            <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaVehiculos">
-                <thead class="" >
-                    <tr>
-                        <th>ID</th>
-                        <th>Tipo de vehiculo</th>
-                        <th>Marca del vehiculo</th>
-                        <th>Modelo</th>
-                        <th>Año</th>
-                        <th>Placa</th>
-                        <th>Color</th>
-                        <th>Kilometraje</th>
-                        <th>Propietario</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <c:forEach var="c" items="${vehiculos}">
+                <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaVehiculos">
+                    <thead class="" >
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="text-nowrap">
-
-                               <!-- Botón Editar -->
-                                <form action="${pageContext.request.contextPath}/vehiculos" 
-                                      method="post" 
-                                      class="d-inline">
-
-                                    <input type="hidden" name="action" value="editar">
-                                    <input type="hidden" name="idVehiculo" value="">
-
-                                    <button type="submit" class="btn btn-sm btn-warning">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                </form>
-
-                                <!-- Botón Eliminar -->
-                                <form action="${pageContext.request.contextPath}/vehiculos" 
-                                      method="post" 
-                                      class="d-inline"
-                                      onsubmit="return confirm('¿Estás seguro de eliminar este vehiculo?');">
-
-                                    <input type="hidden" name="action" value="eliminar">
-                                    <input type="hidden" name="idCliente" value="${c.idCliente}">
-
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-
-                            </td>
+                            <th>ID</th>
+                            <th>Modelo</th>                      
+                            <th>Año</th>
+                            <th>Placa</th>
+                            <th>N° Motor</th>
+                            <th>Color</th>
+                            <th>Kilometraje</th>
+                            <th>Fecha ingreso</th>
+                            <th>Num Chasis</th>
+                            <th>Propietario</th>
+                            <th>Tipo</th> 
+                            <th>Marca</th>
+                            <th>Historial servicio</th>
+                            <th>Estado vehiculo</th>
+                            <th>Acciones</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-                
-            </table>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <c:forEach var="v" items="${vehiculos}">
+                            <tr>
+                                <td>${v.idVehiculo}</td>
+                                <td>${v.modelo}</td>
+                                <td>${v.anio}</td>
+                                <td>${v.placa}</td>
+                                <td>${v.numMotor}</td>
+                                <td>${v.color}</td>
+                                <td>${v.kilometraje}</td>
+                                <td>${v.fechaIngreso}</td>
+                                <td>${v.numChasis}</td>
+                                <td>${v.nombreCliente}</td>
+                                <td>${v.nombreTipo}</td>
+                                <td>${v.nombreMarca}</td>
+                                <td>${v.historialServicioUrl}</td>
+                                <td>${v.estadoVehiculo}</td>                          
+                                <td class="text-nowrap">
+                                    <!-- Botón Editar -->
+                                    <form action="${pageContext.request.contextPath}/vehiculos" 
+                                          method="post" 
+                                          class="d-inline">
+
+                                        <input type="hidden" name="action" value="editar">
+                                        <input type="hidden" name="idVehiculo" value="${v.idVehiculo}">
+
+                                        <button type="submit" class="btn btn-sm btn-warning">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </form>
+
+                                    <!-- Botón Eliminar -->
+                                    <form action="${pageContext.request.contextPath}/vehiculos" 
+                                          method="post" 
+                                          class="d-inline"
+                                          onsubmit="return confirm('¿Estás seguro de eliminar este vehiculo?');">
+
+                                        <input type="hidden" name="action" value="eliminar">
+                                        <input type="hidden" name="idVehiculo" value="${v.idVehiculo}">
+
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+
+                </table>
             </div>
         </div>
-        
+
     </body>
 </html>

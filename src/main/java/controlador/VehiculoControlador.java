@@ -13,6 +13,9 @@ import servicio.VehiculoServicio;
 import servicio.ClienteServicio;
 import servicio.TipoVehiculoServicio;
 import servicio.MarcaVehiculoServicio;
+import modelo.Cliente;
+import modelo.TipoVehiculo;
+import modelo.MarcaVehiculo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +29,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/vehiculos")
-public class VehiculoControlador extends HttpServlet  {
-    
+public class VehiculoControlador extends HttpServlet {
+
     private VehiculoServicio vehiculoServicio = new VehiculoServicio();
     private ClienteServicio clienteServicio = new ClienteServicio();
     private TipoVehiculoServicio tipoServicio = new TipoVehiculoServicio();
@@ -49,6 +52,7 @@ public class VehiculoControlador extends HttpServlet  {
                     request.setAttribute("clientes", clienteServicio.obtenerClientes());
                     request.setAttribute("tipos", tipoServicio.obtenerTipos());
                     request.setAttribute("marcas", marcaServicio.obtenerMarcas());
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -77,23 +81,34 @@ public class VehiculoControlador extends HttpServlet  {
 
         switch (action) {
 
-            case "editar": {
-                int id = Integer.parseInt(request.getParameter("idVehiculo"));
-                Vehiculo v = vehiculoServicio.obtenerPorId(id);
-                request.setAttribute("vehiculo", v);
-
+            case "editar":
                 try {
-                     request.setAttribute("clientes", clienteServicio.obtenerClientes());
-                    request.setAttribute("tipos", tipoServicio.obtenerTipos());
-                    request.setAttribute("marcas", marcaServicio.obtenerMarcas());
+                    int idEditar = Integer.parseInt(request.getParameter("idVehiculo"));
+
+                    // Obtener los datos del vehículo
+                    Vehiculo vehiculo = vehiculoServicio.obtenerPorId(idEditar);
+
+                    // Obtener las FK necesarias
+                    List<Cliente> clientes = clienteServicio.obtenerClientes();
+                    List<TipoVehiculo> tipos = tipoServicio.obtenerTipos();
+                    List<MarcaVehiculo> marcas = marcaServicio.obtenerMarcas();
+
+                    // Enviar a la JSP
+                    request.setAttribute("vehiculo", vehiculo);
+                    request.setAttribute("clientes", clientes);
+                    request.setAttribute("tipos", tipos);
+                    request.setAttribute("marcas", marcas);
+
+                    request.getRequestDispatcher("/vistas/vehiculos/actualizar.jsp")
+                            .forward(request, response);
+
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    request.setAttribute("error", "Error al obtener los datos del vehículo.");
+                    request.getRequestDispatcher("/vistas/error.jsp")
+                            .forward(request, response);
                 }
-
-                request.getRequestDispatcher("/vistas/vehiculos/actualizar.jsp")
-                        .forward(request, response);
                 break;
-            }
 
             case "guardar": {
                 Vehiculo v = new Vehiculo();
@@ -104,7 +119,6 @@ public class VehiculoControlador extends HttpServlet  {
                 v.setNumMotor(request.getParameter("numMotor"));
                 v.setColor(request.getParameter("color"));
                 v.setKilometraje(Integer.parseInt(request.getParameter("kilometraje")));
-                v.setFechaIngreso(request.getParameter("fechaIngreso"));
                 v.setNumChasis(request.getParameter("numChasis"));
                 v.setHistorialServicioUrl(request.getParameter("historialServicioUrl"));
                 v.setEstadoVehiculo(request.getParameter("estadoVehiculo"));
@@ -134,7 +148,6 @@ public class VehiculoControlador extends HttpServlet  {
                 v.setNumMotor(request.getParameter("numMotor"));
                 v.setColor(request.getParameter("color"));
                 v.setKilometraje(Integer.parseInt(request.getParameter("kilometraje")));
-                v.setFechaIngreso(request.getParameter("fechaIngreso"));
                 v.setNumChasis(request.getParameter("numChasis"));
                 v.setHistorialServicioUrl(request.getParameter("historialServicioUrl"));
                 v.setEstadoVehiculo(request.getParameter("estadoVehiculo"));
