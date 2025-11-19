@@ -155,9 +155,8 @@
                 </div>
             </c:if>
 
-            <form "action="${pageContext.request.contextPath}/clientes?action=registrar"" method="post" id="formPago">
-                <!--input type="hidden" name="action" value="registrar"-->
-
+            <form action="${pageContext.request.contextPath}/pagos?action=registrar" 
+                  method="post" id="formPago">
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Número de Orden *</label>
@@ -243,7 +242,7 @@
                 </div>
 
                 <div class="text-end">
-                    <a href="pagos?action=listar" class="btn btn-secondary">Cancelar</a>
+                    <a href="${pageContext.request.contextPath}/pagos?action=factura" class="btn btn-secondary">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Registrar Pago</button>
                 </div>
             </form>
@@ -257,7 +256,7 @@
                     return;
                 }
 
-                fetch('pagos?action=calcularTotales&idOrden=' + idOrden)
+                fetch('${pageContext.request.contextPath}/pagos?action=calcularTotales&idOrden=' + idOrden)
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
