@@ -44,7 +44,6 @@ public class VehiculoDao {
                 v.setKilometraje(rs.getInt("kilometraje"));
                 v.setFechaIngreso(rs.getString("fecha_ingreso"));
                 v.setNumChasis(rs.getString("num_chasis"));
-                v.setHistorialServicioUrl(rs.getString("historial_servicio_url"));
                 v.setEstadoVehiculo(rs.getString("estado_vehiculo"));
                 v.setIdCliente(rs.getInt("id_cliente"));
                 v.setIdTipo(rs.getInt("id_tipo"));
@@ -76,46 +75,56 @@ public class VehiculoDao {
 
     // BUSCAR POR ID
     public Vehiculo buscarPorId(int id) {
-        Vehiculo v = null;
-        String sql = "SELECT * FROM Vehiculo WHERE id_vehiculo = ?";
+    Vehiculo v = null;
+    String sql = "SELECT * FROM Vehiculo WHERE id_vehiculo = ?";
 
-        try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+    try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, id);
 
-            ps.setInt(1, id);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                v = new Vehiculo();
 
-            try (ResultSet rs = ps.executeQuery()) {
+                v.setIdVehiculo(rs.getInt("id_vehiculo"));
+                v.setModelo(rs.getString("modelo"));
+                v.setAnio(rs.getInt("anio"));
+                v.setPlaca(rs.getString("placa"));
+                v.setNumMotor(rs.getString("num_motor"));
+                v.setColor(rs.getString("color"));
+                v.setKilometraje(rs.getInt("kilometraje"));
+                v.setFechaIngreso(rs.getString("fecha_ingreso"));
+                v.setNumChasis(rs.getString("num_chasis"));
+                v.setEstadoVehiculo(rs.getString("estado_vehiculo"));
+                v.setIdCliente(rs.getInt("id_cliente"));
+                v.setIdTipo(rs.getInt("id_tipo"));
+                v.setIdMarca(rs.getInt("id_marca"));
+                v.setNombreCliente(
+                        
+                    clienteServicio.obtenerPorId(v.getIdCliente()).getNombre() + " " +
+                    clienteServicio.obtenerPorId(v.getIdCliente()).getApellido()
+                );
 
-                if (rs.next()) {
-                    v = new Vehiculo();
+                v.setNombreTipo(
+                    tipoVehiculoServicio.obtenerPorId(v.getIdTipo()).getNombreTipo()
+                );
 
-                    v.setIdVehiculo(rs.getInt("id_vehiculo"));
-                    v.setModelo(rs.getString("modelo"));
-                    v.setAnio(rs.getInt("anio"));
-                    v.setPlaca(rs.getString("placa"));
-                    v.setNumMotor(rs.getString("num_motor"));
-                    v.setColor(rs.getString("color"));
-                    v.setKilometraje(rs.getInt("kilometraje"));
-                    v.setFechaIngreso(rs.getString("fecha_ingreso"));
-                    v.setNumChasis(rs.getString("num_chasis"));
-                    v.setHistorialServicioUrl(rs.getString("historial_servicio_url"));
-                    v.setEstadoVehiculo(rs.getString("estado_vehiculo"));
-                    v.setIdCliente(rs.getInt("id_cliente"));
-                    v.setIdTipo(rs.getInt("id_tipo"));
-                    v.setIdMarca(rs.getInt("id_marca"));
-                }
+                v.setNombreMarca(
+                    marcaVehiculoServicio.obtenerPorId(v.getIdMarca()).getNombreMarca()
+                );
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
-        return v;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return v;
+}
+
 
     // INSERTAR
     public void insertar(Vehiculo v) {
-        String sql = "INSERT INTO Vehiculo (modelo, anio, placa, num_motor, color, kilometraje, num_chasis, historial_servicio_url, estado_vehiculo, id_cliente, id_tipo, id_marca) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Vehiculo (modelo, anio, placa, num_motor, color, kilometraje, num_chasis, estado_vehiculo, id_cliente, id_tipo, id_marca) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -126,11 +135,10 @@ public class VehiculoDao {
             ps.setString(5, v.getColor());
             ps.setInt(6, v.getKilometraje());
             ps.setString(7, v.getNumChasis());
-            ps.setString(8, v.getHistorialServicioUrl());
-            ps.setString(9, v.getEstadoVehiculo());
-            ps.setInt(10, v.getIdCliente());
-            ps.setInt(11, v.getIdTipo());
-            ps.setInt(12, v.getIdMarca());
+            ps.setString(8, v.getEstadoVehiculo());
+            ps.setInt(9, v.getIdCliente());
+            ps.setInt(10, v.getIdTipo());
+            ps.setInt(11, v.getIdMarca());
 
             ps.executeUpdate();
 
@@ -141,7 +149,7 @@ public class VehiculoDao {
 
     // ACTUALIZAR
     public void actualizar(Vehiculo v) {
-        String sql = "UPDATE Vehiculo SET modelo=?, anio=?, placa=?, num_motor=?, color=?, kilometraje=?, num_chasis=?, historial_servicio_url=?, estado_vehiculo=?, id_cliente=?, id_tipo=?, id_marca=? "
+        String sql = "UPDATE Vehiculo SET modelo=?, anio=?, placa=?, num_motor=?, color=?, kilometraje=?, num_chasis=?, estado_vehiculo=?, id_cliente=?, id_tipo=?, id_marca=? "
                 + "WHERE id_vehiculo=?";
 
         try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -153,12 +161,11 @@ public class VehiculoDao {
             ps.setString(5, v.getColor());
             ps.setInt(6, v.getKilometraje());
             ps.setString(7, v.getNumChasis());
-            ps.setString(8, v.getHistorialServicioUrl());
-            ps.setString(9, v.getEstadoVehiculo());
-            ps.setInt(10, v.getIdCliente());
-            ps.setInt(11, v.getIdTipo());
-            ps.setInt(12, v.getIdMarca());
-            ps.setInt(13, v.getIdVehiculo());
+            ps.setString(8, v.getEstadoVehiculo());
+            ps.setInt(9, v.getIdCliente());
+            ps.setInt(10, v.getIdTipo());
+            ps.setInt(11, v.getIdMarca());
+            ps.setInt(12, v.getIdVehiculo());
 
             ps.executeUpdate();
 

@@ -165,7 +165,6 @@
                             <th>Propietario</th>
                             <th>Tipo</th> 
                             <th>Marca</th>
-                            <th>Historial servicio</th>
                             <th>Estado vehiculo</th>
                             <th>Acciones</th>
                         </tr>
@@ -185,39 +184,44 @@
                                 <td>${v.nombreCliente}</td>
                                 <td>${v.nombreTipo}</td>
                                 <td>${v.nombreMarca}</td>
-                                <td>${v.historialServicioUrl}</td>
                                 <td>${v.estadoVehiculo}</td>                          
                                 <td class="text-nowrap">
-                                    <!-- Botón Editar -->
-                                    <form action="${pageContext.request.contextPath}/vehiculos" 
-                                          method="post" 
-                                          class="d-inline">
+                                    
+                                    <a href="${pageContext.request.contextPath}/servicios?action=verPorVehiculo&idVehiculo=${v.idVehiculo}" 
+                                       class="btn btn-sm btn-info">
+                                        <i class="bi bi-wrench"></i>
+                                    </a>
 
-                                        <input type="hidden" name="action" value="editar">
-                                        <input type="hidden" name="idVehiculo" value="${v.idVehiculo}">
+                                <!-- Botón Editar -->
+                        <form action="${pageContext.request.contextPath}/vehiculos" 
+                              method="post" 
+                              class="d-inline">
 
-                                        <button type="submit" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </form>
+                            <input type="hidden" name="action" value="editar">
+                            <input type="hidden" name="idVehiculo" value="${v.idVehiculo}">
 
-                                    <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/vehiculos" 
-                                          method="post" 
-                                          class="d-inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este vehiculo?');">
+                            <button type="submit" class="btn btn-sm btn-warning">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </form>
 
-                                        <input type="hidden" name="action" value="eliminar">
-                                        <input type="hidden" name="idVehiculo" value="${v.idVehiculo}">
+                        <!-- Botón Eliminar -->
+                        <form action="${pageContext.request.contextPath}/vehiculos" 
+                              method="post" 
+                              class="d-inline"
+                              onsubmit="return confirm('¿Estás seguro de eliminar este vehiculo?');">
 
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+                            <input type="hidden" name="action" value="eliminar">
+                            <input type="hidden" name="idVehiculo" value="${v.idVehiculo}">
 
-                                </td>
-                            </tr>
-                        </c:forEach>
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+
+                        </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
 
                 </table>
