@@ -10,6 +10,9 @@ package controlador;
  */
 import modelo.Servicio;
 import servicio.ServicioServicio;
+import dao.ServicioDao;
+import dao.VehiculoDao;
+import modelo.Vehiculo;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -43,6 +46,9 @@ public class ServicioControlador extends HttpServlet {
         switch (action) {
 
             case "crear":
+                VehiculoDao vehiculoDao = new VehiculoDao();
+                List<Vehiculo> vehiculos = vehiculoDao.listar();
+                request.setAttribute("vehiculos", vehiculos);
                 // Redirige al JSP de creación
                 RequestDispatcher form_crear = request.getRequestDispatcher("/vistas/servicios/crear.jsp");
                 form_crear.forward(request, response);
@@ -51,7 +57,17 @@ public class ServicioControlador extends HttpServlet {
                 listarReporte(request, response);
                 break;
             case "pdf":
-                generarPdf(response); // Genera PDF solo cuando se llama con este action
+                generarPdf(response);
+                break;
+            case "verPorCliente":
+                int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+
+                ServicioDao servicioDao = new ServicioDao();
+                List<Servicio> servicios = servicioDao.listarPorCliente(idCliente);
+
+                request.setAttribute("servicios", servicios);
+                request.getRequestDispatcher("/vistas/servicios/servicioCliente.jsp")
+                        .forward(request, response);
                 break;
 
             //Por defecto redirije al index
@@ -97,6 +113,8 @@ public class ServicioControlador extends HttpServlet {
                 m.setCategoria(request.getParameter("categoria"));
                 m.setDuracionEstimada(request.getParameter("duracionEstimada"));
                 m.setEstado(request.getParameter("estado"));
+                m.setIdVehiculo(Integer.parseInt(request.getParameter("idVehiculo")));
+
 
                 try {
                     servicioServicio.registrarServicio(m);

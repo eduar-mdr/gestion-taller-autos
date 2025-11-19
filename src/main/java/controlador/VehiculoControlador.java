@@ -16,6 +16,7 @@ import servicio.MarcaVehiculoServicio;
 import modelo.Cliente;
 import modelo.TipoVehiculo;
 import modelo.MarcaVehiculo;
+import dao.VehiculoDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,6 +61,18 @@ public class VehiculoControlador extends HttpServlet {
                         .forward(request, response);
                 break;
 
+            case "verPorCliente":
+                int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+
+                VehiculoDao vehiculoDao = new VehiculoDao();
+                List<Vehiculo> vehiculosCliente = vehiculoDao.listarPorCliente(idCliente);
+
+                request.setAttribute("vehiculos", vehiculosCliente);
+                request.setAttribute("idCliente", idCliente);
+
+                request.getRequestDispatcher("/vistas/vehiculos/vehiculoCliente.jsp")
+                        .forward(request, response);
+                break;
             default:
                 try {
                     List<Vehiculo> vehiculos = vehiculoServicio.obtenerVehiculos();

@@ -161,6 +161,7 @@
                         <th>Categoria</th>
                         <th>Duracion estimada</th>
                         <th>Estado</th>
+                        <th>ID Vehiculo</th>                        
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -174,6 +175,7 @@
                             <td>${m.categoria}</td>
                             <td>${m.duracionEstimada}</td>
                             <td>${m.estado}</td>
+                            <td>${m.idVehiculo}</td>
                             <td class="text-nowrap">
 
                                <!-- Botón Editar -->

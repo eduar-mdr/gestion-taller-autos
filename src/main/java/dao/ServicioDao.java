@@ -16,13 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioDao {
+
     //Index
     public List<Servicio> listar() throws SQLException {
         List<Servicio> lista = new ArrayList<>();
         String sql = "SELECT * FROM Servicio";
-        try (Connection conn = ConexionDB.conectar();
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+        try (Connection conn = ConexionDB.conectar(); Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 Servicio m = new Servicio();
                 m.setIdServicio(rs.getInt("id_servicio"));
@@ -32,6 +31,7 @@ public class ServicioDao {
                 m.setCategoria(rs.getString("categoria"));
                 m.setDuracionEstimada(rs.getString("duracion_estimada"));
                 m.setEstado(rs.getString("estado"));
+                m.setIdVehiculo(rs.getInt("id_vehiculo"));
                 lista.add(m);
             }
         } catch (SQLException e) {
@@ -40,18 +40,19 @@ public class ServicioDao {
         }
         return lista;
     }
+
     //Store
     public void insertar(Servicio m) throws SQLException {
-        String sql = "INSERT INTO Servicio(nombre, descripcion, precio, categoria, duracion_estimada, estado) "
-                   + "VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = ConexionDB.conectar();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+       String sql = "INSERT INTO Servicio(nombre, descripcion, precio, categoria, duracion_estimada, estado, id_vehiculo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, m.getNombre());
             ps.setString(2, m.getDescripcion());
             ps.setDouble(3, m.getPrecio());
-             ps.setString(4, m.getCategoria());
+            ps.setString(4, m.getCategoria());
             ps.setString(5, m.getDuracionEstimada());
             ps.setString(6, m.getEstado());
+            ps.setInt(7, m.getIdVehiculo());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -59,14 +60,13 @@ public class ServicioDao {
             e.printStackTrace();
         }
     }
-    
+
     //Show
     // Buscar por ID 
     public Servicio buscarPorId(int id) {
         Servicio servicio = null;
         String sql = "SELECT * FROM Servicio WHERE id_servicio = ?";
-        try (Connection conn = ConexionDB.conectar();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -79,7 +79,8 @@ public class ServicioDao {
                     servicio.setCategoria(rs.getString("categoria"));
                     servicio.setDuracionEstimada(rs.getString("duracion_estimada"));
                     servicio.setEstado(rs.getString("estado"));
-                    
+                    servicio.setIdVehiculo(rs.getInt("id_vehiculo"));
+
                 }
             }
         } catch (SQLException e) {
@@ -88,12 +89,12 @@ public class ServicioDao {
         }
         return servicio;
     }
+
     //Update
     public void actualizar(Servicio servicio) {
         String sql = "UPDATE Servicio SET nombre=?, descripcion=?, precio=?, categoria=?, duracion_estimada=?, estado=? "
-           + "WHERE id_servicio=?";
-        try (Connection conn = ConexionDB.conectar();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+                + "WHERE id_servicio=?";
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, servicio.getNombre());
             ps.setString(2, servicio.getDescripcion());
@@ -102,25 +103,56 @@ public class ServicioDao {
             ps.setString(5, servicio.getDuracionEstimada());
             ps.setString(6, servicio.getEstado());
             ps.setInt(7, servicio.getIdServicio());
-            
+
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Ocurrio un error al actualizar el registro");
             e.printStackTrace();
         }
     }
-    
+
     //Delete
     public void eliminar(int id) {
-    String sql = "DELETE FROM Servicio WHERE id_servicio = ?";
+        String sql = "DELETE FROM Servicio WHERE id_servicio = ?";
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Ocurrio un error al eliminar registro");
+            e.printStackTrace();
+        }
+    }
+
+    
+    public List<Servicio> listarPorCliente(int idCliente) {
+    List<Servicio> lista = new ArrayList<>();
+
+    String sql = "SELECT s.* FROM Servicio s "
+               + "INNER JOIN Vehiculo v ON s.id_vehiculo = v.id_vehiculo "
+               + "WHERE v.id_cliente = ?";
+
     try (Connection conn = ConexionDB.conectar();
-        PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setInt(1, id);
-        ps.executeUpdate();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setInt(1, idCliente); 
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) { 
+            Servicio s = new Servicio();
+            s.setIdServicio(rs.getInt("id_servicio"));
+            s.setNombre(rs.getString("nombre"));
+            s.setDescripcion(rs.getString("descripcion"));
+            lista.add(s); 
+        }
+
     } catch (SQLException e) {
-        System.out.println("Ocurrio un error al eliminar registro");
         e.printStackTrace();
     }
+
+    return lista;
 }
+
+
+
 
 }

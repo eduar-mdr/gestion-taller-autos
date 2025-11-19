@@ -24,7 +24,7 @@
     </head>
     <body>
 
-       <!-- Menú principal -->
+        <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
@@ -131,7 +131,7 @@
                 overflow-x: hidden;
             }
         </style>
-        
+
         <br>
 
         <div class="container mt-5">
@@ -180,6 +180,16 @@
                                 <td>${c.telefono}</td>
                                 <td>${c.email}</td>
                                 <td class="text-nowrap">
+                                    <a href="${pageContext.request.contextPath}/vehiculos?action=verPorCliente&idCliente=${c.idCliente}" 
+                                       class="btn btn-sm btn-info">
+                                        <i class="bi bi-car-front"></i>
+                                    </a>
+
+                                    <a href="${pageContext.request.contextPath}/servicios?action=verPorCliente&idCliente=${c.idCliente}" 
+                                       class="btn btn-sm btn-secondary">
+                                        <i class="bi bi-wrench"></i>
+                                    </a>
+
                                     <!-- Botón Editar -->
                                     <form action="${pageContext.request.contextPath}/clientes" 
                                           method="post" 
@@ -192,7 +202,7 @@
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </form>
-                                        
+
                                     <!-- Botón Eliminar -->
                                     <form action="${pageContext.request.contextPath}/clientes" method="post" class="d-inline" 
                                           onsubmit="return confirm('¿Estás seguro de eliminar este cliente?');"> 
