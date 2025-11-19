@@ -96,7 +96,7 @@ public class EmpleadoControlador extends HttpServlet {
             case "guardar":
                 m.setNombre(request.getParameter("nombre"));
                 m.setApellido(request.getParameter("apellido"));
-                m.setDui(Integer.parseInt(request.getParameter("dui")));
+                m.setDui(request.getParameter("dui"));
                 m.setTelefono(Integer.parseInt(request.getParameter("telefono")));
                 m.setDireccion(request.getParameter("direccion"));
                 m.setCargo(request.getParameter("cargo"));
@@ -120,7 +120,7 @@ public class EmpleadoControlador extends HttpServlet {
                 m.setIdEmpleado(Integer.parseInt(request.getParameter("idEmpleado")));
                 m.setNombre(request.getParameter("nombre"));
                 m.setApellido(request.getParameter("apellido"));
-                m.setDui(Integer.parseInt(request.getParameter("dui")));
+                m.setDui(request.getParameter("dui"));
                 m.setTelefono(Integer.parseInt(request.getParameter("telefono")));
                 m.setDireccion(request.getParameter("direccion"));
                 m.setCargo(request.getParameter("cargo"));

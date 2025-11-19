@@ -10,6 +10,7 @@ package dao;
  */
 import conexion.ConexionDB;
 import modelo.Empleado;
+import servicio.UsuarioServicio;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -17,6 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmpleadoDao {
+    
+     //Instancia del sercicio del catalogo Proveedor
+    private UsuarioServicio usuarioServicio = new UsuarioServicio();
+
 
     public List<Empleado> listar() throws SQLException {
         List<Empleado> lista = new ArrayList<>();
@@ -27,13 +32,15 @@ public class EmpleadoDao {
                 m.setIdEmpleado(rs.getInt("id_empleado"));
                 m.setNombre(rs.getString("nombre"));
                 m.setApellido(rs.getString("apellido"));
-                m.setDui(rs.getInt("dui"));
+                m.setDui(rs.getString("dui"));
                 m.setTelefono(rs.getInt("telefono"));
                 m.setDireccion(rs.getString("direccion"));
                 m.setCargo(rs.getString("cargo"));
                 m.setIdUsuario(rs.getInt("id_usuario"));
                 m.setSalario(rs.getDouble("salario"));
                 m.setEstado(rs.getString("estado"));
+                m.setNombreUsuario(usuarioServicio.obtenerPorId(rs.getInt("id_usuario")).getNombreUsuario());
+
 
                 Timestamp ts = rs.getTimestamp("fecha_contratacion");
                 if (ts != null) {
@@ -55,7 +62,7 @@ public class EmpleadoDao {
         try (Connection conn = ConexionDB.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, m.getNombre());
             ps.setString(2, m.getApellido());
-            ps.setInt(3, m.getDui());
+            ps.setString(3, m.getDui());
             ps.setInt(4, m.getTelefono());
             ps.setString(5, m.getDireccion());
             ps.setString(6, m.getCargo());
@@ -85,7 +92,7 @@ public class EmpleadoDao {
                     empleado.setIdEmpleado(rs.getInt("id_empleado"));
                     empleado.setNombre(rs.getString("nombre"));
                     empleado.setApellido(rs.getString("apellido"));
-                    empleado.setDui(rs.getInt("dui"));
+                    empleado.setDui(rs.getString("dui"));
                     empleado.setTelefono(rs.getInt("telefono"));
                     empleado.setDireccion(rs.getString("direccion"));
                     empleado.setCargo(rs.getString("cargo"));
@@ -114,7 +121,7 @@ public class EmpleadoDao {
 
             ps.setString(1, empleado.getNombre());
             ps.setString(2, empleado.getApellido());
-            ps.setInt(3, empleado.getDui());
+            ps.setString(3, empleado.getDui());
             ps.setInt(4, empleado.getTelefono());
             ps.setString(5, empleado.getDireccion());
             ps.setString(6, empleado.getCargo());
