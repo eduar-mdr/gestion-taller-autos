@@ -115,7 +115,7 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reporte-servicio"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ingresos"><i class="bi bi-graph-up"></i> Ingresos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reporte-repuesto"><i class="bi bi-tools"></i> Repuestos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/clientesFrecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
