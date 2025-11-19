@@ -1,14 +1,15 @@
 <%-- 
-    Document   : dashboard
-    Created on : Oct 19, 2025, 7:46:54 PM
-    Author     : Eduar Medrano
+    Document   : reporte
+    Created on : 19 nov 2025, 11:03:48 a. m.
+    Author     : fuent
 --%>
-
-<%@page import="java.util.Set"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="java.sql.Connection" %>
 <%@page import="conexion.ConexionDB" %>
 <%@page import="modelo.Usuario"%>
+<%@page import="java.util.Set"%>
 <%
     // Validar que hay usuario en sesión
     Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
@@ -23,15 +24,173 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reporte de Ingresos - Taller</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sistema de Gestión de taller de autos y motos</title>
         <link rel="stylesheet" href="bs/css/estilo.css">
+        <link rel="stylesheet" href="bs/fonts/iconos.css">
         <script src="bs/js/accion.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            h1 {
+                color: #333;
+                margin-bottom: 30px;
+                text-align: center;
+                border-bottom: 3px solid #007bff;
+                padding-bottom: 10px;
+            }
+
+            .filtros {
+                background-color: #f8f9fa;
+                padding: 20px;
+                border-radius: 5px;
+                margin-bottom: 30px;
+            }
+
+            .form-group {
+                display: inline-block;
+                margin-right: 20px;
+                margin-bottom: 10px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #555;
+            }
+
+            select, input[type="date"] {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: background-color 0.3s;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+            .btn-print {
+                background-color: #28a745;
+                color: white;
+                float: right;
+            }
+
+            .btn-print:hover {
+                background-color: #218838;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #007bff;
+                color: white;
+                font-weight: bold;
+            }
+
+            tr:hover {
+                background-color: #f5f5f5;
+            }
+
+            .tipo-servicio {
+                display: inline-block;
+                padding: 4px 8px;
+                border-radius: 3px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            .tipo-servicio.servicio {
+                background-color: #d4edda;
+                color: #155724;
+            }
+
+            .tipo-servicio.repuesto {
+                background-color: #d1ecf1;
+                color: #0c5460;
+            }
+
+            .total-row {
+                font-weight: bold;
+                background-color: #e9ecef;
+                font-size: 16px;
+            }
+
+            .text-right {
+                text-align: right;
+            }
+
+            .no-data {
+                text-align: center;
+                padding: 40px;
+                color: #999;
+                font-style: italic;
+            }
+
+            .resumen {
+                margin-top: 20px;
+                padding: 15px;
+                background-color: #fff3cd;
+                border-left: 4px solid #ffc107;
+                border-radius: 4px;
+            }
+
+            @media print {
+                .filtros, .btn {
+                    display: none;
+                }
+
+                body {
+                    padding: 0;
+                }
+
+                .container {
+                    box-shadow: none;
+                }
+            }
+        </style>
     </head>
     <body>
-        <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
@@ -203,225 +362,127 @@
         </style>
 
         <br>
-        <div class="container mt-5">
-            <div class="alert alert-primary" role="alert">  
-                <h2>¡Bienvenido <%= usuarioLogueado.getNombreUsuario()%>!</h2>
-            </div>
-            <h3>Comprobando la conexión</h3>
-        </div>
-        <%
-            Connection conn = ConexionDB.conectar();
-            if (conn != null) {
-        %>
-        <div class="container mt-5">
-            <div class="alert alert-success" role="alert">  
-                <h2>Conexión exitosa</h2>
-            </div>
-        </div>
-        <%
-            conn.close();
-        } else {
-        %>
-        <div class="container mt-5">
-            <div class="alert alert-danger" role="alert">
-                <h2>Error en la conexión</h2>
-            </div>
-        </div>
-        <%
-            }
-        %>
-        <div class="container py-4">
-            <h2 class="mb-4">Dashboard Taller Automotriz</h2>
-            <div class="row g-4 mb-2">
+        <div class="container">
+            <h1>Reporte de Ingresos por Servicio/Repuesto</h1>
 
-                <!-- Ventas por mes -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    <h5 class="card-title mb-1">Ventas mensuales</h5>
-                                    <small id="lblAnioVentas" class="text-muted"></small>
-                                </div>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartVentasMes"></canvas>
-                            </div>
-                        </div>
+            <!-- Formulario de Filtros -->
+            <div class="filtros">
+                <form action="${pageContext.request.contextPath}/ingresos" method="get">
+                    <input type="hidden" name="accion" value="generar">
+
+                    <div class="form-group">
+                        <label for="tipoReporte">Tipo de Reporte:</label>
+                        <select name="tipoReporte" id="tipoReporte">
+                            <option value="todos" ${tipoReporte == 'todos' ? 'selected' : ''}>Todos</option>
+                            <option value="servicios" ${tipoReporte == 'servicios' ? 'selected' : ''}>Solo Servicios</option>
+                            <option value="repuestos" ${tipoReporte == 'repuestos' ? 'selected' : ''}>Solo Repuestos</option>
+                        </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="fechaInicio">Fecha Inicio:</label>
+                        <input type="date" name="fechaInicio" id="fechaInicio" value="${fechaInicio}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaFin">Fecha Fin:</label>
+                        <input type="date" name="fechaFin" id="fechaFin" value="${fechaFin}">
+                    </div>
+
+                    <div class="form-group" style="margin-top: 24px;">
+                        <button type="submit" class="btn btn-primary">Generar Reporte</button>
+                    </div>
+
+                    <button type="button" class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
+                </form>
+
+                <!-- Botón para exportar a PDF -->
+                <c:if test="${not empty reportes}">
+                    <form action="${pageContext.request.contextPath}/ingresos" method="get" style="display: inline;">
+                        <input type="hidden" name="accion" value="pdf">
+                        <input type="hidden" name="tipoReporte" value="${tipoReporte}">
+                        <input type="hidden" name="fechaInicio" value="${fechaInicio}">
+                        <input type="hidden" name="fechaFin" value="${fechaFin}">
+                        <button type="submit" class="btn btn-pdf">📄 Exportar a PDF</button>
+                    </form>
+                </c:if>
+            </div>
+
+            <style>
+                .btn-pdf {
+                    background-color: #dc3545;
+                    color: white;
+                    margin-left: 10px;
+                }
+
+                .btn-pdf:hover {
+                    background-color: #c82333;
+                }
+
+            </style>
+
+            <!-- Tabla de Resultados -->
+            <c:if test="${not empty reportes}">
+                <div class="resumen">
+                    <strong>Período:</strong> 
+                    <c:choose>
+                        <c:when test="${not empty fechaInicio and not empty fechaFin}">
+                            ${fechaInicio} al ${fechaFin}
+                        </c:when>
+                        <c:otherwise>
+                            Todos los registros
+                        </c:otherwise>
+                    </c:choose>
+                    | <strong>Total de items:</strong> ${reportes.size()}
                 </div>
 
-                <!-- Top servicios-->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Top 5 servicios</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartTopServicios"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Nombre</th>
+                            <th>Categoría/Proveedor</th>
+                            <th class="text-right">Cantidad Vendida</th>
+                            <th class="text-right">Precio Unitario</th>
+                            <th class="text-right">Ingreso Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${reportes}" var="item">
+                            <tr>
+                                <td>
+                                    <span class="tipo-servicio ${item.tipo == 'Servicio' ? 'servicio' : 'repuesto'}">
+                                        ${item.tipo}
+                                    </span>
+                                </td>
+                                <td>${item.nombre}</td>
+                                <td>${item.categoria != null ? item.categoria : '-'}</td>
+                                <td class="text-right">${item.cantidadVendida}</td>
+                                <td class="text-right">$<fmt:formatNumber value="${item.precioUnitario}" pattern="#,##0.00"/></td>
+                                <td class="text-right">$<fmt:formatNumber value="${item.ingresoTotal}" pattern="#,##0.00"/></td>
+                            </tr>
+                        </c:forEach>
 
-            </div>
-            <div class="row g-4 mb-2">
-                <!-- Clientes por mes -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Clientes registrados por mes</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartClientesMes"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Ingreso de categoria de servicio -->
-                <div class="col-lg-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Grafico de ingreso por categoría de servicio</h5>
-                            </div>
-                            <div style="height:260px;">
-                                <canvas id="chartCategoria"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <!-- Fila de Total -->
+                        <tr class="total-row">
+                            <td colspan="5" class="text-right">TOTAL GENERAL:</td>
+                            <td class="text-right">$<fmt:formatNumber value="${totalGeneral}" pattern="#,##0.00"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </c:if>
 
+            <c:if test="${empty reportes and not empty param.accion}">
+                <div class="no-data">
+                    No se encontraron datos para el período seleccionado.
+                </div>
+            </c:if>
+
+            <c:if test="${empty reportes and empty param.accion}">
+                <div class="no-data">
+                    Seleccione los filtros y haga clic en "Generar Reporte" para ver los resultados.
+                </div>
+            </c:if>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-
-                const ctxVentasMes = document.getElementById("chartVentasMes");
-                const ctxTopServicios = document.getElementById("chartTopServicios");
-                const ctxClientesMes = document.getElementById("chartClientesMes");
-
-                const base = "<%=request.getContextPath()%>/dashboard";
-
-                /* Ventas por mes */
-                fetch(base + "/ventas-mes")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.mesNombre);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(ctxVentasMes, {
-                                type: "line",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Ventas",
-                                            data: values,
-                                            tension: 0.5
-                                        }]
-                                }
-                            });
-                        });
-
-                /* Top servicios */
-                fetch(base + "/top-servicios")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.servicio);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(ctxTopServicios, {
-                                type: "doughnut",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            data: values,
-                                            backgroundColor: [
-                                                "#03045e",
-                                                "#0077b6",
-                                                "#00b4d8",
-                                                "#90e0ef",
-                                                "#caf0f8"
-                                            ]
-                                        }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    maintainAspectRatio: false,
-                                    layout: {
-                                        padding: {
-                                            top: 30,
-                                            bottom: 30
-                                        }
-                                    },
-                                    plugins: {
-                                        legend: {
-                                            position: "bottom"
-                                        }
-                                    }}
-                            });
-                        });
-
-                /* Clientes por mes */
-                fetch(base + "/clientes-mes")
-                        .then(r => r.json())
-                        .then(datos => {
-                            const labels = datos.map(d => d.mesNombre);
-                            const values = datos.map(d => d.cantidad);
-
-                            new Chart(ctxClientesMes, {
-                                type: "bar",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Clientes",
-                                            data: values
-                                        }]
-                                },
-                                options: {
-                                    indexAxis: 'y',
-                                    scales: {
-                                        x: {
-                                            beginAtZero: true,
-                                            ticks: {
-                                                stepSize: 10
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                /* Ingresos por categoría */
-                fetch(base + "/ingresos-categoria")
-                        .then(r => r.json())
-                        .then(datos => {
-                            console.log("categorias:", datos);
-                            const labels = datos.map(d => d.categoria);
-                            const values = datos.map(d => d.total);
-
-                            new Chart(document.getElementById("chartCategoria"), {
-                                type: "bar",
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                            label: "Ingresos por categoría",
-                                            data: values,
-                                            backgroundColor: "#0077b6"
-                                        }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {display: false}
-                                    }
-                                }
-                            });
-                        });
-
-            });
-        </script>
     </body>
 </html>
