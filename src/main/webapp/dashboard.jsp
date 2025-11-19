@@ -93,7 +93,7 @@
 
                                 <% if (permisos == null || permisos.contains("ORDEN_VER")) { %>
                                 <li>
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/ordenes?action=listar">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/orden?action=listar">
                                         <i class="bi bi-receipt-cutoff"></i> Órdenes de trabajo
                                     </a>
                                 </li>

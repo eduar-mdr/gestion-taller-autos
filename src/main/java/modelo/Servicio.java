@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Eduar Medrano
@@ -83,6 +85,18 @@ public class Servicio {
 
     public void setIdVehiculo(int idVehiculo) {
         this.idVehiculo = idVehiculo;
+    }
+
+    public int getIdOrden() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int getCantidad() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public BigDecimal getSubtotal() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 
