@@ -119,9 +119,9 @@ public class UsuarioDao {
         }
     }
 
-    public Usuario obtenerPorId(int idUsuario) throws SQLException {
+    public Usuario obtenerPorId(int idUsuario) {
+        
         Usuario u = null;
-
         String sql = "SELECT u.id_usuario, u.nombre_usuario, u.email, u.estado, "
                    + "       u.id_rol, r.nombre_rol "
                    + "FROM Usuario u "
@@ -143,6 +143,9 @@ public class UsuarioDao {
                 u.setIdRol(rs.getInt("id_rol"));
                 u.setRolNombre(rs.getString("nombre_rol"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocurrió un error al obtenr el registro");
         }
 
         return u;

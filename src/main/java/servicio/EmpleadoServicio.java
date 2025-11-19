@@ -37,7 +37,7 @@ public class EmpleadoServicio {
         if (m.getApellido() == null || m.getApellido().isEmpty()) {
             throw new IllegalArgumentException("El apellido es obligatorio");
         }
-        if (m.getDui() <= 0) {
+        if (m.getDui() == null || m.getDui().isEmpty()) {
             throw new IllegalArgumentException("El DUI es obligatorio y debe ser válido");
         }
         if (m.getTelefono() <= 0) {
@@ -81,7 +81,7 @@ public class EmpleadoServicio {
         if (m.getApellido() == null || m.getApellido().isEmpty()) {
             throw new IllegalArgumentException("El apellido es obligatorio");
         }
-        if (m.getDui() <= 0) {
+        if (m.getDui() == null || m.getDui().isEmpty()) {
             throw new IllegalArgumentException("El DUI es obligatorio y debe ser válido");
         }
         if (m.getTelefono() <= 0) {
