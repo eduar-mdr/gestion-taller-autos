@@ -193,7 +193,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp" style="color:#fff; font-weight:bold;">
                     <i class="bi bi-house-door-fill"></i> Taller Mecánico
                 </a>
 

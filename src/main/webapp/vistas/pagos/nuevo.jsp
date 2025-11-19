@@ -7,6 +7,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.util.Set"%>
+<%@page import="java.sql.Connection" %>
+<%@page import="conexion.ConexionDB" %>
+<%@page import="modelo.Usuario"%>
+<%
+    // Validar que hay usuario en sesión
+    Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
+    if (usuarioLogueado == null) {
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        return;
+    }
+
+    // Cargar permisos del usuario
+    Set<String> permisos = (Set<String>) session.getAttribute("permisosUsuario");
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
