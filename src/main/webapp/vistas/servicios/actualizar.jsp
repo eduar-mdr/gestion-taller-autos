@@ -129,7 +129,7 @@
                 <!-- TÍTULO -->
                 <div class="mb-3">
                     <h2 style="color: #253D85;" class="text-center">
-                        <i class="bi bi-person-lines-fill"></i> ACTUALIZAR SERVICIO
+                        <i class="bi bi-wrench"></i> ACTUALIZAR SERVICIO
                     </h2>
                 </div>
                 <input type="hidden" name="idServicio" value="${servicio.idServicio}" />
@@ -156,12 +156,19 @@
                            required style="color: black;">
                 </div>
                 <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-tags-fill"></i></span>
-                    <input name="categoria" type="text" class="form-control" 
-                           placeholder="Categoria"
-                           value="${servicio.categoria}"
-                           required style="color: black;">
-                </div>
+                <span class="input-group-text"><i class="bi bi-activity"></i></span>
+                <select name="categoria" required class="form-select">
+                    <option value="">Seleccione una categoria</option>
+                    <option value="Mantenimiento" ${servicio.categoria == 'Mantenimiento' ? 'selected' : ''}>Mantenimiento</option>
+                    <option value="Reparacion" ${servicio.categoria == 'Reparacion' ? 'selected' : ''}>Reparacion mecanica</option>
+                    <option value="Electricidad" ${servicio.categoria == 'Electricidad' ? 'selected' : ''}>Electricidad y electronica</option>
+                    <option value="Carroceria" ${servicio.categoria == 'Carroceria' ? 'selected' : ''}>Carroceria y pintura</option>
+                    <option value="Carroceria" ${servicio.categoria == 'Carroceria' ? 'selected' : ''}>Carroceria y pintura</option>
+                    <option value="Neumaticos" ${servicio.categoria == 'Neumaticos' ? 'selected' : ''}>Neumaticos y ruedas</option>
+                    <option value="Lubricantes" ${servicio.categoria == 'Lubricantes' ? 'selected' : ''}>Fluidos y lubricantes</option>
+                    <option value="Climatizacion" ${servicio.categoria == 'Climatizacion' ? 'selected' : ''}>Climatizacion</option>
+                </select>
+            </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-tags-fill"></i></span>
                     <input name="duracionEstimada" type="text" class="form-control" 
@@ -169,13 +176,14 @@
                            value="${servicio.duracionEstimada}"
                            required style="color: black;">
                 </div>
-                <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-tags-fill"></i></span>
-                    <input name="estado" type="text" class="form-control" 
-                           placeholder="estado"
-                           value="${servicio.estado}"
-                           required style="color: black;">
-                </div>
+               <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-activity"></i></span>
+                <select name="estado" required class="form-select">
+                    <option value="">Seleccione un estado</option>
+                    <option value="Activo" ${servicio.estado == 'Activo' ? 'selected' : ''}>Activo</option>
+                    <option value="Inactivo" ${servicio.estado == 'Inactivo' ? 'selected' : ''}>Inactivo</option>
+                </select>
+            </div>
 
                 <!-- BOTONES -->
                 <div class="text-center">
@@ -186,7 +194,7 @@
                     <a href="${pageContext.request.contextPath}/servicios" class="btn btn-danger ms-2">
                         <i class="bi bi-x-circle"></i> Cancelar
                     </a>
-                </div>
+                </div> 
 
             </form>
         </div>

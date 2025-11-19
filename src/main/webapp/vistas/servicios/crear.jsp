@@ -132,9 +132,9 @@
                     <h2 style="color: #234C6A;" class="text-center">
                         <i class="bi bi-wrench"></i> Servicios</h2>
                 </div>
-                <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-wrench"></i></span>
-                    <input name="nombre" type="text" class="form-control" placeholder="Servicio" required style="color: black;">
+               <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-file-text"></i></span>
+                    <input name="nombre" type="text" class="form-control" placeholder="Descripcion del servicio" required style="color: black;">
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-file-text"></i></span>
@@ -145,16 +145,29 @@
                     <input name="precio" type="number" step="0.01" class="form-control" placeholder="Precio" required style="color: black;">
                 </div>
                 <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-tags"></i></span>
-                    <input name="categoria" type="text" class="form-control" placeholder="Categoria" required style="color: black;">
+                    <span class="input-group-text"><i class="bi bi-gear-fill"></i></span>
+                    <select name="categoria" required class="form-select">
+                        <option value="">Seleccione una categoria</option>
+                        <option value="Mantenimiento">Mantenimiento</option>
+                        <option value="Reparacion">Reparacion mecanica</option>
+                        <option value="Electricidad">Electricidad y electronica</option>
+                        <option value="Carroceria">Carroceria y pintura</option>
+                        <option value="Neumaticos">Neumaticos y ruedas</option>
+                        <option value="Lubricantes">Fluidos y lubricantes</option>
+                        <option value="Climatizacion">Climatizacion</option>
+                    </select>
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-clock"></i></span>
                     <input name="duracionEstimada" type="text" class="form-control" placeholder="Duración estimada" required style="color: black;">
                 </div>
                 <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi-check-circle-fill"></i></span>
-                    <input name="estado" type="text" class="form-control" placeholder="Estado" required style="color: black;">
+                    <span class="input-group-text"><i class="bi bi-info-circle-fill"></i></span>
+                    <select name="estado" required class="form-select">
+                        <option value="">Seleccione un estado</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-car-front"></i></span>

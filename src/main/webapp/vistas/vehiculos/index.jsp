@@ -229,4 +229,12 @@
         </div>
 
     </body>
+    <script>
+        $(document).ready(function () {
+            $('#tablaVehiculos').DataTable({
+                responsive: true,
+                autoWidth: false
+            });
+        });
+    </script>
 </html>
