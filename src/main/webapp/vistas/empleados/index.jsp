@@ -1,6 +1,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="m" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -167,7 +167,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        <c:forEach var="m" items="${tablaEmpleados}">
+                        <c:forEach var="m" items="${empleados}">
                             <tr>
                                 <td>${m.idEmpleado}</td>
                                 <td>${m.nombre}</td>
