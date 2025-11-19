@@ -83,24 +83,60 @@
                                 <i class="bi bi-gear-fill"></i> Gestiones
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vehiculos?action=listar"><i class="bi bi-car-front-fill"></i> Vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ordenes?action=listar"><i class="bi bi-receipt-cutoff"></i> Órdenes de trabajo</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pagos?action=listar"><i class="bi bi-cash-stack"></i> Pagos y facturación</a></li>
+                                <% if (permisos == null || permisos.contains("VEHICULO_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/vehiculos?action=listar">
+                                        <i class="bi bi-car-front-fill"></i> Vehículos
+                                    </a>
+                                </li>
+                                <% } %>
+
+                                <% if (permisos == null || permisos.contains("ORDEN_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/ordenes?action=listar">
+                                        <i class="bi bi-receipt-cutoff"></i> Órdenes de trabajo
+                                    </a>
+                                </li>
+                                <% } %>
+
+                                <% if (permisos == null || permisos.contains("PAGO_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/pagos?action=listar">
+                                        <i class="bi bi-cash-stack"></i> Pagos y Facturación
+                                    </a>
+                                </li>
+                                <% } %>
                             </ul>
                         </li>
-
                         <!-- Reportes -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                                 <i class="bi bi-clipboard-data-fill"></i> Reportes
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vistas/reportes/ReporteServicio.jsp"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ingresos.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/clientesFrecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
+                                <% if (permisos == null || permisos.contains("VEHICULO_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/vehiculos?action=listar">
+                                        <i class="bi bi-car-front-fill"></i> Servicios
+                                    </a>
+                                </li>
+                                <% } %>
+
+                                <% if (permisos == null || permisos.contains("ORDEN_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/ordenes?action=listar">
+                                        <i class="bi bi-receipt-cutoff"></i> Órdenes de trabajo
+                                    </a>
+                                </li>
+                                <% } %>
+
+                                <% if (permisos == null || permisos.contains("PAGO_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/pagos?action=listar">
+                                        <i class="bi bi-cash-stack"></i> Pagos y Facturación
+                                    </a>
+                                </li>
+                                <% } %>
                             </ul>
                         </li>
 
