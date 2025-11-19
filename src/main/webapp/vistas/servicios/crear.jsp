@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +16,7 @@
         <script src="bs/js/accion.js"></script>
     </head>
     <body>
-         <!-- Menú principal -->
+        <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
@@ -125,47 +126,57 @@
 
 
         <br>
-    <div class="border border-black p-4 w-50 mx-auto">
-        <form action="${pageContext.request.contextPath}/servicios?action=guardar" " method="post">
-            <div class="mb-3">
-                <h2 style="color: #234C6A;" class="text-center">
-                    <i class="bi bi-wrench"></i> Servicios</h2>
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-wrench"></i></span>
-                <input name="nombre" type="text" class="form-control" placeholder="Servicio" required style="color: black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-file-text"></i></span>
-                <input name="descripcion" type="text" class="form-control" placeholder="Descripcion del servicio" required style="color: black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
-                <input name="precio" type="number" step="0.01" class="form-control" placeholder="Precio" required style="color: black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-tags"></i></span>
-                <input name="categoria" type="text" class="form-control" placeholder="Categoria" required style="color: black;">
-            </div>
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-clock"></i></span>
-                <input name="duracionEstimada" type="text" class="form-control" placeholder="Duración estimada" required style="color: black;">
-            </div>
-             <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi-check-circle-fill"></i></span>
-                <input name="estado" type="text" class="form-control" placeholder="Estado" required style="color: black;">
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-save"></i> Guardar
-                </button>
-                <a href="${pageContext.request.contextPath}/servicios" class="btn btn-danger ms-2">
-                    <i class="bi bi-x-circle"></i> Cancelar
-                </a>
-            </div>
-        </form>
-    </div>
-</body>
+        <div class="border border-black p-4 w-50 mx-auto">
+            <form action="${pageContext.request.contextPath}/servicios?action=guardar" " method="post">
+                <div class="mb-3">
+                    <h2 style="color: #234C6A;" class="text-center">
+                        <i class="bi bi-wrench"></i> Servicios</h2>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-wrench"></i></span>
+                    <input name="nombre" type="text" class="form-control" placeholder="Servicio" required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-file-text"></i></span>
+                    <input name="descripcion" type="text" class="form-control" placeholder="Descripcion del servicio" required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                    <input name="precio" type="number" step="0.01" class="form-control" placeholder="Precio" required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                    <input name="categoria" type="text" class="form-control" placeholder="Categoria" required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                    <input name="duracionEstimada" type="text" class="form-control" placeholder="Duración estimada" required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi-check-circle-fill"></i></span>
+                    <input name="estado" type="text" class="form-control" placeholder="Estado" required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-car-front"></i></span>
+                    <select name="idVehiculo" class="form-control" required>
+                        <option value="">Seleccione un vehículo</option>
+                        <c:forEach var="v" items="${vehiculos}">
+                            <option value="${v.idVehiculo}">
+                                ${v.placa} - ${v.modelo}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Guardar
+                    </button>
+                    <a href="${pageContext.request.contextPath}/servicios" class="btn btn-danger ms-2">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </body>
 </html>
 
-   

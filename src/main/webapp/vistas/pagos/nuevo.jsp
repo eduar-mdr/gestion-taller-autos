@@ -249,71 +249,71 @@
             </form>
         </div>
         <script>
-                                       function cargarInfoOrden() {
-                                           const idOrden = document.getElementById('idOrden').value;
+            function cargarInfoOrden() {
+                const idOrden = document.getElementById('idOrden').value;
 
-                                           if (!idOrden) {
-                                               document.getElementById('infoOrdenContainer').style.display = 'none';
-                                               return;
-                                           }
+                if (!idOrden) {
+                    document.getElementById('infoOrdenContainer').style.display = 'none';
+                    return;
+                }
 
-                                           fetch('pagos?action=calcularTotales&idOrden=' + idOrden)
-                                                   .then(response => response.json())
-                                                   .then(data => {
-                                                       if (data.success) {
-                                                           document.getElementById('nombreCliente').textContent = data.nombreCliente;
-                                                           document.getElementById('placaVehiculo').textContent = data.placaVehiculo;
-                                                           document.getElementById('totalManoObra').textContent = '$' + parseFloat(data.totalManoObra).toFixed(2);
-                                                           document.getElementById('totalRepuestos').textContent = '$' + parseFloat(data.totalRepuestos).toFixed(2);
-                                                           document.getElementById('totalGeneral').textContent = '$' + parseFloat(data.totalGeneral).toFixed(2);
-                                                           document.getElementById('montoPendiente').textContent = '$' + parseFloat(data.montoPendiente).toFixed(2);
+                fetch('pagos?action=calcularTotales&idOrden=' + idOrden)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('nombreCliente').textContent = data.nombreCliente;
+                                document.getElementById('placaVehiculo').textContent = data.placaVehiculo;
+                                document.getElementById('totalManoObra').textContent = '$' + parseFloat(data.totalManoObra).toFixed(2);
+                                document.getElementById('totalRepuestos').textContent = '$' + parseFloat(data.totalRepuestos).toFixed(2);
+                                document.getElementById('totalGeneral').textContent = '$' + parseFloat(data.totalGeneral).toFixed(2);
+                                document.getElementById('montoPendiente').textContent = '$' + parseFloat(data.montoPendiente).toFixed(2);
 
-                                                           document.getElementById('monto').value = data.montoPendiente;
-                                                           document.getElementById('monto').max = data.montoPendiente;
-                                                           calcularTotal();
+                                document.getElementById('monto').value = data.montoPendiente;
+                                document.getElementById('monto').max = data.montoPendiente;
+                                calcularTotal();
 
-                                                           document.getElementById('infoOrdenContainer').style.display = 'block';
-                                                       } else {
-                                                           alert(data.message || 'No se pudo cargar la información');
-                                                           document.getElementById('infoOrdenContainer').style.display = 'none';
-                                                       }
-                                                   })
-                                                   .catch(error => {
-                                                       console.error('Error:', error);
-                                                       alert('Error al cargar la información');
-                                                   });
-                                       }
+                                document.getElementById('infoOrdenContainer').style.display = 'block';
+                            } else {
+                                alert(data.message || 'No se pudo cargar la información');
+                                document.getElementById('infoOrdenContainer').style.display = 'none';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error al cargar la información');
+                        });
+            }
 
-                                       function calcularTotal() {
-                                           const monto = parseFloat(document.getElementById('monto').value) || 0;
-                                           const descuento = parseFloat(document.getElementById('descuento').value) || 0;
-                                           const total = monto - descuento;
-                                           document.getElementById('totalPagar').value = total.toFixed(2);
-                                       }
+            function calcularTotal() {
+                const monto = parseFloat(document.getElementById('monto').value) || 0;
+                const descuento = parseFloat(document.getElementById('descuento').value) || 0;
+                const total = monto - descuento;
+                document.getElementById('totalPagar').value = total.toFixed(2);
+            }
 
-                                       window.onload = function () {
-                                           const idOrden = document.getElementById('idOrden').value;
-                                           if (idOrden) {
-                                               cargarInfoOrden();
-                                           }
-                                       };
+            window.onload = function () {
+                const idOrden = document.getElementById('idOrden').value;
+                if (idOrden) {
+                    cargarInfoOrden();
+                }
+            };
 
-                                       document.getElementById('formPago').addEventListener('submit', function (e) {
-                                           const monto = parseFloat(document.getElementById('monto').value);
-                                           const descuento = parseFloat(document.getElementById('descuento').value) || 0;
+            document.getElementById('formPago').addEventListener('submit', function (e) {
+                const monto = parseFloat(document.getElementById('monto').value);
+                const descuento = parseFloat(document.getElementById('descuento').value) || 0;
 
-                                           if (descuento > monto) {
-                                               e.preventDefault();
-                                               alert('El descuento no puede ser mayor al monto');
-                                               return false;
-                                           }
+                if (descuento > monto) {
+                    e.preventDefault();
+                    alert('El descuento no puede ser mayor al monto');
+                    return false;
+                }
 
-                                           if (monto <= 0) {
-                                               e.preventDefault();
-                                               alert('El monto debe ser mayor a cero');
-                                               return false;
-                                           }
-                                       });
+                if (monto <= 0) {
+                    e.preventDefault();
+                    alert('El monto debe ser mayor a cero');
+                    return false;
+                }
+            });
         </script>
     </body>
 </html>

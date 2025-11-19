@@ -11,6 +11,11 @@ package controlador;
 import modelo.Cliente;
 import servicio.ClienteServicio;
 
+import dao.VehiculoDao;
+import dao.ServicioDao;
+import modelo.Vehiculo;
+import modelo.Servicio;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
@@ -76,13 +81,29 @@ public class ClienteControlador extends HttpServlet{
             
             //Show
             case "editar":
-                
-                int id = Integer.parseInt(request.getParameter("idCliente"));
-                Cliente cliente = clienteServicio.obtenerPorId(id);
-                request.setAttribute("cliente", cliente);
-                RequestDispatcher formEditar = request.getRequestDispatcher("/vistas/clientes/actualizar.jsp");
-                formEditar.forward(request, response);
-                break;
+
+    int id = Integer.parseInt(request.getParameter("idCliente"));
+
+    // OBTENER CLIENTE
+    Cliente cliente = clienteServicio.obtenerPorId(id);
+    request.setAttribute("cliente", cliente);
+
+    // OBTENER VEHICULOS DEL CLIENTE
+    VehiculoDao vehiculoDao = new VehiculoDao();
+    List<Vehiculo> vehiculosCliente = vehiculoDao.listarPorCliente(id);
+    request.setAttribute("vehiculos", vehiculosCliente);
+
+    // OBTENER SERVICIOS DEL CLIENTE
+    ServicioDao servicioDao = new ServicioDao();
+    List<Servicio> serviciosCliente = servicioDao.listarPorCliente(id);
+    request.setAttribute("servicios", serviciosCliente);
+
+    // ENVIAR A JSP EDITAR
+    RequestDispatcher formEditar = request.getRequestDispatcher("/vistas/clientes/actualizar.jsp");
+    formEditar.forward(request, response);
+
+    break;
+
             
             //Store
             case "guardar":

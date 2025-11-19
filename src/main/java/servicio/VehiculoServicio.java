@@ -26,7 +26,6 @@ public class VehiculoServicio {
     // Store
     public void registrarVehiculo(Vehiculo v) throws SQLException {
 
-        // Algunas validaciones...
         if (v.getModelo() == null || v.getModelo().isEmpty()) {
             throw new IllegalArgumentException("El modelo es obligatorio");
         }

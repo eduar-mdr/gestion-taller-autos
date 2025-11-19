@@ -38,7 +38,15 @@ public class UsuarioServicio {
         usuarioDao.insertar(u);
     }
     public List<Usuario> obtenerUsuarios() throws SQLException {
-    return usuarioDao.obtenerUsuarios();
-}
+        return usuarioDao.obtenerUsuarios();
+    }
+    
+    // Show
+    public Usuario obtenerPorId(int id) {
+        if (id < 1) {
+            throw new IllegalArgumentException("El ID del usuario no es válido");
+        }
+        return usuarioDao.obtenerPorId(id);
+    }
 
 }

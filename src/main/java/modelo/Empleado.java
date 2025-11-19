@@ -13,7 +13,7 @@ public class Empleado {
     private int idEmpleado;
     private String nombre;
     private String apellido;
-    private int dui;
+    private String dui;
     private int telefono;
     private String direccion;
     private String cargo;
@@ -51,11 +51,11 @@ public class Empleado {
         this.apellido = apellido;
     }
 
-    public int getDui() {
+    public String getDui() {
         return dui;
     }
 
-    public void setDui(int dui) {
+    public void setDui(String dui) {
         this.dui = dui;
     }
 

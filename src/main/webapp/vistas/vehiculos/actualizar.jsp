@@ -229,13 +229,6 @@
                 </select>
             </div>
 
-            <!-- HISTORIAL SERVICIO -->
-            <div class="mb-3 input-group">
-                <span class="input-group-text"><i class="bi bi-journal-text"></i></span>
-                <textarea name="historialServicioUrl" class="form-control" rows="3"
-                          placeholder="Historial de servicio" style="color:black;">${vehiculo.historialServicioUrl}</textarea>
-            </div>
-
             <!-- ESTADO DEL VEHICULO -->
             <div class="mb-3 input-group">
                 <span class="input-group-text"><i class="bi bi-activity"></i></span>
