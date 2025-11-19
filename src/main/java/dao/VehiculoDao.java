@@ -146,32 +146,33 @@ public class VehiculoDao {
 
     // ACTUALIZAR
     public void actualizar(Vehiculo v) {
-        String sql = "UPDATE Vehiculo SET modelo=?, anio=?, placa=?, num_motor=?, color=?, kilometraje=?, fecha_ingreso=?, num_chasis=?, historial_servicio_url=?, estado_vehiculo=?, id_cliente=?, id_tipo=?, id_marca=? "
-                   + "WHERE id_vehiculo=?";
+    String sql = "UPDATE Vehiculo SET modelo=?, anio=?, placa=?, num_motor=?, color=?, kilometraje=?, num_chasis=?, historial_servicio_url=?, estado_vehiculo=?, id_cliente=?, id_tipo=?, id_marca=? "
+               + "WHERE id_vehiculo=?";
 
-        try (Connection conn = ConexionDB.conectar();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    try (Connection conn = ConexionDB.conectar();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, v.getModelo());
-            ps.setInt(2, v.getAnio());
-            ps.setString(3, v.getPlaca());
-            ps.setString(4, v.getNumMotor());
-            ps.setString(5, v.getColor());
-            ps.setInt(6, v.getKilometraje());
-            ps.setString(7, v.getNumChasis());
-            ps.setString(8, v.getHistorialServicioUrl());
-            ps.setString(9, v.getEstadoVehiculo());
-            ps.setInt(10, v.getIdCliente());
-            ps.setInt(11, v.getIdTipo());
-            ps.setInt(12, v.getIdMarca());
-            ps.setInt(13, v.getIdVehiculo());
+        ps.setString(1, v.getModelo());
+        ps.setInt(2, v.getAnio());
+        ps.setString(3, v.getPlaca());
+        ps.setString(4, v.getNumMotor());
+        ps.setString(5, v.getColor());
+        ps.setInt(6, v.getKilometraje());
+        ps.setString(7, v.getNumChasis());
+        ps.setString(8, v.getHistorialServicioUrl());
+        ps.setString(9, v.getEstadoVehiculo());
+        ps.setInt(10, v.getIdCliente());
+        ps.setInt(11, v.getIdTipo());
+        ps.setInt(12, v.getIdMarca());
+        ps.setInt(13, v.getIdVehiculo());
 
-            ps.executeUpdate();
+        ps.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
+
 
     // ELIMINAR
     public void eliminar(int id) {
