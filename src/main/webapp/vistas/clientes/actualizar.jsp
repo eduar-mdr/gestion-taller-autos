@@ -131,7 +131,7 @@
         <div class="border border-primary p-4 w-50 mx-auto">
             <form action="${pageContext.request.contextPath}/clientes?action=actualizar" method="post">
 
-                <input type="hidden" name="idCliente" value="abc" />
+                <input type="hidden" name="idCliente" value="${cliente.idCliente}" />
 
                 <!-- TÍTULO -->
                 <div class="mb-3">
