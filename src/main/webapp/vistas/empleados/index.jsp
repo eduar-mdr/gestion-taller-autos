@@ -167,7 +167,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        <c:forEach var="m" items="${tablaEmpleados}">
+                        <c:forEach var="m" items="${empleados}">
                             <tr>
                                 <td>${m.idEmpleado}</td>
                                 <td>${m.nombre}</td>
