@@ -73,7 +73,7 @@
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/clientesFrecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/clientes?action=frecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
                             </ul>
                         </li>
 
@@ -180,7 +180,6 @@
                                 <td>${c.telefono}</td>
                                 <td>${c.email}</td>
                                 <td class="text-nowrap">
-
                                     <!-- Botón Editar -->
                                     <form action="${pageContext.request.contextPath}/clientes" 
                                           method="post" 
@@ -193,19 +192,15 @@
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </form>
-
+                                        
                                     <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/clientes" 
-                                          method="post" 
-                                          class="d-inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este cliente?');">
-
-                                        <input type="hidden" name="action" value="eliminar">
-                                        <input type="hidden" name="idCliente" value="${c.idCliente}">
-
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
+                                    <form action="${pageContext.request.contextPath}/clientes" method="post" class="d-inline" 
+                                          onsubmit="return confirm('¿Estás seguro de eliminar este cliente?');"> 
+                                        <input type="hidden" name="action" value="eliminar"> 
+                                        <input type="hidden" name="idCliente" value="${c.idCliente}"> 
+                                        <button type="submit" class="btn btn-sm btn-danger"> 
+                                            <i class="bi bi-trash"></i> 
+                                        </button> 
                                     </form>
 
                                 </td>

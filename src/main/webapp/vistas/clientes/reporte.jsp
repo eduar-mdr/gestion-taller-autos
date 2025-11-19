@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 13 nov 2025, 10:24:01 p. m.
+    Document   : reporte
+    Created on : 17 nov 2025, 9:58:20 p. m.
     Author     : MINEDUCYT
 --%>
 
@@ -10,20 +10,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión de repuestos</title>
-
-        <link rel="stylesheet" href="bs/css/estilo.css">
+        <title>Reporte de servicios</title><link rel="stylesheet" href="bs/css/estilo.css">
         <link rel="stylesheet" href="bs/fonts/iconos.css">
         <script src="bs/js/accion.js"></script>
 
-        <!-- Datatables and Jquery -->
-        <link  rel="stylesheet" href="datatables/datatables.css"/>
-        <script src="datatables/jquery.js"></script>
-        <script src="datatables/datatables.js"></script>
-
     </head>
     <body>
-
         <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
@@ -68,12 +60,12 @@
                                 <i class="bi bi-clipboard-data-fill"></i> Reportes
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/servicios.jsp"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/servicios?action=reporte"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ingresos.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ordenes.jsp"><i class="bi bi-journal-text"></i> Órdenes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/clientesFrecuentes.jsp"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/clientes?action=frecuentes"><i class="bi bi-star-fill"></i> Clientes frecuentes</a></li>
                             </ul>
                         </li>
 
@@ -132,96 +124,44 @@
             }
         </style>
 
+
         <br>
-        <div class="container mt-5">
+       <div class="container mt-4">
+        <h2 style="color:#253D85;" class="text-center">
+            <i class="bi bi-star-fill"></i> CLIENTES FRECUENTES
+        </h2>
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Repuestos</li>
-                </ol>
-            </nav>
-
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0">Catálogo de repuestos</h2>
-
-                <a href="${pageContext.request.contextPath}/repuestos?action=crear" 
-                   class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> Crear
-                </a>
-            </div>       
-            <br>
-
-            <div class="table-responsive">
-                <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaRepuestos">
-                    <thead class="" >
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Total Órdenes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="cliente" items="${clientesFrecuentes}">
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre del repuesto</th>
-                            <th>Descrpcion</th>
-                            <th>Precio $</th>
-                            <th>Proveedor ID</th>
-                            <th>Proveedor</th>
-                            <th>Acciones</th>
+                            <td>${cliente.idCliente}</td>
+                            <td>${cliente.nombre}</td>
+                            <td>${cliente.apellido}</td>
+                            <td>${cliente.telefono}</td>
+                            <td>${cliente.email}</td>
+                            <td>${cliente.totalOrdenes}</td>
                         </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <c:forEach var="r" items="${repuestos}">
-                            <tr>
-                                <td>${r.idRepuesto}</td>
-                                <td>${r.nombre}</td>
-                                <td>${r.descripcion}</td>
-                                <td>${r.precio}</td>
-                                <td>${r.idProveedor}</td>
-                                <td>${r.nombreProveedor}</td> 
-                                <td class="text-nowrap">
-
-                                    <!-- Botón Editar -->
-                                    <form action="${pageContext.request.contextPath}/repuestos" 
-                                          method="post" 
-                                          class="d-inline">
-
-                                        <input type="hidden" name="action" value="editar">
-                                        <input type="hidden" name="idRepuesto" value="${r.idRepuesto}">
-
-                                        <button type="submit" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </form>
-
-                                    <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/repuestos" 
-                                          method="post" 
-                                          class="d-inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este repuesto?');">
-
-                                        <input type="hidden" name="action" value="eliminar">
-                                        <input type="hidden" name="idRepuesto" value="${r.idRepuesto}">
-
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-
-                </table>
-            </div>
+                    </c:forEach>
+                    <c:if test="${empty clientesFrecuentes}">
+                        <tr>
+                            <td colspan="6" class="text-center">No hay clientes frecuentes aún</td>
+                        </tr>
+                    </c:if>
+                </tbody>
+            </table>
         </div>
-
+    </div>
     </body>
-    <script>
-        $(document).ready(function () {
-            $('#tablaRepuestos').DataTable({
-                responsive: true,
-                autoWidth: false
-            });
-        });
-    </script>
 </html>
-
-
-

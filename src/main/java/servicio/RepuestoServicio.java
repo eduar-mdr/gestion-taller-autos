@@ -36,9 +36,6 @@ public class RepuestoServicio {
         if (r.getPrecio() <= 0) {
             throw new IllegalArgumentException("El precio debe ser mayor que 0");
         }
-        if (r.getIdProveedor() <= 0) {
-            throw new IllegalArgumentException("Debe seleccionar un proveedor válido");
-        }
 
         repuestoDao.insertar(r);
     }
@@ -62,9 +59,6 @@ public class RepuestoServicio {
         }
         if (r.getPrecio() <= 0) {
             throw new IllegalArgumentException("El precio debe ser mayor que 0");
-        }
-        if (r.getIdProveedor() <= 0) {
-            throw new IllegalArgumentException("Debe seleccionar un proveedor válido");
         }
 
         repuestoDao.actualizar(r);

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 13 nov 2025, 10:24:01 p. m.
+    Document   : reporte
+    Created on : 17 nov 2025, 4:00:05 p. m.
     Author     : MINEDUCYT
 --%>
 
@@ -10,20 +10,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión de repuestos</title>
-
-        <link rel="stylesheet" href="bs/css/estilo.css">
+        <title>Reporte de servicios</title><link rel="stylesheet" href="bs/css/estilo.css">
         <link rel="stylesheet" href="bs/fonts/iconos.css">
         <script src="bs/js/accion.js"></script>
 
-        <!-- Datatables and Jquery -->
-        <link  rel="stylesheet" href="datatables/datatables.css"/>
-        <script src="datatables/jquery.js"></script>
-        <script src="datatables/datatables.js"></script>
-
     </head>
     <body>
-
         <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
@@ -68,7 +60,7 @@
                                 <i class="bi bi-clipboard-data-fill"></i> Reportes
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/servicios.jsp"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/servicios?action=reporte"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ingresos.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
@@ -132,96 +124,64 @@
             }
         </style>
 
-        <br>
+       <br>
         <div class="container mt-5">
 
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Repuestos</li>
+                    <li class="breadcrumb-item"><a href="/gestion-taller-autos/dashboard.jsp">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Servicios</li>
                 </ol>
             </nav>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0">Catálogo de repuestos</h2>
+                <h2 class="mb-0">Reporte</h2>
+            </div>    
+            <div class="border border-black p-4 w-75 mx-auto">
 
-                <a href="${pageContext.request.contextPath}/repuestos?action=crear" 
-                   class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> Crear
-                </a>
-            </div>       
-            <br>
+                <div class="mb-3">
+                    <h2 class="text-center">
+                        <i class="bi bi-table"></i> Reporte de Servicios
+                    </h2>
+                </div>
 
-            <div class="table-responsive">
-                <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaRepuestos">
-                    <thead class="" >
+                <table class="table table-bordered table-striped">
+                    <thead class="table-warning">
                         <tr>
                             <th>ID</th>
-                            <th>Nombre del repuesto</th>
-                            <th>Descrpcion</th>
-                            <th>Precio $</th>
-                            <th>Proveedor ID</th>
-                            <th>Proveedor</th>
-                            <th>Acciones</th>
+                            <th>Servicio</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Duración Estimada</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody class="table-group-divider">
-                        <c:forEach var="r" items="${repuestos}">
+                    <tbody>
+                        <c:forEach var="m" items="${listaServicios}">
                             <tr>
-                                <td>${r.idRepuesto}</td>
-                                <td>${r.nombre}</td>
-                                <td>${r.descripcion}</td>
-                                <td>${r.precio}</td>
-                                <td>${r.idProveedor}</td>
-                                <td>${r.nombreProveedor}</td> 
-                                <td class="text-nowrap">
-
-                                    <!-- Botón Editar -->
-                                    <form action="${pageContext.request.contextPath}/repuestos" 
-                                          method="post" 
-                                          class="d-inline">
-
-                                        <input type="hidden" name="action" value="editar">
-                                        <input type="hidden" name="idRepuesto" value="${r.idRepuesto}">
-
-                                        <button type="submit" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </form>
-
-                                    <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/repuestos" 
-                                          method="post" 
-                                          class="d-inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este repuesto?');">
-
-                                        <input type="hidden" name="action" value="eliminar">
-                                        <input type="hidden" name="idRepuesto" value="${r.idRepuesto}">
-
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-
-                                </td>
+                                <td>${m.idServicio}</td>
+                                <td>${m.nombre}</td>
+                                <td>${m.descripcion}</td>
+                                <td>$ ${m.precio}</td>
+                                <td>${m.categoria}</td>
+                                <td>${m.duracionEstimada}</td>
+                                <td>${m.estado}</td>
                             </tr>
                         </c:forEach>
                     </tbody>
-
                 </table>
+
+                <div class="text-center mt-3">
+                    <a href="${pageContext.request.contextPath}/servicios?action=pdf" class="btn btn-success">
+                        <i class="bi bi-file-earmark-pdf"></i> Descargar PDF
+                    </a>
+                    <a href="${pageContext.request.contextPath}/servicios" class="btn btn-primary">
+                        <i class="bi bi-arrow-left-circle"></i> Regresar
+                    </a>
+                </div>
+
+
             </div>
-        </div>
-
     </body>
-    <script>
-        $(document).ready(function () {
-            $('#tablaRepuestos').DataTable({
-                responsive: true,
-                autoWidth: false
-            });
-        });
-    </script>
 </html>
-
-
-

@@ -9,13 +9,14 @@ package modelo;
  * @author fuent
  */
 public class Usuario {
+
     private int idUsuario;
     private String nombreUsuario;
     private String email;
-    private String contrasena; 
-    private String salt;
-    private String estado;
+    private String contrasena;
     private int idRol;
+    private String rolNombre;
+    private String estado;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -49,12 +50,12 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public String getSalt() {
-        return salt;
+    public int getIdRol() {
+        return idRol;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
     }
 
     public String getEstado() {
@@ -65,13 +66,12 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public int getIdRol() {
-        return idRol;
+    public String getRolNombre() {
+        return rolNombre;
     }
 
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
+    public void setRolNombre(String rolNombre) {
+        this.rolNombre = rolNombre;
     }
-    
-    
+
 }

@@ -9,19 +9,22 @@ package seguridad;
  * @author fuent
  */
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 public class Hash {
 
-    public static String hashPassword(String password, String salt) {
+    // Genera hash SHA-256 de un texto
+    public static String sha256(String password) {
+        if (password == null) {
+            password = "";
+        }
+
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update((salt + password).getBytes("UTF-8"));
-            byte[] digest = md.digest();
-            return bytesToHex(digest);
-        } catch (NoSuchAlgorithmException | java.io.UnsupportedEncodingException e) {
-            throw new RuntimeException("Error al hashear contraseña", e);
+            md.update(password.getBytes("UTF-8"));
+            byte[] bytes = md.digest();
+            return bytesToHex(bytes);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al generar hash SHA-256", e);
         }
     }
 

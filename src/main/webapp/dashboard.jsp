@@ -4,18 +4,22 @@
     Author     : Eduar Medrano
 --%>
 
+<%@page import="java.util.Set"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.Connection" %>
 <%@page import="conexion.ConexionDB" %>
 <%@page import="modelo.Usuario"%>
 <%
+    // Validar que hay usuario en sesión
     Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
     if (usuarioLogueado == null) {
         response.sendRedirect(request.getContextPath() + "/index.jsp");
         return;
     }
-%>
 
+    // Cargar permisos del usuario
+    Set<String> permisos = (Set<String>) session.getAttribute("permisosUsuario");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -48,12 +52,31 @@
                                 <i class="bi bi-people-fill"></i> Personas
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/clientes?action=listar"><i class="bi bi-person-check-fill"></i> Clientes</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/empleados?action=listar"><i class="bi bi-person-badge"></i> Empleados</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/usuarios?action=listar"><i class="bi bi-person-circle"></i> Usuarios</a></li>
+                                <% if (permisos == null || permisos.contains("CLIENTE_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/clientes?action=listar">
+                                        <i class="bi bi-person-check-fill"></i> Clientes
+                                    </a>
+                                </li>
+                                <% } %>
+
+                                <% if (permisos == null || permisos.contains("EMPLEADO_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/empleados?action=listar">
+                                        <i class="bi bi-person-badge"></i> Empleados
+                                    </a>
+                                </li>
+                                <% } %>
+
+                                <% if (permisos == null || permisos.contains("USUARIO_VER")) { %>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/usuarios?action=listar">
+                                        <i class="bi bi-person-circle"></i> Usuarios
+                                    </a>
+                                </li>
+                                <% } %>
                             </ul>
                         </li>
-
                         <!-- Gestiones -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">

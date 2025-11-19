@@ -5,13 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../../bs/css/estilo.css">
-        <script src="../../bs/js/accion.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
+        <link rel="stylesheet" href="bs/css/estilo.css">
+        <link rel="stylesheet" href="bs/fonts/iconos.css">
+        <script src="bs/js/accion.js"></script>
 
         <title>Registro de empleados</title>
     </head>
@@ -128,7 +129,7 @@
 
         <br>
         <div class="border border-primary p-4 w-50 mx-auto">
-            <form action="" method="post">
+            <form action="${pageContext.request.contextPath}/empleados?action=guardar"" method="post">
                 <div class="mb-3">
                     <h2 style="color: #234C6A;" class="text-center">
                         <i class="bi bi-person-badge"></i> REGISTRO DE EMPLEADOS</h2>
@@ -137,50 +138,71 @@
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
                     <input type="text" class="form-control" placeholder="Nombre" required
-                           style="color :black;">
+                           name="nombre"   style="color :black;">
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
                     <input type="text" class="form-control" placeholder="Apellido" required
-                           style="color :black;">
+                           name="apellido"   style="color :black;">
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-card-text"></i></span>
                     <input type="number" class="form-control" placeholder="DUI" required
-                           style="color :black;">
+                           name="dui" style="color :black;">
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-phone"></i></span>
                     <input type="number" class="form-control" placeholder="Telefono"
-                           style="color :black;">
+                           name="telefono"   style="color :black;">
                 </div>
 
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-house"></i></span>
                     <input type="text" class="form-control" placeholder="Direccion" required
-                           style="color :black;">
+                           name="direccion"   style="color :black;">
                 </div>
                 <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                    <input type="text" class="form-control" placeholder="Nombre de usuario" required style="color: black;">
-                </div>
-                <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-person-badge-fill"></i></span>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Selecciona un rol</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                    <select name="idUsuario" class="form-select" required style="color: black;">
+                        <option value="">Seleccione un usuario</option>
+                        <c:forEach var="u" items="${usuarios}">
+                            <option value="${u.idUsuario}">${u.nombreUsuario}</option>
+                        </c:forEach>
                     </select>
-                </div> <div class="text-center">
-                    <button type="submit" class="btn btn-success">
-                        <i class="bi bi-save"></i> Guardar
-                    </button>
-                    <a href="${pageContext.request.contextPath}/empleados" class="btn btn-danger ms-2">
-                        <i class="bi bi-x-circle"></i> Cancelar
-                    </a>
                 </div>
-            </form>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                    <input name="salario" type="number" class="form-control" step="0.01" min="0" placeholder="Salario" required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                    <select name="estado" class="form-select" required style="color: black;">
+                        <option value="">Seleccione un estado</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div> 
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                    <select name="cargo" class="form-select" required style="color: black;">
+                        <option value="">Seleccione un cargo</option>
+                        <option value="Gerente">Gerente</option>
+                        <option value="Recepcionista">Recepcionista</option>
+                        <option value="Asesor">Asesor de servicios</option>
+                        <option value="Mecanico">Mecanico</option>
+                        <option value="Electricista">Electricista automotriz</option>
+                        <option value="MecanicoEspecialista">Mecanico Especialista</option>
+                    </select>
+                </div> 
+        </div> <div class="text-center">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-save"></i> Guardar
+            </button>
+            <a href="${pageContext.request.contextPath}/empleados" class="btn btn-danger ms-2">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
         </div>
-    </body>
+    </form>
+</div>
+</body>
 </html>

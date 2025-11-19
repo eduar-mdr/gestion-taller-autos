@@ -1,29 +1,15 @@
-<%-- 
-    Document   : index
-    Created on : 13 nov 2025, 10:24:01 p. m.
-    Author     : MINEDUCYT
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión de repuestos</title>
-
+        <title>Actualizar empleado</title>
         <link rel="stylesheet" href="bs/css/estilo.css">
         <link rel="stylesheet" href="bs/fonts/iconos.css">
         <script src="bs/js/accion.js"></script>
-
-        <!-- Datatables and Jquery -->
-        <link  rel="stylesheet" href="datatables/datatables.css"/>
-        <script src="datatables/jquery.js"></script>
-        <script src="datatables/datatables.js"></script>
-
     </head>
     <body>
-
         <!-- Menú principal -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
@@ -131,97 +117,114 @@
                 overflow-x: hidden;
             }
         </style>
-
         <br>
-        <div class="container mt-5">
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/gestion-taller-autos">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Repuestos</li>
-                </ol>
-            </nav>
+        <div class="border border-primary p-4 w-50 mx-auto">
+            <form action="${pageContext.request.contextPath}/empleados?action=actualizar" method="post">
+                <input type="hidden" name="idEmpleado" value="${empleado.idEmpleado}" />
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0">Catálogo de repuestos</h2>
+                <!-- TÍTULO -->
+                <div class="mb-3">
+                    <h2 style="color: #253D85;" class="text-center">
+                        <i class="bi bi-person-badge"></i> ACTUALIZAR EMPLEADO
+                    </h2>
+                </div>
+                <input type="hidden" name="idEmpleado" value="${empleado.idEmpleado}" />
 
-                <a href="${pageContext.request.contextPath}/repuestos?action=crear" 
-                   class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> Crear
-                </a>
-            </div>       
-            <br>
-
-            <div class="table-responsive">
-                <table class="table table-bordered border-dark-subtle table-striped table-hover" id="tablaRepuestos">
-                    <thead class="" >
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre del repuesto</th>
-                            <th>Descrpcion</th>
-                            <th>Precio $</th>
-                            <th>Proveedor ID</th>
-                            <th>Proveedor</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <c:forEach var="r" items="${repuestos}">
-                            <tr>
-                                <td>${r.idRepuesto}</td>
-                                <td>${r.nombre}</td>
-                                <td>${r.descripcion}</td>
-                                <td>${r.precio}</td>
-                                <td>${r.idProveedor}</td>
-                                <td>${r.nombreProveedor}</td> 
-                                <td class="text-nowrap">
-
-                                    <!-- Botón Editar -->
-                                    <form action="${pageContext.request.contextPath}/repuestos" 
-                                          method="post" 
-                                          class="d-inline">
-
-                                        <input type="hidden" name="action" value="editar">
-                                        <input type="hidden" name="idRepuesto" value="${r.idRepuesto}">
-
-                                        <button type="submit" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </form>
-
-                                    <!-- Botón Eliminar -->
-                                    <form action="${pageContext.request.contextPath}/repuestos" 
-                                          method="post" 
-                                          class="d-inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este repuesto?');">
-
-                                        <input type="hidden" name="action" value="eliminar">
-                                        <input type="hidden" name="idRepuesto" value="${r.idRepuesto}">
-
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-
-                                </td>
-                            </tr>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-tags-fill"></i></span>
+                    <input name="nombre" type="text" class="form-control" 
+                           placeholder="Nombre del empleado"
+                           value="${empleado.nombre}"
+                           required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-tags-fill"></i></span>
+                    <input name="apellido" type="text" class="form-control" 
+                           placeholder="Apellido del empleado"
+                           value="${empleado.apellido}"
+                           required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                    <input name="dui" type="text" class="form-control" 
+                           placeholder="DUI"
+                           value="${empleado.dui}"
+                           required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                    <input name="telefono" type="text" class="form-control" 
+                           placeholder="Telefono del empleado"
+                           value="${empleado.telefono}"
+                           required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-house"></i></span>
+                    <input name="direccion" type="text" class="form-control" 
+                           placeholder="Direccion del empleado"
+                           value="${empleado.direccion}"
+                           required style="color: black;">
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi-person-circle"></i></span>
+                    <select name="idUsuario" required class="form-select">
+                        <option value="">Seleccione un usuario</option>
+                        <c:forEach var="u" items="${usuarios}">
+                            <option value="${u.idUsuario}" 
+                                    ${empleado.idUsuario == u.idUsuario ? 'selected' : ''}>
+                                ${u.nombreUsuario}
+                            </option>
                         </c:forEach>
-                    </tbody>
 
-                </table>
-            </div>
+                    </select>
+                </div>
+
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-tags-fill"></i></span>
+                    <input name="salario" type="number" class="form-control" step="0.01" min="0"
+                           placeholder="Salario"
+                           value="${empleado.salario}"
+                           required style="color: black;">
+                </div>
+
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-briefcase-fill"></i></span>
+                    <select name="estado" required class="form-select">
+                        <option value="">Seleccione un estado</option>
+                        <option value="Activo"  ${empleado.estado == 'Activo' ? 'selected' : ''}>Activo</option>
+                        <option value="Inactivo" ${empleado.estado == 'Inactivo' ? 'selected' : ''}>Inactivo</option>
+                    </select>
+                </div>
+
+ <div class="mb-3 input-group">
+     <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                <select name="cargo" required class="form-select">
+    <option value="">Seleccione un cargo</option>
+    <option value="Gerente"  ${empleado.cargo == 'Gerente' ? 'selected' : ''}>Gerente</option>
+    <option value="Recepcionista" ${empleado.cargo == 'Recepcionista' ? 'selected' : ''}>Recepcionista</option>
+    <option value="Asesor" ${empleado.cargo == 'Asesor' ? 'selected' : ''}>Asesor de servicios</option>
+    <option value="Mecanico" ${empleado.cargo == 'Mecanico' ? 'selected' : ''}>Mecánico</option>
+    <option value="Electricista" ${empleado.cargo == 'Electricista' ? 'selected' : ''}>Electricista automotriz</option>
+    <option value="MecanicoEspecialista" ${empleado.cargo == 'MecanicoEspecialista' ? 'selected' : ''}>Mecánico especialista</option>
+</select>
+ </div>
+
+
+                <!-- BOTONES -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Actualizar
+                    </button>
+
+                    <a href="${pageContext.request.contextPath}/empleados" class="btn btn-danger ms-2">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                </div>
+
+            </form>
         </div>
 
+
     </body>
-    <script>
-        $(document).ready(function () {
-            $('#tablaRepuestos').DataTable({
-                responsive: true,
-                autoWidth: false
-            });
-        });
-    </script>
 </html>
-
-
-

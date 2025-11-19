@@ -30,7 +30,7 @@ public class ServicioDao {
                 m.setDescripcion(rs.getString("descripcion"));
                 m.setPrecio(rs.getDouble("precio"));
                 m.setCategoria(rs.getString("categoria"));
-                m.setDuracionEstimada(rs.getDouble("duracion_estimada"));
+                m.setDuracionEstimada(rs.getString("duracion_estimada"));
                 m.setEstado(rs.getString("estado"));
                 lista.add(m);
             }
@@ -50,7 +50,7 @@ public class ServicioDao {
             ps.setString(2, m.getDescripcion());
             ps.setDouble(3, m.getPrecio());
              ps.setString(4, m.getCategoria());
-            ps.setDouble(5, m.getDuracionEstimada());
+            ps.setString(5, m.getDuracionEstimada());
             ps.setString(6, m.getEstado());
 
             ps.executeUpdate();
@@ -77,7 +77,7 @@ public class ServicioDao {
                     servicio.setDescripcion(rs.getString("descripcion"));
                     servicio.setPrecio(rs.getDouble("precio"));
                     servicio.setCategoria(rs.getString("categoria"));
-                    servicio.setDuracionEstimada(rs.getDouble("duracion_estimada"));
+                    servicio.setDuracionEstimada(rs.getString("duracion_estimada"));
                     servicio.setEstado(rs.getString("estado"));
                     
                 }
@@ -99,7 +99,7 @@ public class ServicioDao {
             ps.setString(2, servicio.getDescripcion());
             ps.setDouble(3, servicio.getPrecio());
             ps.setString(4, servicio.getCategoria());
-            ps.setDouble(5, servicio.getDuracionEstimada());
+            ps.setString(5, servicio.getDuracionEstimada());
             ps.setString(6, servicio.getEstado());
             ps.setInt(7, servicio.getIdServicio());
             

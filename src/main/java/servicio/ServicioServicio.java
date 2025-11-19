@@ -37,7 +37,7 @@ public class ServicioServicio {
         if (m.getCategoria() == null || m.getCategoria().isEmpty()) {
             throw new IllegalArgumentException("La categoría es obligatoria");
         }
-        if (m.getDuracionEstimada() == null || m.getDuracionEstimada().isNaN()) {
+        if (m.getDuracionEstimada() == null || m.getDuracionEstimada().isEmpty()) {
             throw new IllegalArgumentException("La duración estimada es obligatoria");
         }
         if (m.getEstado() == null || m.getEstado().isEmpty()) {
@@ -72,7 +72,7 @@ public class ServicioServicio {
         if (m.getCategoria() == null || m.getCategoria().isEmpty()) {
             throw new IllegalArgumentException("La categoría es obligatoria");
         }
-        if (m.getDuracionEstimada() == null || m.getDuracionEstimada().isNaN()) {
+        if (m.getDuracionEstimada() == null || m.getDuracionEstimada().isEmpty()) {
             throw new IllegalArgumentException("La duración estimada es obligatoria");
         }
         if (m.getEstado() == null || m.getEstado().isEmpty()) {

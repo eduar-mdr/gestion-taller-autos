@@ -11,9 +11,15 @@ package servicio;
 
 import dao.ClienteDao;
 import modelo.Cliente;
-
+import conexion.ConexionDB;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 
 public class ClienteServicio {
@@ -95,5 +101,31 @@ public class ClienteServicio {
         //Agregar validaciones antes de borrrar
         clienteDao.eliminar(id);
     }
+    public List<Cliente> obtenerClientesFrecuentes() throws SQLException {
+    List<Cliente> lista = new ArrayList<>();
+    String sql = "{call sp_ClientesFrecuentes()}";
+
+    try (Connection conn = ConexionDB.getConnection();
+         CallableStatement cs = conn.prepareCall(sql);
+         ResultSet rs = cs.executeQuery()) {
+
+        while(rs.next()){
+            Cliente c = new Cliente();
+            c.setIdCliente(rs.getInt("id_cliente"));
+            c.setNombre(rs.getString("nombre"));
+            c.setApellido(rs.getString("apellido"));
+            c.setTelefono(rs.getString("telefono"));
+            c.setEmail(rs.getString("email"));
+            c.setTotalOrdenes(rs.getInt("total_ordenes"));
+
+            // Filtrado interno
+            if(c.getTotalOrdenes() >= 2){
+                lista.add(c);
+            }
+        }
+    }
+    return lista;
+}
+
 
 }

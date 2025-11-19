@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -145,15 +147,12 @@
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi-people-fill"></i></span>
-                    <select name="idProveedor" class="form-select" required>
+                    <select name="idProveedor" required class="form-select">
                         <option value="">Seleccione un proveedor</option>
-
-                        <c:forEach var="prov" items="${proveedores}">
-                            <option value="${prov.idProveedor}">
-                                ${prov.nombre}
-                            </option>
+                        <c:forEach var="p" items="${proveedores}">
+                            <option value="${p.idProveedor}">${p.nombre}</option>
                         </c:forEach>
-                    </select>
+                    </select><br>
                 </div>
 
                 <div class="text-center">

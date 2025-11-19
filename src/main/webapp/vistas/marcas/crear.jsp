@@ -127,7 +127,7 @@
 
         <br>
     <div class="border border-black p-4 w-50 mx-auto">
-        <form action="${pageContext.request.contextPath}/marcas?action=guardar"" method="post">
+        <form action="${pageContext.request.contextPath}/marcas?action=guardar"  method="post">
             <div class="mb-3">
                 <h2 style="color: #234C6A;" class="text-center">
                     <i class="bi bi-tags-fill"></i> MARCA DEL VEHICULO</h2>
