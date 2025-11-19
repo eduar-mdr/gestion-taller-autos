@@ -75,7 +75,7 @@
                                 <i class="bi bi-clipboard-data-fill"></i> Reportes
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/servicios?action=reporte"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reporte-servicio"><i class="bi bi-wrench-adjustable-circle"></i> Servicios</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/ingresos.jsp"><i class="bi bi-graph-up"></i> Ingresos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/repuestos.jsp"><i class="bi bi-tools"></i> Repuestos</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reportes/vehiculos.jsp"><i class="bi bi-truck-front"></i> Vehículos</a></li>
