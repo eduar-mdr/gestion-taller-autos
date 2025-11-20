@@ -5,9 +5,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@page import="modelo.Usuario"%>
 <%@page import="java.util.Set"%>
-
+<%@page import="java.sql.Connection" %>
+<%@page import="conexion.ConexionDB" %>
+<%@page import="modelo.Usuario"%>
 <%
     // Validar que hay usuario en sesión
     Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
@@ -19,7 +20,6 @@
     // Cargar permisos del usuario
     Set<String> permisos = (Set<String>) session.getAttribute("permisosUsuario");
 %>
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -219,7 +219,7 @@
         <!-- Menú principal con permisos, igual al de ingresos -->
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1B3C53; position: sticky; top: 0; z-index: 1000;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" style="color:#fff; font-weight:bold;">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp" style="color:#fff; font-weight:bold;">
                     <i class="bi bi-house-door-fill"></i> Taller Mecánico
                 </a>
 
